@@ -185,6 +185,9 @@ class Institution(IdProvider):
 
 
 class Bomber(models.Model):
+    import_name = models.CharField(
+        max_length=250, blank=True, verbose_name="import_name", help_text="import_name some"
+    )
     macr_nr = models.CharField(
         max_length=50, blank=True, verbose_name="MARC-Nr", help_text="provide some"
     )
