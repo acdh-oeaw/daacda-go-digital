@@ -189,7 +189,7 @@ class Bomber(models.Model):
         max_length=250, blank=True, verbose_name="Bombername", help_text="import_name some"
     )
     macr_nr = models.CharField(
-        max_length=50, blank=True, verbose_name="MARC-Nr", help_text="provide some"
+        max_length=50, blank=True, verbose_name="MACR-Nr", help_text="provide some"
     )
     plane_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
