@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from entities.models import Place, AlternativeName, Institution, Person
+from entities.models import Place, AlternativeName, Institution, Person, Bomber
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -33,6 +33,18 @@ class PersonListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Person
+        fields = "__all__"
+
+
+class BomberListFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Bomber._meta.get_field('name').help_text,
+        label=Bomber._meta.get_field('name').verbose_name
+        )
+
+    class Meta:
+        model = Bomber
         fields = "__all__"
 
 
