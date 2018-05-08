@@ -20,6 +20,23 @@ class PersonTable(tables.Table):
         attrs = {"class": "table table-responsive table-hover"}
 
 
+class BomberTable(tables.Table):
+    id = tables.LinkColumn(
+        'entities:bomber_detail',
+        args=[A('pk')], verbose_name='ID'
+    )
+    name = tables.LinkColumn(
+        'entities:bomber_detail',
+        args=[A('pk')], verbose_name='Name'
+    )
+    forename = tables.Column()
+
+    class Meta:
+        model = Bomber
+        sequence = ('id',)
+        attrs = {"class": "table table-responsive table-hover"}
+
+
 class InstitutionTable(tables.Table):
     id = tables.LinkColumn(
         'entities:institution_detail',

@@ -12,15 +12,15 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
-from .models import Place, AlternativeName, Institution, Person
+from .models import Place, AlternativeName, Institution, Person, Bomber
 from .forms import *
 from .serializer_arche import *
-from .tables import PersonTable, InstitutionTable, PlaceTable, AlternativeNameTable
+from .tables import PersonTable, InstitutionTable, PlaceTable, AlternativeNameTable, BomberTable
 from .filters import (
     PersonListFilter,
     InstitutionListFilter,
     PlaceListFilter,
-    AlternativeNameListFilter,
+    AlternativeNameListFilter, BomberListFilter
 )
 from webpage.utils import GenericListView, BaseCreateView, BaseUpdateView
 
@@ -197,6 +197,75 @@ class PersonDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PersonDelete, self).dispatch(*args, **kwargs)
+
+
+class BomberListView(GenericListView):
+    model = Bomber
+    table_class = BomberTable
+    filter_class = BomberListFilter
+    formhelper_class = BomberFilterFormHelper
+    init_columns = [
+        'id',
+        'name',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(BomberListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+
+class BomberDetailView(DetailView):
+    model = Bomber
+    template_name = 'entities/bomber_detail.html'
+
+
+class BomberCreate(BaseCreateView):
+
+    model = Bomber
+    form_class = BomberForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(BomberCreate, self).dispatch(*args, **kwargs)
+
+
+class BomberUpdate(BaseUpdateView):
+
+    model = Bomber
+    form_class = BomberForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(BomberUpdate, self).dispatch(*args, **kwargs)
+
+
+class BomberDelete(DeleteView):
+    model = Bomber
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('entities:browse_bombers')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(BomberDelete, self).dispatch(*args, **kwargs)
 
 
 class AlternativeNameListView(GenericListView):

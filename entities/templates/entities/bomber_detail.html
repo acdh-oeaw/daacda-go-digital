@@ -1,0 +1,183 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% block Title %}Bomber{% endblock %}
+
+{% block scriptHeader %}
+<!-- In case you are using any autocomplete-functions, don´t forget to
+include 'autocomplete_light/static.html
+-->
+<!--leafletjs -->
+<link rel="stylesheet" href="{% static 'webpage/libraries/leaflet/leaflet.css' %}" />
+<script src="{% static 'webpage/libraries/leaflet/leaflet.js' %}"></script>
+<style>
+#map { height: 500px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card procustom-panel-create">
+        <div class="card-header procustom-panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                    <h2>
+                        <a href="{% url 'entities:bomber_detail' pk=object.get_prev %}">
+                            <i class="fas fa-chevron-left" title="previous"></i>
+                        </a>
+                    </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                        <small>bomber:</small> {{ object }}
+                        {% if user.is_authenticated %}
+                        <small><a href="{% url 'entities:bomber_edit' pk=object.id %}">
+                            <i class="far fa-edit" title="edit"></i>
+                        </a>
+                    </small>
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'entities:bomber_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <legend>About</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            import_name
+                        </th>
+                        <td>
+                            {{ object.import_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            macr_nr
+                        </th>
+                        <td>
+                            {{ object.macr_nr }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            plane_type
+                        </th>
+                        <td>
+                            {{ object.plane_type }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           plane_id
+                        </th>
+                        <td>
+                            {{ object.plane_id }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           name
+                        </th>
+                        <td>
+                            {{ object.name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           squadron
+                        </th>
+                        <td>
+                            {{ object.squadron }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           date_of_crash
+                        </th>
+                        <td>
+                            {{ object.date_of_crash }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           reason_of_crash
+                        </th>
+                        <td>
+                            {{ object.reason_of_crash }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           target_place
+                        </th>
+                        <td>
+                            {{ object.target_place }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           last_seen
+                        </th>
+                        <td>
+                            {{ object.last_seen }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           crash_place
+                        </th>
+                        <td>
+                            {{ object.crash_place }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           lat
+                        </th>
+                        <td>
+                            {{ object.lat }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           lng
+                        </th>
+                        <td>
+                            {{ object.lng }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           comment
+                        </th>
+                        <td>
+                            {{ object.comment }}
+                        </td>
+                    </tr>
+                </table>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-danger" href="{% url 'entities:bomber_delete' pk=object.id %}">delete</a>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div id="map"/>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
