@@ -134,7 +134,6 @@ class Place(IdProvider):
 
 
 class Institution(IdProvider):
-    legacy_id = models.CharField(max_length=300, blank=True)
     written_name = models.CharField(max_length=300, blank=True)
     authority_url = models.CharField(max_length=300, blank=True)
     alt_names = models.ManyToManyField(
@@ -237,7 +236,6 @@ class Person(IdProvider):
 
     """provide some docstring"""
 
-    legacy_id = models.CharField(max_length=300, blank=True)
     dog_tag = models.CharField(
         max_length=300, blank=True, verbose_name="dog_tag", help_text="provide some"
     )

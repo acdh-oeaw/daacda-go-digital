@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.functional import cached_property
 
+from idprovider.models import IdProvider
+
 
 try:
     DEFAULT_NAMESPACE = settings.VOCABS_SETTINGS['default_nsgg']
@@ -30,7 +32,7 @@ LABEL_TYPES = (
 )
 
 
-class SkosNamespace(models.Model):
+class SkosNamespace(IdProvider):
     namespace = models.URLField(blank=True, default=DEFAULT_NAMESPACE)
     prefix = models.CharField(max_length=50, blank=True, default=DEFAULT_PREFIX)
 
@@ -38,13 +40,12 @@ class SkosNamespace(models.Model):
         return "{}".format(self.prefix)
 
 
-class SkosConceptScheme(models.Model):
+class SkosConceptScheme(IdProvider):
     dc_title = models.CharField(max_length=300, blank=True)
     namespace = models.ForeignKey(
         SkosNamespace, blank=True, null=True, on_delete=models.SET_NULL
     )
     dct_creator = models.URLField(blank=True)
-    legacy_id = models.CharField(max_length=200, blank=True)
 
     def save(self, *args, **kwargs):
         if self.namespace is None:
@@ -83,7 +84,7 @@ class SkosConceptScheme(models.Model):
         return "{}:{}".format(self.namespace, self.dc_title)
 
 
-class SkosLabel(models.Model):
+class SkosLabel(IdProvider):
     label = models.CharField(max_length=100, blank=True, help_text="The entities label or name.")
     label_type = models.CharField(
         max_length=30, blank=True, choices=LABEL_TYPES, help_text="The type of the label.")
@@ -123,20 +124,28 @@ class SkosLabel(models.Model):
 class SkosConcept(models.Model):
     pref_label = models.CharField(max_length=300, blank=True)
     pref_label_lang = models.CharField(max_length=3, blank=True, default=DEFAULT_LANG)
-    scheme = models.ManyToManyField(
-        SkosConceptScheme, blank=True, related_name="has_concepts"
-    )
+    scheme = models.ManyToManyField(SkosConceptScheme, blank=True)
     definition = models.TextField(blank=True)
     definition_lang = models.CharField(max_length=3, blank=True, default=DEFAULT_LANG)
-    label = models.ManyToManyField(SkosLabel, blank=True)
+    other_label = models.ManyToManyField(SkosLabel, blank=True)
     notation = models.CharField(max_length=300, blank=True)
     namespace = models.ForeignKey(
-        SkosNamespace, blank=True, null=True, on_delete=models.SET_NULL
+        SkosNamespace, blank=True, null=True, on_delete=models.CASCADE
+    )
+    same_as_external = models.URLField(
+        max_length=250,
+        blank=True, null=True, verbose_name="URL of external Concept with same meaning",
+        help_text="URL of external Concept with same meaning",
+    )
+    source_description = models.TextField(
+        blank=True, null=True,
+        verbose_name="Source",
+        help_text="A verbose description of the concept's source"
     )
     broader_concept = models.ForeignKey(
         'SkosConcept', help_text="Broader Term.",
         verbose_name="Broader Term",
-        blank=True, null=True, on_delete=models.SET_NULL,
+        blank=True, null=True, on_delete=models.CASCADE,
         related_name="narrower_concepts"
     )
     skos_broader = models.ManyToManyField(
