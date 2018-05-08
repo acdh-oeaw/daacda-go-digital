@@ -124,7 +124,7 @@ class SkosLabel(IdProvider):
 class SkosConcept(models.Model):
     pref_label = models.CharField(max_length=300, blank=True)
     pref_label_lang = models.CharField(max_length=3, blank=True, default=DEFAULT_LANG)
-    scheme = models.ManyToManyField(SkosConceptScheme, blank=True)
+    scheme = models.ManyToManyField(SkosConceptScheme, blank=True, related_name="has_concepts")
     definition = models.TextField(blank=True)
     definition_lang = models.CharField(max_length=3, blank=True, default=DEFAULT_LANG)
     other_label = models.ManyToManyField(SkosLabel, blank=True)

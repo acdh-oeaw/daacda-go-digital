@@ -47,7 +47,8 @@ class AlternativeName(IdProvider):
 class Place(IdProvider):
     PLACE_TYPES = (
         ("city", "city"),
-        ("country", "country")
+        ("country", "country"),
+        ("region", "region"),
     )
 
     """Holds information about entities."""
@@ -185,14 +186,14 @@ class Institution(IdProvider):
 
 class Bomber(models.Model):
     import_name = models.CharField(
-        max_length=250, blank=True, verbose_name="import_name", help_text="import_name some"
+        max_length=250, blank=True, verbose_name="Bombername", help_text="import_name some"
     )
     macr_nr = models.CharField(
         max_length=50, blank=True, verbose_name="MARC-Nr", help_text="provide some"
     )
     plane_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="destiny_stated",
+        verbose_name="plane_type",
         help_text="provide some",
         related_name="is_plane_type",
         on_delete=models.SET_NULL
@@ -229,7 +230,6 @@ class Bomber(models.Model):
 
     def __str__(self):
         return "{}".format(self.macr_nr)
-
 
 
 class Person(IdProvider):
