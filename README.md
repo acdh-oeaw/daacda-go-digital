@@ -1,43 +1,33 @@
 [![DOI](https://zenodo.org/badge/95352230.svg)](https://zenodo.org/badge/latestdoi/95352230)
 
-# Django Base Project
+# DAACDA
+
+Downed Allied Air Crew Database Austria. A web application.
 
 ## About
+The repository of the web application [Downed Allied Air Crew Database Austria](http://daacda.eos.arz.oeaw.ac.at/). The application’s purpose is the publication of data about Allied air crews whose planes were downed above Austria during World War II. The data running this application was gathered by Georg Hoffmann and Nicole Goll. For more information please refer to [Hoffmann, Fliegerlynchjustiz, 2015](https://www.schoeningh.de/katalog/titel/978-3-506-78137-6.html) or [Goll/Hoffmann, Missing in Action, 2016](http://www.bundesheer.at/download_archiv/pdfs/missing_in_action.pdf).
 
-As the name suggests, this is a basic Django project. The idea of this base project is mainly to bootstrap the web application development process through setting up such a Django Base Project which already provides a couple of Django apps providing quite generic functionalities needed for building web application bound to the Digital Humanities Domain.
 
 ## Install
 
-1. Download or clone this repository.
-2. Rename the root folder of this project `daacda` and the `daacda` folder in your projects root folder to the name chosen for your new project (e.g. to `mynewproject`).
-3. In all files in the project directory, rename `daacda` to the name chosen for your new project. (Use `Find and Replace All` feature provided by your code editor.)
-4. Adapt the information in `webpage/metadata.py` according to your needs.
-5. Create and activate a virtual environment and run `pip install -r requirements.txt`.
+1. Clone this repository.
+2. Create and activate a virtual environment.
+3. Install the required packages `pip install -r requirements.txt`.
+4. Run `makemigrations`, `migrate` and `runserver`.
+5. Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
-## First steps
+This project uses modularized settings (to keep sensitive information out of version control or to be able to use the same code for development and production). Therefore you'll have to append a `--settings` parameter pointing to the settings file you'd like to run the code with to all `manage.py` commands. For example, run `python manage.py makemigrations --settings=daacda.settings.dev`.
 
-This project uses modularized settings (to keep sensitive information out of version control or to be able to use the same code for development and production). Therefore you'll have to append a `--settings` parameter pointing to the settings file you'd like to run the code with to all `manage.py` commands.
+## Upload Data
+To import data, you have to execute the ipython script `import_data.ipynb`.
 
-For development just append `--settings={nameOfYouProject}.settings.dev` to the following commands, e.g. `python manage.py makemigrations --settings=daacda.settings.dev`.
+1. Start a new ipython session `python manage.py shell_plus --notebook --settings=daacda.settings.dev_custom`.
+2. Execute the script cell by cell.
 
-6. Run `makemigrations`, `migrate`, and `runserver` and check [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
-
-### Jupyter notebook
-
+## Jupyter Notebook
 In case you want to use [Jupyter Notebook and Django-Extensions](https://andrewbrookins.com/python/using-ipython-notebook-with-django/) use the `requirements_dev.txt` for your virtual environment.
 
-## Next steps
-
-Build your custom awesome Web App.
-
 ## Tests
+Install the required packages for tests `pip install -r requirements_test.txt`.
 
-Install required packages
-
-    pip install -r requirements_test.txt
-
-Run tests
-
-    python manage.py test --settings=daacda.settings.test
-
-After running the test a HTML coverage report will be available at cover/index.html
+Run tests `python manage.py test --settings=daacda.settings.test` and check `cover/index.html` for a HTML coverage report.
