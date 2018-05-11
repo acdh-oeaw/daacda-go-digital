@@ -26,4 +26,19 @@ urlpatterns = [
             model=Institution, create_field='written_name',),
         name='institution-autocomplete',
     ),
+    url(
+        r'^bomberplanetype-autocomplete/$', dal_views.BomberPlaneTypeAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='bomberplanetype-autocomplete',
+    ),
+    url(
+        r'^bombersquadron-autocomplete/$', dal_views.BomberSquadronAC.as_view(
+            model=Institution, create_field='written_name',),
+        name='bombersquadron-autocomplete',
+    ),
+    url(
+        r'^bomberreasonofcrash-autocomplete/$', dal_views.BomberReasonOfCrashAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='bomberreasonofcrash-autocomplete',
+    ),
 ]

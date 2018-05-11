@@ -83,13 +83,15 @@ class BomberForm(forms.ModelForm):
     class Meta:
         model = Bomber
         fields = "__all__"
-        # widgets = {
-        #     'belongs_to_institution': autocomplete.ModelSelect2(
-        #         url='entities-ac:institution-autocomplete'),
-        #     'place_of_birth': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
-        #     'alt_names': autocomplete.ModelSelect2Multiple(
-        #         url='entities-ac:altname-autocomplete'),
-        # }
+        widgets = {
+              'plane_type': autocomplete.ModelSelect2(url='entities-ac:bomberplanetype-autocomplete'),
+              'squadron': autocomplete.ModelSelect2(url='entities-ac:bombersquadron-autocomplete'),
+              'reason_of_crash': autocomplete.ModelSelect2(
+                  url='entities-ac:bomberreasonofcrash-autocomplete'),
+              'target_place': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+              'last_seen': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+              'crash_place': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(BomberForm, self).__init__(*args, **kwargs)
