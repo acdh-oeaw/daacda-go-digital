@@ -242,6 +242,10 @@ class Person(IdProvider):
     written_name = models.CharField(max_length=300, blank=True)
     forename = models.CharField(max_length=300, blank=True)
     name = models.CharField(max_length=300, blank=True)
+    part_of_bomber = models.ForeignKey(
+        Bomber, blank=True, null=True, related_name="has_crew",
+        on_delete=models.SET_NULL
+    )
     rank = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         verbose_name="rank",
@@ -298,6 +302,7 @@ class Person(IdProvider):
     )
     authority_url = models.CharField(max_length=300, blank=True)
     comment = models.TextField(blank=True)
+    # = models.TextField(blank=True)
 
     @classmethod
     def get_createview_url(self):

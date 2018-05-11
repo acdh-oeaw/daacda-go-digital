@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Place, AlternativeName, Bomber, Institution
+from .models import Place, AlternativeName, Bomber, Institution, Person
 
 
 class BomberAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
+        'date_of_crash',
         'macr_nr',
         'plane_type',
         'target_place',
@@ -22,7 +23,23 @@ class BomberAdmin(admin.ModelAdmin):
     ]
 
 
+class PersonAdmin(admin.ModelAdmin):
+    list_display = (
+        'written_name',
+        'part_of_bomber',
+        'dog_tag',
+    )
+    list_filter = [
+        'destiny_stated',
+    ]
+
+    search_fields = [
+        'written_name',
+    ]
+
+
 admin.site.register(Place)
 admin.site.register(Institution)
 admin.site.register(AlternativeName)
 admin.site.register(Bomber, BomberAdmin)
+admin.site.register(Person, PersonAdmin)
