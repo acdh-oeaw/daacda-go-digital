@@ -1,15 +1,11 @@
-[![DOI](https://zenodo.org/badge/95352230.svg)](https://zenodo.org/badge/latestdoi/95352230)
-
 # DAACDA
-
 Downed Allied Air Crew Database Austria. A web application.
 
 ## About
-The repository of the web application [Downed Allied Air Crew Database Austria](http://daacda.eos.arz.oeaw.ac.at/). The application’s purpose is the publication of data about Allied air crews whose planes were downed above Austria during World War II. The data running this application was gathered by Georg Hoffmann and Nicole Goll. For more information please refer to [Hoffmann, Fliegerlynchjustiz, 2015](https://www.schoeningh.de/katalog/titel/978-3-506-78137-6.html) or [Goll/Hoffmann, Missing in Action, 2016](http://www.bundesheer.at/download_archiv/pdfs/missing_in_action.pdf).
+The repository of the web application Downed Allied Air Crew Database Austria. The application’s purpose is the publication of data about Allied air crews whose planes were downed above Austria during World War II. The data running this application was gathered by Georg Hoffmann and Nicole Goll. For more information please refer to [Hoffmann, Fliegerlynchjustiz, 2015](https://www.schoeningh.de/katalog/titel/978-3-506-78137-6.html) or [Goll/Hoffmann, Missing in Action, 2016](http://www.bundesheer.at/download_archiv/pdfs/missing_in_action.pdf).
 
 
 ## Install
-
 1. Clone this repository.
 2. Create and activate a virtual environment.
 3. Install the required packages `pip install -r requirements.txt`.
