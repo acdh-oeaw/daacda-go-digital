@@ -205,8 +205,7 @@ class BomberListView(GenericListView):
     filter_class = BomberListFilter
     formhelper_class = BomberFilterFormHelper
     init_columns = [
-        'id',
-        'name',
+        'id', 'macr_nr', 'squadron', 'date_of_crash', 'crash_place',
     ]
 
     def get_all_cols(self):
