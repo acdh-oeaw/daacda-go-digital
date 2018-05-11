@@ -231,6 +231,10 @@ class Bomber(models.Model):
     def __str__(self):
         return "{}".format(self.macr_nr)
 
+    @classmethod
+    def get_listview_url(self):
+        return reverse('entities:browse_bombers')
+
 
 class Person(IdProvider):
 
