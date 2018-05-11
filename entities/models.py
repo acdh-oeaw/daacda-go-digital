@@ -186,47 +186,47 @@ class Institution(IdProvider):
 
 class Bomber(models.Model):
     import_name = models.CharField(
-        max_length=250, blank=True, verbose_name="Bombername", help_text="import_name some"
+        max_length=250, blank=True, verbose_name="Bomber Name", help_text="import_name some"
     )
     macr_nr = models.CharField(
-        max_length=50, blank=True, verbose_name="MACR-Nr", help_text="provide some"
+        max_length=50, blank=True, verbose_name="MACR-No.", help_text="provide some"
     )
     plane_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="plane_type",
+        verbose_name="Plane Type",
         help_text="provide some",
         related_name="is_plane_type",
         on_delete=models.SET_NULL
     )
-    plane_id = models.CharField(max_length=50, blank=True, verbose_name="The aircraft´s ID")
-    name = models.CharField(max_length=250, blank=True, verbose_name="Name of the aircraft")
+    plane_id = models.CharField(max_length=50, blank=True, verbose_name="Aircraft ID")
+    name = models.CharField(max_length=250, blank=True, verbose_name="Aircraft Name")
     squadron = models.ForeignKey(
         Institution, blank=True, null=True,
         related_name="has_bomber",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Squadron"
     )
-    date_of_crash = models.DateField(blank=True, null=True)
+    date_of_crash = models.DateField(blank=True, null=True, verbose_name="Date of Crash")
     reason_of_crash = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_crash_reason",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Reason for Crash"
     )
     target_place = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_target_place",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Target Place"
     )
     last_seen = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_last_seen",
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL, verbose_name="Last seen in")
     crash_place = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_crashplace",
-        on_delete=models.SET_NULL)
-    lat = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True)
-    lng = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True)
-    comment = models.TextField(blank=True)
+        on_delete=models.SET_NULL, verbose_name="Crash Place")
+    lat = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Latitude")
+    lng = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Longitude")
+    comment = models.TextField(blank=True, verbose_name="Comment")
 
     def __str__(self):
         return "{}".format(self.macr_nr)
