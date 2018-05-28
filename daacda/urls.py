@@ -1,4 +1,6 @@
 from django.conf.urls import url, include
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib import admin
 from rest_framework import routers
 from entities.apis_views import PlaceViewSet, GeoJsonViewSet
@@ -26,5 +28,10 @@ urlpatterns = [
     url(r'^entities-ac/', include('entities.dal_urls', namespace='entities-ac')),
     url(r'^entities/', include('entities.urls', namespace='entities')),
     url(r'^bib/', include('bib.urls', namespace='bib')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^', include('webpage.urls', namespace='webpage')),
+
 ]
+
+if settings.DEBUG is True:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

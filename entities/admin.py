@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Place, AlternativeName, Bomber, Institution, Person
+from .models import Place, AlternativeName, Bomber, Institution, Person, WarCrimeCase
 
 
 class BomberAdmin(admin.ModelAdmin):
@@ -38,6 +38,7 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 
 
+admin.site.register(WarCrimeCase)
 admin.site.register(Place)
 admin.site.register(Institution)
 admin.site.register(AlternativeName)

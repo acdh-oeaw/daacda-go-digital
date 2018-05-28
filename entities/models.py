@@ -1,8 +1,17 @@
 import re
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from idprovider.models import IdProvider
 from vocabs.models import SkosConcept
+
+DATE_ACCURACY = (
+    ('Y', 'Year'),
+    ('YM', 'Month'),
+    ('DMY', 'Day')
+)
 
 
 class AlternativeName(IdProvider):
@@ -342,3 +351,59 @@ class Person(IdProvider):
             return "{}, {}".format(self.name, self.forename)
         else:
             return "No name provided"
+
+
+class WarCrimeCase(IdProvider):
+
+    """provide some docstring"""
+
+    signatur = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Archivsignatur",
+        help_text="Provide Some"
+    )
+    abstract = RichTextUploadingField(
+        blank=True, null=True,
+        verbose_name="Abstract",
+        help_text="Provide some"
+    )
+    start_date = models.DateField(
+        verbose_name="Start Date.",
+        help_text="Provide Some"
+    )
+    end_date = models.DateField(
+        verbose_name="End Date.",
+        help_text="Provide Some"
+    )
+    date_accuracy = models.CharField(
+        default="Y", max_length=3, choices=DATE_ACCURACY
+    )
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('entities:war_crime_case_create')
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('entities:browse_war_crime_cases')
+
+    def get_absolute_url(self):
+        return reverse('entities:war_crime_case_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = WarCrimeCase.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = WarCrimeCase.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
+    def __str__(self):
+        if self.signatur:
+            return "{}".format(self.signatur)
+        else:
+            return "{}".format(self.id)

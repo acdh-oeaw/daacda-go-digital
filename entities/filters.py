@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from entities.models import Place, AlternativeName, Institution, Person, Bomber
+from entities.models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -17,6 +17,18 @@ django_filters.filters.LOOKUP_TYPES = [
     ('icontains', 'Contains (case insensitive)'),
     ('not_contains', 'Does not contain'),
 ]
+
+
+class WarCrimeCaseListFilter(django_filters.FilterSet):
+    signatur = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=WarCrimeCase._meta.get_field('signatur').help_text,
+        label=WarCrimeCase._meta.get_field('signatur').verbose_name
+        )
+
+    class Meta:
+        model = WarCrimeCase
+        fields = "__all__"
 
 
 class PersonListFilter(django_filters.FilterSet):
