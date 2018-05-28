@@ -14,6 +14,29 @@ DATE_ACCURACY = (
 )
 
 
+class OnlineRessource(IdProvider):
+
+    www_url = models.URLField(
+        blank=True, null=True,
+        verbose_name="some URL",
+        help_text="provide some"
+    )
+    description_short = models.CharField(
+        max_length=250, blank=True, help_text="short_description"
+    )
+    description_long = RichTextUploadingField(
+        blank=True, null=True,
+        verbose_name="Abstract",
+        help_text="Provide some"
+    )
+
+    def __str__(self):
+        if self.url:
+            return "{}".format(self.name)
+        else:
+            return "{}".format(self.id)
+
+
 class AlternativeName(IdProvider):
     name = models.CharField(
         max_length=250, blank=True, help_text="Alternative Name"
@@ -161,6 +184,13 @@ class Institution(IdProvider):
         on_delete=models.SET_NULL
     )
     comment = models.TextField(blank=True)
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_institution"
+    )
 
     @classmethod
     def get_arche_dump(self):
@@ -233,9 +263,20 @@ class Bomber(models.Model):
         Place, blank=True, null=True,
         related_name="is_crashplace",
         on_delete=models.SET_NULL, verbose_name="Crash Place")
-    lat = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Latitude")
-    lng = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Longitude")
+    lat = models.DecimalField(
+        max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Latitude"
+    )
+    lng = models.DecimalField(
+        max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Longitude"
+    )
     comment = models.TextField(blank=True, verbose_name="Comment")
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_bomber"
+    )
 
     def __str__(self):
         return "{}".format(self.macr_nr)
@@ -315,7 +356,13 @@ class Person(IdProvider):
     )
     authority_url = models.CharField(max_length=300, blank=True)
     comment = models.TextField(blank=True)
-    # = models.TextField(blank=True)
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_person"
+    )
 
     @classmethod
     def get_createview_url(self):
@@ -367,16 +414,32 @@ class WarCrimeCase(IdProvider):
         verbose_name="Abstract",
         help_text="Provide some"
     )
+    related_persons = models.ManyToManyField(
+        Person,
+        max_length=250, blank=True,
+        help_text="erwähnte Personen",
+        related_name="mentioned_in_abstract"
+    )
     start_date = models.DateField(
+        blank=True, null=True,
         verbose_name="Start Date.",
         help_text="Provide Some"
     )
     end_date = models.DateField(
+        blank=True, null=True,
         verbose_name="End Date.",
         help_text="Provide Some"
     )
     date_accuracy = models.CharField(
-        default="Y", max_length=3, choices=DATE_ACCURACY
+        default="Y", max_length=3, choices=DATE_ACCURACY,
+        blank=True, null=True,
+    )
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_warcrimecase"
     )
 
     @classmethod
