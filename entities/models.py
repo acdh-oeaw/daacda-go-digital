@@ -241,11 +241,11 @@ class Person(IdProvider):
     """provide some docstring"""
 
     dog_tag = models.CharField(
-        max_length=300, blank=True, verbose_name="dog_tag", help_text="provide some"
+        max_length=300, blank=True, verbose_name="Identification tag", help_text="tag worn by military personnel, primarily used for the identification of dead and wounded soldiers"
     )
-    written_name = models.CharField(max_length=300, blank=True)
-    forename = models.CharField(max_length=300, blank=True)
-    name = models.CharField(max_length=300, blank=True)
+    written_name = models.CharField(max_length=300, blank=True, verbose_name="dog_tag", help_text="provide some")
+    forename = models.CharField(max_length=300, blank=True, verbose_name="First name", help_text="Person's first name")
+    name = models.CharField(max_length=300, blank=True, verbose_name="Surname", help_text="Person's second name")
     part_of_bomber = models.ForeignKey(
         Bomber, blank=True, null=True, related_name="has_crew",
         on_delete=models.SET_NULL

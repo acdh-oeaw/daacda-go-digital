@@ -1,5 +1,7 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
+{% load webpage_extras %}
+{% load browsing_extras %}
 {% block Title %}Person{% endblock %}
 
 {% block scriptHeader %}
@@ -56,9 +58,17 @@ include 'autocomplete_light/static.html
             <div class="col-md-6">
                 <legend>About</legend>
                 <table class="table table-bordered table-hover">
+                  <tr>
+                      <th>
+                          {% get_verbose_name person "dog_tag" %}
+                      </th>
+                      <td>
+                          {{ object.dog_tag }}
+                      </td>
+                  </tr>
                     <tr>
                         <th>
-                            written_name
+                            {% get_verbose_name person "written_name" %}
                         </th>
                         <td>
                             {{ object.written_name }}
@@ -66,7 +76,7 @@ include 'autocomplete_light/static.html
                     </tr>
                     <tr>
                         <th>
-                            forename
+                            {% get_verbose_name person "forename" %}
                         </th>
                         <td>
                             {{ object.forename }}
@@ -74,7 +84,7 @@ include 'autocomplete_light/static.html
                     </tr>
                     <tr>
                         <th>
-                            name
+                            {% get_verbose_name person "name" %}
                         </th>
                         <td>
                             {{ object.name }}
