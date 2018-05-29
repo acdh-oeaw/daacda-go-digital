@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'rest_framework',
+    'ckeditor',
+    'ckeditor_uploader',
     'idprovider',
     'webpage',
     'vocabs',
@@ -116,6 +118,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+    },
+}
 
 ARCHE_SETTINGS = {
     'project_name': ROOT_URLCONF.split('.')[0],

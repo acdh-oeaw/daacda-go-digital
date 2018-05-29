@@ -3,6 +3,22 @@ from django_tables2.utils import A
 from entities.models import *
 
 
+class WarCrimeCaseTable(tables.Table):
+    id = tables.LinkColumn(
+        'entities:war_crime_case_detail',
+        args=[A('pk')], verbose_name='ID'
+    )
+    signatur = tables.LinkColumn(
+        'entities:war_crime_case_detail',
+        args=[A('pk')], verbose_name='Name'
+    )
+
+    class Meta:
+        model = WarCrimeCase
+        sequence = ('id', 'signatur',)
+        attrs = {"class": "table table-responsive table-hover"}
+
+
 class PersonTable(tables.Table):
     id = tables.LinkColumn(
         'entities:person_detail',

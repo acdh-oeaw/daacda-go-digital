@@ -1,8 +1,40 @@
 import re
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from idprovider.models import IdProvider
 from vocabs.models import SkosConcept
+
+DATE_ACCURACY = (
+    ('Y', 'Year'),
+    ('YM', 'Month'),
+    ('DMY', 'Day')
+)
+
+
+class OnlineRessource(IdProvider):
+
+    www_url = models.URLField(
+        blank=True, null=True,
+        verbose_name="some URL",
+        help_text="provide some"
+    )
+    description_short = models.CharField(
+        max_length=250, blank=True, help_text="short_description"
+    )
+    description_long = RichTextUploadingField(
+        blank=True, null=True,
+        verbose_name="Abstract",
+        help_text="Provide some"
+    )
+
+    def __str__(self):
+        if self.url:
+            return "{}".format(self.name)
+        else:
+            return "{}".format(self.id)
 
 
 class AlternativeName(IdProvider):
@@ -152,6 +184,13 @@ class Institution(IdProvider):
         on_delete=models.SET_NULL
     )
     comment = models.TextField(blank=True)
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_institution"
+    )
 
     @classmethod
     def get_arche_dump(self):
@@ -224,9 +263,20 @@ class Bomber(models.Model):
         Place, blank=True, null=True,
         related_name="is_crashplace",
         on_delete=models.SET_NULL, verbose_name="Crash Place")
-    lat = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Latitude")
-    lng = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Longitude")
+    lat = models.DecimalField(
+        max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Latitude"
+    )
+    lng = models.DecimalField(
+        max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Longitude"
+    )
     comment = models.TextField(blank=True, verbose_name="Comment")
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_bomber"
+    )
 
     def __str__(self):
         return "{}".format(self.macr_nr)
@@ -306,7 +356,13 @@ class Person(IdProvider):
     )
     authority_url = models.CharField(max_length=300, blank=True)
     comment = models.TextField(blank=True)
-    # = models.TextField(blank=True)
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_person"
+    )
 
     @classmethod
     def get_createview_url(self):
@@ -342,3 +398,75 @@ class Person(IdProvider):
             return "{}, {}".format(self.name, self.forename)
         else:
             return "No name provided"
+
+
+class WarCrimeCase(IdProvider):
+
+    """provide some docstring"""
+
+    signatur = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Archivsignatur",
+        help_text="Provide Some"
+    )
+    abstract = RichTextUploadingField(
+        blank=True, null=True,
+        verbose_name="Abstract",
+        help_text="Provide some"
+    )
+    related_persons = models.ManyToManyField(
+        Person,
+        max_length=250, blank=True,
+        help_text="erwähnte Personen",
+        related_name="mentioned_in_abstract"
+    )
+    start_date = models.DateField(
+        blank=True, null=True,
+        verbose_name="Start Date.",
+        help_text="Provide Some"
+    )
+    end_date = models.DateField(
+        blank=True, null=True,
+        verbose_name="End Date.",
+        help_text="Provide Some"
+    )
+    date_accuracy = models.CharField(
+        default="Y", max_length=3, choices=DATE_ACCURACY,
+        blank=True, null=True,
+    )
+    related_urls = models.ManyToManyField(
+        OnlineRessource,
+        max_length=250, blank=True,
+        verbose_name="url",
+        help_text="provide Some",
+        related_name="for_warcrimecase"
+    )
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('entities:war_crime_case_create')
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('entities:browse_war_crime_cases')
+
+    def get_absolute_url(self):
+        return reverse('entities:war_crime_case_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = WarCrimeCase.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = WarCrimeCase.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
+    def __str__(self):
+        if self.signatur:
+            return "{}".format(self.signatur)
+        else:
+            return "{}".format(self.id)
