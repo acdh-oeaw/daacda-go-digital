@@ -90,10 +90,108 @@ include 'autocomplete_light/static.html
                             {{ object.name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "rank" %}
+                        </th>
+                        <td>
+                          {{ object.rank }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "part_of_bomber" %}
+                        </th>
+                        <td>
+                            {{ object.part_of_bomber }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "destiny_stated" %}
+                        </th>
+                        <td>
+                            {{ object.destiny_stated }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "destiny_checked" %}
+                        </th>
+                        <td>
+                            {{ object.destiny_checked }}
+                        </td>
+                    </tr>
+                    {% if object.mia %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "mia" %}
+                        </th>
+                        <td>
+                            {{ object.mia }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if object.position %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "position" %}
+                        </th>
+                        <td>
+                            {{ object.position }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if object.alt_names %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "alt_names" %}
+                        </th>
+                        <td>
+                            {{ object.alt_names }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "place_of_birth" %}
+                        </th>
+                        <td>
+                            <a href="{{ object.place_of_birth }}">{{ object.place_of_birth }}</a>
+                        </td>
+                    </tr>
+                    {% if object.date_of_birth %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "date_of_birth" %}
+                        </th>
+                        <td>
+                          {{ object.date_of_birth }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "comment" %}
+                        </th>
+                        <td>
+                            {{ object.comment }}
+                        </td>
+                    </tr>
+                    {% if object.related_urls %}
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "related_urls" %}
+                        </th>
+                        <td>
+                            {{ object.related_urls }}
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% if object.authority_url %}
                         <tr>
                             <th>
-                                authority_url
+                                {% get_verbose_name person "authority_url" %}
                             </th>
                             <td>
                                 <a href="{{ object.authority_url }}">{{ object.authority_url }}</a>
@@ -103,7 +201,7 @@ include 'autocomplete_light/static.html
                     {% if object.belongs_to_institution %}
                         <tr>
                             <th>
-                                belongs_to_institution
+                                {% get_verbose_name person "belongs_to_institution" %}
                             </th>
                             <td>
                                 <a href="{{ object.belongs_to_institution.get_absolute_url }}">{{ object.belongs_to_institution }}</a>

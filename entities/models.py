@@ -291,46 +291,38 @@ class Person(IdProvider):
     """provide some docstring"""
 
     dog_tag = models.CharField(
-        max_length=300, blank=True, verbose_name="Identification tag", help_text="tag worn by military personnel, primarily used for the identification of dead and wounded soldiers"
+        max_length=300, blank=True, verbose_name="Identification tag", help_text="Tag worn by military personnel, primarily used for the identification of dead and wounded soldiers"
     )
-    written_name = models.CharField(max_length=300, blank=True, verbose_name="dog_tag", help_text="provide some")
+    written_name = models.CharField(max_length=300, blank=True, verbose_name="Written name", help_text="provide some")
     forename = models.CharField(max_length=300, blank=True, verbose_name="First name", help_text="Person's first name")
     name = models.CharField(max_length=300, blank=True, verbose_name="Surname", help_text="Person's second name")
     part_of_bomber = models.ForeignKey(
-        Bomber, blank=True, null=True, related_name="has_crew",
+        Bomber, blank=True, null=True, related_name="has_crew", verbose_name="Part of bomber", help_text="Bomber the person was part of",
         on_delete=models.SET_NULL
     )
     rank = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="rank",
-        help_text="provide some",
         related_name="is_rank",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Rank", help_text="Person's rank"
     )
     destiny_stated = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="destiny_stated",
-        help_text="provide some",
         related_name="is_dest_stated",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Destiny stated", help_text="Person's stated destiny"
     )
     destiny_checked = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="destiny_checked",
-        help_text="provide some",
         related_name="is_dest_checked",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Destiny checked", help_text="Person's checked destiny"
     )
     mia = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="mia",
-        help_text="provide some",
         related_name="is_mia",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="MIA status", help_text="Person's MIA status"
     )
     position = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="position",
+        verbose_name="Position",
         help_text="provide some",
         related_name="is_position",
         on_delete=models.SET_NULL
@@ -338,29 +330,34 @@ class Person(IdProvider):
     alt_names = models.ManyToManyField(
         AlternativeName,
         max_length=250, blank=True,
-        help_text="Alternative names",
+        verbose_name="Alternative name",
+        help_text="Person's alternative name",
         related_name="altname_of_persons"
     )
     belongs_to_institution = models.ForeignKey(
         Institution, blank=True, null=True, related_name="has_member",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Part of institution",
+        help_text="Institution person belongs to"
     )
     place_of_birth = models.ForeignKey(
         Place, blank=True, null=True, related_name="is_birthplace",
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL, verbose_name="Place of birth",
+        help_text="Person's birthplace"
     )
     date_of_birth = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True,
-        verbose_name="Date of Birth",
-        help_text="YYYY-MM-DD"
+        verbose_name="Date of birth",
+        help_text="Person's date of birth in format YYYY-MM-DD"
     )
     authority_url = models.CharField(max_length=300, blank=True)
-    comment = models.TextField(blank=True)
+    comment = models.TextField(blank=True, verbose_name="Comment",
+        help_text="Comment"
+    )
     related_urls = models.ManyToManyField(
         OnlineRessource,
         max_length=250, blank=True,
-        verbose_name="url",
-        help_text="provide Some",
+        verbose_name="URLs",
+        help_text="URLs related to this person",
         related_name="for_person"
     )
 
