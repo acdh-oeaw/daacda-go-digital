@@ -20,19 +20,26 @@ class WarCrimeCaseTable(tables.Table):
 
 
 class PersonTable(tables.Table):
-    id = tables.LinkColumn(
+    written_name = tables.LinkColumn(
         'entities:person_detail',
-        args=[A('pk')], verbose_name='ID'
+        args=[A('pk')], verbose_name='Written name'
     )
-    name = tables.LinkColumn(
+    rank = tables.LinkColumn(
         'entities:person_detail',
-        args=[A('pk')], verbose_name='Name'
+        args=[A('pk')], verbose_name='Rank'
     )
-    forename = tables.Column()
+    destiny_checked = tables.LinkColumn(
+        'entities:person_detail',
+        args=[A('pk')], verbose_name='Destiny checked'
+    )
+    belongs_to_institution = tables.LinkColumn(
+        'entities:person_detail',
+        args=[A('pk')], verbose_name='Institution'
+    )
 
     class Meta:
         model = Person
-        sequence = ('id', 'written_name',)
+        sequence = ('written_name', 'rank', 'destiny_checked', 'belongs_to_institution')
         attrs = {"class": "table table-responsive table-hover"}
 
 
