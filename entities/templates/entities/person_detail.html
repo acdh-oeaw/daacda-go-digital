@@ -142,7 +142,7 @@ include 'autocomplete_light/static.html
                         </td>
                     </tr>
                     {% endif %}
-                    {% if object.alt_names %}
+                    {% if object.alt_names.all %}
                     <tr>
                         <th>
                             {% get_verbose_name person "alt_names" %}
@@ -157,7 +157,7 @@ include 'autocomplete_light/static.html
                             {% get_verbose_name person "place_of_birth" %}
                         </th>
                         <td>
-                            <a href="{{ object.place_of_birth }}">{{ object.place_of_birth }}</a>
+                            <a href="{{ object.place_of_birth.get_absolute_url }}">{{ object.place_of_birth }}</a>
                         </td>
                     </tr>
                     {% if object.date_of_birth %}

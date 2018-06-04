@@ -180,8 +180,8 @@ class Institution(IdProvider):
         Place, blank=True, null=True, on_delete=models.SET_NULL
     )
     parent_institution = models.ForeignKey(
-        'Institution', blank=True, null=True, related_name='children_institutions',
-        on_delete=models.SET_NULL
+        'Institution', blank=True, null=True,
+        related_name='children_institutions', on_delete=models.SET_NULL
     )
     comment = models.TextField(blank=True)
     related_urls = models.ManyToManyField(
@@ -225,10 +225,12 @@ class Institution(IdProvider):
 
 class Bomber(models.Model):
     import_name = models.CharField(
-        max_length=250, blank=True, verbose_name="Bomber Name", help_text="import_name some"
+        max_length=250, blank=True, verbose_name="Bomber Name",
+        help_text="import_name some"
     )
     macr_nr = models.CharField(
-        max_length=50, blank=True, verbose_name="MACR-No.", help_text="provide some"
+        max_length=50, blank=True, verbose_name="MACR-No.",
+        help_text="provide some"
     )
     plane_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
@@ -237,14 +239,19 @@ class Bomber(models.Model):
         related_name="is_plane_type",
         on_delete=models.SET_NULL
     )
-    plane_id = models.CharField(max_length=50, blank=True, verbose_name="Aircraft ID")
-    name = models.CharField(max_length=250, blank=True, verbose_name="Aircraft Name")
+    plane_id = models.CharField(
+        max_length=50, blank=True, verbose_name="Aircraft ID"
+    )
+    name = models.CharField(
+        max_length=250, blank=True, verbose_name="Aircraft Name")
     squadron = models.ForeignKey(
         Institution, blank=True, null=True,
         related_name="has_bomber",
         on_delete=models.SET_NULL, verbose_name="Squadron"
     )
-    date_of_crash = models.DateField(blank=True, null=True, verbose_name="Date of Crash")
+    date_of_crash = models.DateField(
+        blank=True, null=True, verbose_name="Date of Crash"
+    )
     reason_of_crash = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_crash_reason",
@@ -264,10 +271,12 @@ class Bomber(models.Model):
         related_name="is_crashplace",
         on_delete=models.SET_NULL, verbose_name="Crash Place")
     lat = models.DecimalField(
-        max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Latitude"
+        max_digits=20, decimal_places=12, blank=True, null=True,
+        verbose_name="Latitude"
     )
     lng = models.DecimalField(
-        max_digits=20, decimal_places=12, blank=True, null=True, verbose_name="Longitude"
+        max_digits=20, decimal_places=12, blank=True, null=True,
+        verbose_name="Longitude"
     )
     comment = models.TextField(blank=True, verbose_name="Comment")
     related_urls = models.ManyToManyField(
@@ -291,34 +300,50 @@ class Person(IdProvider):
     """provide some docstring"""
 
     dog_tag = models.CharField(
-        max_length=300, blank=True, verbose_name="Identification tag", help_text="Tag worn by military personnel, primarily used for the identification of dead and wounded soldiers"
+        max_length=300, blank=True, verbose_name="Identification tag",
+        help_text="Tag worn by military personnel, primarily used for the identification of dead and wounded soldiers"
     )
-    written_name = models.CharField(max_length=300, blank=True, verbose_name="Written name", help_text="provide some")
-    forename = models.CharField(max_length=300, blank=True, verbose_name="First name", help_text="Person's first name")
-    name = models.CharField(max_length=300, blank=True, verbose_name="Surname", help_text="Person's second name")
+    written_name = models.CharField(
+        max_length=300, blank=True, verbose_name="Written name",
+        help_text="provide some"
+    )
+    forename = models.CharField(
+        max_length=300, blank=True, verbose_name="First name",
+        help_text="Person's first name"
+    )
+    name = models.CharField(
+        max_length=300, blank=True, verbose_name="Surname",
+        help_text="Person's second name"
+    )
     part_of_bomber = models.ForeignKey(
-        Bomber, blank=True, null=True, related_name="has_crew", verbose_name="Part of bomber", help_text="Bomber the person was part of",
+        Bomber, blank=True, null=True, related_name="has_crew",
+        verbose_name="Part of bomber",
+        help_text="Bomber the person was part of",
         on_delete=models.SET_NULL
     )
     rank = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_rank",
-        on_delete=models.SET_NULL, verbose_name="Rank", help_text="Person's rank"
+        on_delete=models.SET_NULL, verbose_name="Rank",
+        help_text="Person's rank"
     )
     destiny_stated = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_dest_stated",
-        on_delete=models.SET_NULL, verbose_name="Destiny stated", help_text="Person's stated destiny"
+        on_delete=models.SET_NULL, verbose_name="Destiny stated",
+        help_text="Person's stated destiny"
     )
     destiny_checked = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_dest_checked",
-        on_delete=models.SET_NULL, verbose_name="Destiny checked", help_text="Person's checked destiny"
+        on_delete=models.SET_NULL, verbose_name="Destiny checked",
+        help_text="Person's checked destiny"
     )
     mia = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_mia",
-        on_delete=models.SET_NULL, verbose_name="MIA status", help_text="Person's MIA status"
+        on_delete=models.SET_NULL, verbose_name="MIA status",
+        help_text="Person's MIA status"
     )
     position = models.ForeignKey(
         SkosConcept, blank=True, null=True,
@@ -350,8 +375,8 @@ class Person(IdProvider):
         help_text="Person's date of birth in format YYYY-MM-DD"
     )
     authority_url = models.CharField(max_length=300, blank=True)
-    comment = models.TextField(blank=True, verbose_name="Comment",
-        help_text="Comment"
+    comment = models.TextField(
+        blank=True, verbose_name="Comment", help_text="Comment"
     )
     related_urls = models.ManyToManyField(
         OnlineRessource,

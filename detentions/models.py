@@ -24,8 +24,10 @@ class PrisonStation(IdProvider):
         verbose_name="Kennzeichen"
         )
     located_in_place = models.ForeignKey(
-        Place, blank=True, null=True, help_text="Ort, in dem das Gefangenenlager liegt",
-        on_delete=models.SET_NULL, related_name='place_located', verbose_name="Ort des Lagers"
+        Place, blank=True, null=True,
+        help_text="Ort, in dem das Gefangenenlager liegt",
+        on_delete=models.SET_NULL, related_name='place_located',
+        verbose_name="Ort des Lagers"
         )
     part_of = models.ForeignKey(
         "self", blank=True, null=True,
