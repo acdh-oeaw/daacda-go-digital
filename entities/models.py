@@ -335,7 +335,7 @@ class Person(IdProvider):
     """provide some docstring"""
 
     dog_tag = models.CharField(
-        max_length=300, blank=True, verbose_name="Kennname",
+        max_length=300, blank=True, verbose_name="Kennnummer",
         help_text="provide some"
     )
     written_name = models.CharField(
@@ -477,6 +477,12 @@ class Person(IdProvider):
             return "No name provided"
 
 
+TRIED = (
+    ('tried', 'tried'),
+    ('not tried', 'not tried')
+)
+
+
 class WarCrimeCase(IdProvider):
 
     """provide some docstring"""
@@ -519,10 +525,30 @@ class WarCrimeCase(IdProvider):
         help_text="provide Some",
         related_name="for_warcrimecase"
     )
-    # toDo field: relatedCases
-    # todo field: related rdf_places
-    # todo field: type_of_crime
-    # todo field: tried/not tried
+    related_cases = models.ManyToManyField(
+        'self',
+        max_length=250, blank=True,
+        verbose_name="related cases",
+        help_text="erwähnte Personen",
+        related_name="has_related_cases"
+    )
+    related_places = models.ManyToManyField(
+        Place,
+        max_length=250, blank=True,
+        verbose_name="Persons mentioned in abstract",
+        help_text="erwähnte Personen",
+        related_name="wcc_mentiones_places"
+    )
+    type_of_crime = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        related_name="crime_type_of",
+        on_delete=models.SET_NULL, verbose_name="Type of crime",
+        help_text="provide some"
+    )
+    tried = models.CharField(
+        blank=True, null=True,
+        max_length=250, choices=TRIED
+    )
 
     @classmethod
     def get_createview_url(self):
