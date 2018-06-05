@@ -240,10 +240,10 @@ class Bomber(models.Model):
         on_delete=models.SET_NULL
     )
     plane_id = models.CharField(
-        max_length=50, blank=True, verbose_name="Aircraft ID"
+        max_length=50, blank=True, verbose_name="Flugzeug Nr."
     )
     name = models.CharField(
-        max_length=250, blank=True, verbose_name="Aircraft Name")
+        max_length=250, blank=True, verbose_name="Flugzeug Name")
     squadron = models.ForeignKey(
         Institution, blank=True, null=True,
         related_name="has_bomber",
@@ -287,6 +287,9 @@ class Bomber(models.Model):
         related_name="for_bomber"
     )
 
+    # todo: crewname(pilot)
+    # todo: spalten M, N, O, W, X, Y (char/texftield)
+
     def __str__(self):
         return "{}".format(self.macr_nr)
 
@@ -300,8 +303,8 @@ class Person(IdProvider):
     """provide some docstring"""
 
     dog_tag = models.CharField(
-        max_length=300, blank=True, verbose_name="Identification tag",
-        help_text="Tag worn by military personnel, primarily used for the identification of dead and wounded soldiers"
+        max_length=300, blank=True, verbose_name="Kennname",
+        help_text="provide some"
     )
     written_name = models.CharField(
         max_length=300, blank=True, verbose_name="Written name",
@@ -330,19 +333,19 @@ class Person(IdProvider):
     destiny_stated = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_dest_stated",
-        on_delete=models.SET_NULL, verbose_name="Destiny stated",
+        on_delete=models.SET_NULL, verbose_name="Eintrag MACR",
         help_text="Person's stated destiny"
     )
     destiny_checked = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_dest_checked",
-        on_delete=models.SET_NULL, verbose_name="Destiny checked",
+        on_delete=models.SET_NULL, verbose_name="Schicksal",
         help_text="Person's checked destiny"
     )
     mia = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_mia",
-        on_delete=models.SET_NULL, verbose_name="MIA status",
+        on_delete=models.SET_NULL, verbose_name="Schicksal genau",
         help_text="Person's MIA status"
     )
     position = models.ForeignKey(
@@ -385,6 +388,10 @@ class Person(IdProvider):
         help_text="URLs related to this person",
         related_name="for_person"
     )
+    # ToDo: nationality
+    # ToDo: Funktion
+    # TODo: middle-name
+    # ToDo: detail
 
     @classmethod
     def get_createview_url(self):
@@ -464,6 +471,10 @@ class WarCrimeCase(IdProvider):
         help_text="provide Some",
         related_name="for_warcrimecase"
     )
+    # toDo field: relatedCases
+    # todo field: related rdf_places
+    # todo field: type_of_crime
+    # todo field: tried/not tried
 
     @classmethod
     def get_createview_url(self):
