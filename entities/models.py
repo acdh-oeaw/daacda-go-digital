@@ -225,8 +225,13 @@ class Institution(IdProvider):
 
 class Bomber(models.Model):
     import_name = models.CharField(
-        max_length=250, blank=True, verbose_name="Bomber Name",
-        help_text="import_name some"
+        max_length=250, blank=True, verbose_name="Flugzeugname",
+        help_text="provide some"
+    )
+    crew_name = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Crewname (Pilot)",
+        help_text="provide some"
     )
     macr_nr = models.CharField(
         max_length=50, blank=True, verbose_name="MACR-No.",
@@ -286,9 +291,36 @@ class Bomber(models.Model):
         help_text="provide Some",
         related_name="for_bomber"
     )
-
-    # todo: crewname(pilot)
-    # todo: spalten M, N, O, W, X, Y (char/texftield)
+    sicht_koord = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Sichtung-Koord",
+        help_text="provide some"
+    )
+    sicht_ort = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Sichtung-Ort",
+        help_text="provide some"
+    )
+    sicht_land = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Sichtung-Land",
+        help_text="provide some"
+    )
+    uhrzeit = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Uhrzeit",
+        help_text="provide some"
+    )
+    uhrzeit_absturz = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Uhrzeit Absturz",
+        help_text="provide some"
+    )
+    anmerkung = models.TextField(
+        blank=True,
+        verbose_name="Anmerkung (Spalte Y)",
+        help_text="provide some"
+    )
 
     def __str__(self):
         return "{}".format(self.macr_nr)
