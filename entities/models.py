@@ -350,6 +350,10 @@ class Person(IdProvider):
         max_length=300, blank=True, verbose_name="Surname",
         help_text="Person's second name"
     )
+    middle_name = models.CharField(
+        max_length=300, blank=True, verbose_name="Mittelname",
+        help_text="Person's middle name"
+    )
     part_of_bomber = models.ForeignKey(
         Bomber, blank=True, null=True, related_name="has_crew",
         verbose_name="Part of bomber",
@@ -413,6 +417,9 @@ class Person(IdProvider):
     comment = models.TextField(
         blank=True, verbose_name="Comment", help_text="Comment"
     )
+    detail = models.TextField(
+        blank=True, verbose_name="Detail", help_text="provide some"
+    )
     related_urls = models.ManyToManyField(
         OnlineRessource,
         max_length=250, blank=True,
@@ -420,9 +427,18 @@ class Person(IdProvider):
         help_text="URLs related to this person",
         related_name="for_person"
     )
-    # ToDo: nationality
-    # ToDo: Funktion
-    # TODo: middle-name
+    nation = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        related_name="is_nationality",
+        on_delete=models.SET_NULL, verbose_name="Nationalität",
+        help_text="provide some"
+    )
+    function_in_plane = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        related_name="is_crew_function",
+        on_delete=models.SET_NULL, verbose_name="Funktion",
+        help_text="provide some"
+    )
     # ToDo: detail
 
     @classmethod
