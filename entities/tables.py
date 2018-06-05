@@ -27,6 +27,14 @@ class WarCrimeCaseTable(tables.Table):
         attrs = {"class": "table table-responsive table-hover"}
 
 
+class OnlineRessourceTable(tables.Table):
+
+    class Meta:
+        model = OnlineRessource
+        sequence = ('www_url')
+        attrs = {"class": "table table-responsive table-hover"}
+
+
 class PersonTable(tables.Table):
     written_name = tables.LinkColumn(
         'entities:person_detail',

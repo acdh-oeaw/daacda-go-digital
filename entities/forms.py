@@ -4,13 +4,41 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit,  Layout, Fieldset, Div, MultiField, HTML
 from crispy_forms.bootstrap import Accordion, AccordionGroup
-from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase
+from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource
 
 
 
 class PersonFilterFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
         super(PersonFilterFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+        self.layout = Layout(
+            Fieldset(
+                'Basic search options',
+                'name',
+                'written_name',
+                css_id="basic_search_fields"
+                ),
+            Accordion(
+                AccordionGroup(
+                    'Advanced search',
+                    'acad_title',
+                    'alt_names',
+                    'authority_url',
+                    'belongs_to_institution',
+                    css_id="more"
+                    ),
+                )
+            )
+
+
+class OnlineRessourceFilterFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(OnlineRessourceFilterFormHelper, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.form_class = 'genericFilterForm'
         self.form_method = 'GET'
@@ -46,6 +74,24 @@ class WarCrimeCaseForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(WarCrimeCaseForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3'
+        self.helper.field_class = 'col-md-9'
+        self.helper.add_input(Submit('submit', 'save'),)
+
+
+class OnlineRessourceForm(forms.ModelForm):
+    class Meta:
+        model = OnlineRessource
+        fields = "__all__"
+        widgets = {
+            'abstract': CKEditorUploadingWidget()
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(OnlineRessourceForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = True
         self.helper.form_class = 'form-horizontal'

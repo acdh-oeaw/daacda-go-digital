@@ -12,7 +12,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
-from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase
+from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource
 from .forms import *
 from .serializer_arche import *
 from .tables import (
@@ -21,7 +21,8 @@ from .tables import (
     PlaceTable,
     AlternativeNameTable,
     BomberTable,
-    WarCrimeCaseTable
+    WarCrimeCaseTable,
+    OnlineRessourceTable
 )
 from .filters import (
     PersonListFilter,
@@ -29,7 +30,8 @@ from .filters import (
     PlaceListFilter,
     AlternativeNameListFilter,
     BomberListFilter,
-    WarCrimeCaseListFilter
+    WarCrimeCaseListFilter,
+    OnlineRessourceListFilter
 )
 from webpage.utils import GenericListView, BaseCreateView, BaseUpdateView
 
@@ -530,3 +532,71 @@ class WarCrimeCaseDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(WarCrimeCaseDelete, self).dispatch(*args, **kwargs)
+
+
+class OnlineRessourceListView(GenericListView):
+    model = OnlineRessource
+    table_class = OnlineRessourceTable
+    filter_class = OnlineRessourceListFilter
+    formhelper_class = OnlineRessourceFilterFormHelper
+    init_columns = [
+        'www_url',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(OnlineRessourceListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+
+class OnlineRessourceDetailView(DetailView):
+    model = OnlineRessource
+    template_name = 'entities/onlineressource_detail.html'
+
+
+class OnlineRessourceCreate(BaseCreateView):
+
+    model = OnlineRessource
+    form_class = OnlineRessourceForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OnlineRessourceCreate, self).dispatch(*args, **kwargs)
+
+
+class OnlineRessourceUpdate(BaseUpdateView):
+
+    model = OnlineRessource
+    form_class = OnlineRessourceForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OnlineRessourceUpdate, self).dispatch(*args, **kwargs)
+
+
+class OnlineRessourceDelete(DeleteView):
+    model = OnlineRessource
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('entities:browse_onlineressources')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(OnlineRessourceDelete, self).dispatch(*args, **kwargs)

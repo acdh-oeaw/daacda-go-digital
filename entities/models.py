@@ -18,23 +18,28 @@ class OnlineRessource(IdProvider):
 
     www_url = models.URLField(
         blank=True, null=True,
-        verbose_name="some URL",
+        verbose_name="URL of online ressource",
         help_text="provide some"
     )
     description_short = models.CharField(
-        max_length=250, blank=True, help_text="short_description"
+        max_length=250, blank=True, help_text="short_description", verbose_name="Short description of online ressource",
     )
     description_long = RichTextUploadingField(
         blank=True, null=True,
         verbose_name="Abstract",
-        help_text="Provide some"
+        help_text="Provide some",
     )
 
     def __str__(self):
-        if self.url:
-            return "{}".format(self.name)
+        if self.www_url:
+            return "{}".format(self.www_url)
         else:
             return "{}".format(self.id)
+
+    def get_absolute_url(self):
+        return reverse(
+            'entities:onlineressource_detail', kwargs={'pk': self.id}
+        )
 
 
 class AlternativeName(IdProvider):
