@@ -578,3 +578,12 @@ class WarCrimeCase(IdProvider):
             return "{}".format(self.signatur)
         else:
             return "{}".format(self.id)
+
+
+# class PersonWarCrimeCase(IdProvider):
+#     related_person fk -> Person
+#     related_warcrimecase fk -> WarCrimeCase
+#     relateion type fk -> SkosConcept
+#     start_date
+#     end_date
+#     comment
