@@ -127,7 +127,7 @@ class PersonListView(GenericListView):
     filter_class = PersonListFilter
     formhelper_class = PersonFilterFormHelper
     init_columns = [
-        'written_name', 'rank', 'destiny_checked', 
+        'written_name', 'rank', 'destiny_checked',
     ]
 
     def get_all_cols(self):
@@ -470,6 +470,7 @@ class WarCrimeCaseListView(GenericListView):
     init_columns = [
         'id',
         'signatur',
+        'warcrimespersons', 'warcrimesurls',
     ]
 
     def get_all_cols(self):

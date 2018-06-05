@@ -439,27 +439,28 @@ class WarCrimeCase(IdProvider):
     related_persons = models.ManyToManyField(
         Person,
         max_length=250, blank=True,
+        verbose_name="Persons mentioned in abstract",
         help_text="erwähnte Personen",
         related_name="mentioned_in_abstract"
     )
     start_date = models.DateField(
         blank=True, null=True,
-        verbose_name="Start Date.",
+        verbose_name="Start date",
         help_text="Provide Some"
     )
     end_date = models.DateField(
         blank=True, null=True,
-        verbose_name="End Date.",
+        verbose_name="End date",
         help_text="Provide Some"
     )
     date_accuracy = models.CharField(
         default="Y", max_length=3, choices=DATE_ACCURACY,
-        blank=True, null=True,
+        blank=True, null=True, verbose_name="Date accuracy",
     )
     related_urls = models.ManyToManyField(
         OnlineRessource,
         max_length=250, blank=True,
-        verbose_name="url",
+        verbose_name="Related URLs",
         help_text="provide Some",
         related_name="for_warcrimecase"
     )

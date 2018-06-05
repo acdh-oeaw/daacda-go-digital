@@ -1,0 +1,5 @@
+{% for x in record.related_urls.all %}
+<li>
+    <a href="{% url 'entities:person_detail' pk=x.id %}">{{ x }}</a>
+</li>
+{% endfor %}

@@ -12,10 +12,18 @@ class WarCrimeCaseTable(tables.Table):
         'entities:war_crime_case_detail',
         args=[A('pk')], verbose_name='Name'
     )
+    warcrimespersons = tables.TemplateColumn(
+        template_name='entities/warcrimespersons.html', orderable=False,
+        verbose_name='Persons mentioned in abstract'
+    )
+    warcrimesurls = tables.TemplateColumn(
+        template_name='entities/warcrimesurls.html', orderable=False,
+        verbose_name='Ressources linked to this War Crime Case'
+    )
 
     class Meta:
         model = WarCrimeCase
-        sequence = ('id', 'signatur',)
+        sequence = ('id', 'signatur', 'warcrimespersons', 'warcrimesurls')
         attrs = {"class": "table table-responsive table-hover"}
 
 
