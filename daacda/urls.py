@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^entities/', include('entities.urls', namespace='entities')),
     url(r'^bib/', include('bib.urls', namespace='bib')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^detentions/', include('detentions.urls', namespace='detentions')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 
 ]

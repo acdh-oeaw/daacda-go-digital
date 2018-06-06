@@ -3,6 +3,7 @@ from django.db import models
 from idprovider.models import IdProvider
 from entities.models import Place, AlternativeName, Person
 from vocabs.models import SkosConcept
+from django.urls import reverse
 
 
 class PrisonStation(IdProvider):
@@ -58,6 +59,10 @@ class PrisonStation(IdProvider):
         else:
             return "{}".format(self.id)
 
+    def get_absolute_url(self):
+        return reverse(
+            'detentions:prisonstation_detail', kwargs={'pk': self.id}
+        )
 
 class PersonPrison(IdProvider):
 
