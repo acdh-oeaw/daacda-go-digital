@@ -505,7 +505,6 @@ class WarCrimeCaseDetailView(DetailView):
 
 
 class WarCrimeCaseCreate(BaseCreateView):
-
     model = WarCrimeCase
     form_class = WarCrimeCaseForm
 
@@ -515,7 +514,6 @@ class WarCrimeCaseCreate(BaseCreateView):
 
 
 class WarCrimeCaseUpdate(BaseUpdateView):
-
     model = WarCrimeCase
     form_class = WarCrimeCaseForm
 
@@ -573,7 +571,6 @@ class OnlineRessourceDetailView(DetailView):
 
 
 class OnlineRessourceCreate(BaseCreateView):
-
     model = OnlineRessource
     form_class = OnlineRessourceForm
 
@@ -583,7 +580,6 @@ class OnlineRessourceCreate(BaseCreateView):
 
 
 class OnlineRessourceUpdate(BaseUpdateView):
-
     model = OnlineRessource
     form_class = OnlineRessourceForm
 

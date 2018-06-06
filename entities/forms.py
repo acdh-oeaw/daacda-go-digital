@@ -47,8 +47,6 @@ class OnlineRessourceFilterFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
-                'name',
-                'written_name',
                 css_id="basic_search_fields"
                 ),
             Accordion(

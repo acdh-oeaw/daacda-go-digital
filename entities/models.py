@@ -22,7 +22,8 @@ class OnlineRessource(IdProvider):
         help_text="provide some"
     )
     description_short = models.CharField(
-        max_length=250, blank=True, help_text="short_description", verbose_name="Short description of online ressource",
+        max_length=250, blank=True, help_text="short_description",
+        verbose_name="Short description of online ressource",
     )
     description_long = RichTextUploadingField(
         blank=True, null=True,
@@ -40,6 +41,26 @@ class OnlineRessource(IdProvider):
         return reverse(
             'entities:onlineressource_detail', kwargs={'pk': self.id}
         )
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('entities:browse_onlineressources')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('entities:onlineressource_create')
+
+    def get_next(self):
+        next = OnlineRessource.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = OnlineRessource.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
 
 
 class AlternativeName(IdProvider):
@@ -71,11 +92,6 @@ class AlternativeName(IdProvider):
         if prev:
             return prev.first().id
         return False
-
-    def get_absolute_url(self):
-        return reverse(
-            'entities:alternativename_detail', kwargs={'pk': self.id}
-        )
 
     def __str__(self):
         return "{}".format(self.name)

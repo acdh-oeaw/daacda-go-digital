@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'persons-rdf/$', views.PersonRDFView.as_view(), name='rdf_persons'),
     url(r'institutions-rdf/$', views.InstitutionRDFView.as_view(), name='rdf_institutions'),
     url(r'^bombers/$', views.BomberListView.as_view(), name='browse_bombers'),
+    url(r'onlineressources/$', views.OnlineRessourceListView.as_view(), name='browse_onlineressources'),
     url(r'^onlineressource/detail/(?P<pk>[0-9]+)$', views.OnlineRessourceDetailView.as_view(),
         name='onlineressource_detail'),
     url(r'^onlineressource/create/$', views.OnlineRessourceCreate.as_view(),

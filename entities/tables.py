@@ -28,10 +28,16 @@ class WarCrimeCaseTable(tables.Table):
 
 
 class OnlineRessourceTable(tables.Table):
+    www_url = tables.LinkColumn(
+        'entities:onlineressource_detail',
+        args=[A('pk')], verbose_name='URL'
+    )
 
     class Meta:
         model = OnlineRessource
-        sequence = ('www_url')
+        sequence = (
+            'www_url',
+        )
         attrs = {"class": "table table-responsive table-hover"}
 
 

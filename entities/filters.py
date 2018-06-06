@@ -133,10 +133,10 @@ class AlternativeNameListFilter(django_filters.FilterSet):
 
 
 class OnlineRessourceListFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(
+    www_url = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=AlternativeName._meta.get_field('name').help_text,
-        label=AlternativeName._meta.get_field('name').verbose_name
+        help_text=OnlineRessource._meta.get_field('www_url').help_text,
+        label=OnlineRessource._meta.get_field('www_url').verbose_name
         )
 
     class Meta:
