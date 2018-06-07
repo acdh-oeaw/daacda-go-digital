@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Place, AlternativeName, Bomber, Institution, Person, WarCrimeCase, OnlineRessource
+from detentions.models import PrisonStation
 
 
 class BomberAdmin(admin.ModelAdmin):
@@ -45,3 +46,4 @@ admin.site.register(AlternativeName)
 admin.site.register(Bomber, BomberAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(OnlineRessource)
+admin.site.register(PrisonStation)

@@ -1,5 +1,4 @@
 from django.db import models
-
 from idprovider.models import IdProvider
 from entities.models import Place, AlternativeName, Person
 from vocabs.models import SkosConcept
@@ -63,6 +62,27 @@ class PrisonStation(IdProvider):
         return reverse(
             'detentions:prisonstation_detail', kwargs={'pk': self.id}
         )
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('detentions:browse_prisonstations')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('detentions:prisonstation_create')
+
+    def get_next(self):
+        next = PrisonStation.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = PrisonStation.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
 
 class PersonPrison(IdProvider):
 

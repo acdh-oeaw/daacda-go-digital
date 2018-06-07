@@ -4,7 +4,7 @@ from . import views
 app_name = 'detentions'
 
 urlpatterns = [
-    # url(r'^prisonstations/$', views.PrisonStationListView.as_view(), name='browse_prisonstations'),
+    url(r'^prisonstations/$', views.PrisonStationListView.as_view(), name='browse_prisonstations'),
     url(r'^prisonstation/detail/(?P<pk>[0-9]+)$', views.PrisonStationDetailView.as_view(),
         name='prisonstation_detail'),
     url(r'^prisonstation/create/$', views.PrisonStationCreate.as_view(),

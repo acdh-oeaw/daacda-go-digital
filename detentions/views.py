@@ -2,11 +2,50 @@ from django.shortcuts import render
 from django.views.generic.edit import DeleteView
 from django.views.generic.detail import DetailView
 from .models import PrisonStation
-from webpage.utils import BaseCreateView, BaseUpdateView
+from webpage.utils import BaseCreateView, BaseUpdateView, GenericListView
 from .forms import PrisonStationForm
+from detentions.filters import PrisonStationListFilter
+from detentions.forms import PrisonStationFilterFormHelper
+from detentions.tables import PrisonStationTable
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
+from django_tables2 import RequestConfig
+
+
+class PrisonStationListView(GenericListView):
+    model = PrisonStation
+    table_class = PrisonStationTable
+    filter_class = PrisonStationListFilter
+    formhelper_class = PrisonStationFilterFormHelper
+    init_columns = [
+        'name',
+        'station_id',
+        'located_in_place',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(PrisonStationListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
 
 
 class PrisonStationDetailView(DetailView):
