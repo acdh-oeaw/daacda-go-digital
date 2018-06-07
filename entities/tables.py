@@ -5,11 +5,11 @@ from entities.models import *
 
 class WarCrimeCaseTable(tables.Table):
     id = tables.LinkColumn(
-        'entities:war_crime_case_detail',
+        'entities:warcrimecase_detail',
         args=[A('pk')], verbose_name='ID'
     )
     signatur = tables.LinkColumn(
-        'entities:war_crime_case_detail',
+        'entities:warcrimecase_detail',
         args=[A('pk')], verbose_name='Name'
     )
     warcrimespersons = tables.TemplateColumn(
@@ -32,11 +32,23 @@ class OnlineRessourceTable(tables.Table):
         'entities:onlineressource_detail',
         args=[A('pk')], verbose_name='URL'
     )
+    onlineressourcepersons = tables.TemplateColumn(
+        template_name='entities/onlineressourcepersons.html', orderable=False,
+        verbose_name='Persons linked to this ressource'
+    )
+    onlineressourcebombers = tables.TemplateColumn(
+        template_name='entities/onlineressourcebombers.html', orderable=False,
+        verbose_name='Bombers linked to this ressource'
+    )
+    onlineressourcewarcrimecases = tables.TemplateColumn(
+        template_name='entities/onlineressourcewarcrimecases.html', orderable=False,
+        verbose_name='War crime cases linked to this ressource'
+    )
 
     class Meta:
         model = OnlineRessource
         sequence = (
-            'www_url',
+            'www_url', 'onlineressourcepersons', 'onlineressourcebombers', 'onlineressourcewarcrimecases'
         )
         attrs = {"class": "table table-responsive table-hover"}
 

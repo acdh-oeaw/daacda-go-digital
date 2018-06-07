@@ -1,0 +1,5 @@
+{% for x in record.related_bombers.all %}
+<li>
+    <a href="{% url 'entities:bomber_detail' pk=x.id %}">{{ x }}</a>
+</li>
+{% endfor %}

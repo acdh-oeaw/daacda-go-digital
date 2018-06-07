@@ -3,7 +3,6 @@ from django.db import models
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
-
 from idprovider.models import IdProvider
 from vocabs.models import SkosConcept
 
@@ -29,6 +28,24 @@ class OnlineRessource(IdProvider):
         blank=True, null=True,
         verbose_name="Abstract",
         help_text="Provide some",
+    )
+    related_persons = models.ManyToManyField(
+        "Person",
+        max_length=250, blank=True,
+        verbose_name="Related persons",
+        help_text="provide Some", related_name='URLperson',
+    )
+    related_bombers = models.ManyToManyField(
+        "Bomber",
+        max_length=250, blank=True,
+        verbose_name="Related bombers",
+        help_text="provide Some", related_name='URLbomber',
+    )
+    related_warcrimecases = models.ManyToManyField(
+        "WarCrimeCase",
+        max_length=250, blank=True,
+        verbose_name="Related warcrimecases",
+        help_text="provide Some", related_name='URLwarcrimecase',
     )
 
     def __str__(self):
@@ -444,7 +461,7 @@ class Person(IdProvider):
     related_urls = models.ManyToManyField(
         OnlineRessource,
         max_length=250, blank=True,
-        verbose_name="URLs",
+        verbose_name="Related URLs",
         help_text="URLs related to this person",
         related_name="for_person"
     )
@@ -573,14 +590,14 @@ class WarCrimeCase(IdProvider):
 
     @classmethod
     def get_createview_url(self):
-        return reverse('entities:war_crime_case_create')
+        return reverse('entities:warcrimecase_create')
 
     @classmethod
     def get_listview_url(self):
-        return reverse('entities:browse_war_crime_cases')
+        return reverse('entities:browse_warcrimecases')
 
     def get_absolute_url(self):
-        return reverse('entities:war_crime_case_detail', kwargs={'pk': self.id})
+        return reverse('entities:warcrimecase_detail', kwargs={'pk': self.id})
 
     def get_next(self):
         next = WarCrimeCase.objects.filter(id__gt=self.id)

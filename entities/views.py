@@ -501,7 +501,7 @@ class WarCrimeCaseListView(GenericListView):
 
 class WarCrimeCaseDetailView(DetailView):
     model = WarCrimeCase
-    template_name = 'entities/war_crime_case_detail.html'
+    template_name = 'entities/warcrimecase_detail.html'
 
 
 class WarCrimeCaseCreate(BaseCreateView):
@@ -525,7 +525,7 @@ class WarCrimeCaseUpdate(BaseUpdateView):
 class WarCrimeCaseDelete(DeleteView):
     model = WarCrimeCase
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_war_crime_cases')
+    success_url = reverse_lazy('entities:browse_warcrimecases')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -538,7 +538,7 @@ class OnlineRessourceListView(GenericListView):
     filter_class = OnlineRessourceListFilter
     formhelper_class = OnlineRessourceFilterFormHelper
     init_columns = [
-        'www_url',
+        'www_url', 'onlineressourcepersons', 'onlineressourcebombers', 'onlineressourcewarcrimecases'
     ]
 
     def get_all_cols(self):

@@ -21,7 +21,7 @@ include 'autocomplete_light/static.html
                 <div class="col-md-2">
                     {% if object.get_prev %}
                     <h2>
-                        <a href="{% url 'entities:war_crime_case_detail' pk=object.get_prev %}">
+                        <a href="{% url 'entities:warcrimecase_detail' pk=object.get_prev %}">
                             <i class="fas fa-chevron-left" title="previous"></i>
                         </a>
                     </h2>
@@ -31,7 +31,7 @@ include 'autocomplete_light/static.html
                     <h1 style="text-align: center;">
                         <small>war crime case:</small> {{ object }}
                         {% if user.is_authenticated %}
-                        <small><a href="{% url 'entities:war_crime_case_edit' pk=object.id %}">
+                        <small><a href="{% url 'entities:warcrimecase_edit' pk=object.id %}">
                             <i class="far fa-edit" title="edit"></i>
                         </a>
                     </small>
@@ -41,7 +41,7 @@ include 'autocomplete_light/static.html
             <div class="col-md-2">
                 <h2>
                     {% if object.get_next %}
-                    <a href="{% url 'entities:war_crime_case_detail' pk=object.get_next %}" style="float:right">
+                    <a href="{% url 'entities:warcrimecase_detail' pk=object.get_next %}" style="float:right">
                         <i class="fas fa-chevron-right" title="next"></i>
                     </a>
                 </h2>
@@ -120,7 +120,7 @@ include 'autocomplete_light/static.html
                     </tr>
                 </table>
                 {% if user.is_authenticated %}
-                    <a class="btn btn-danger" href="{% url 'entities:war_crime_case_delete' pk=object.id %}">delete</a>
+                    <a class="btn btn-danger" href="{% url 'entities:warcrimecase_delete' pk=object.id %}">delete</a>
                 {% endif %}
             </div>
         </div>

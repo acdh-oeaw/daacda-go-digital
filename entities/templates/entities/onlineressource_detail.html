@@ -82,36 +82,48 @@ include 'autocomplete_light/static.html
                             {{ object.description_long }}
                         </td>
                     </tr>
+                    <tr>
+                    <th>
+                        {% get_verbose_name onlineressource "related_persons" %}
+                    </th>
+                    <td>
+                      {% for x in object.related_persons.all %}
+                          <li>
+                              <a href="{% url 'entities:person_detail' pk=x.id %}">{{ x }}</a>
+                          </li>
+                      {% endfor %}
+                    </td>
+                  </tr>
+                    <th>
+                        {% get_verbose_name onlineressource "related_bombers" %}
+                    </th>
+                    <td>
+                      {% for x in object.related_bombers.all %}
+                          <li>
+                              <a href="{% url 'entities:bomber_detail' pk=x.id %}">{{ x }}</a>
+                          </li>
+                      {% endfor %}
+                    </td>
+                    </tr>
+                    <th>
+                        {% get_verbose_name onlineressource "related_warcrimecases" %}
+                    </th>
+                    <td>
+                      {% for x in object.related_warcrimecases.all %}
+                          <li>
+                              <a href="{% url 'entities:warcrimecase_detail' pk=x.id %}">{{ x }}</a>
+                          </li>
+                      {% endfor %}
+                    </td>
+                    </tr>
                 </table>
                 {% if user.is_authenticated %}
                     <a class="btn btn-danger" href="{% url 'entities:onlineressource_delete' pk=object.id %}">delete</a>
                 {% endif %}
             </div>
-            <div class="col-md-6">
-                <div id="map"/>
-            </div>
+
         </div>
     </div>
 </div>
 </div>
-
-<script type="text/javascript">
-$( document ).ready(function() {
-    var placeName = "{{ object.belongs_to_institution.written_name }}"
-    var lat = "{{ object.belongs_to_institution.location.lat }}"
-    var lng = "{{ object.belongs_to_institution.location.lng }}"
-    var map = L.map('map').setView([lat, lng], 10);
-
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.light',
-        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
-    }).addTo(map);
-
-    L.marker([lat, lng]).addTo(map)
-    .bindPopup(placeName)
-    .openPopup();
-});
-</script>
 {% endblock %}

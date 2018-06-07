@@ -1,0 +1,5 @@
+{% for x in record.related_warcrimecases.all %}
+<li>
+    <a href="{% url 'entities:warcrimecase_detail' pk=x.id %}">{{ x }}</a>
+</li>
+{% endfor %}
