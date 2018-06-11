@@ -18,10 +18,14 @@ class PrisonStationTable(tables.Table):
 
 
 class PersonPrisonTable(tables.Table):
+    id = tables.LinkColumn(
+        'detentions:personprison_detail',
+        args=[A('pk')],
+    )
 
     class Meta:
         model = PersonPrison
         sequence = (
-            'relation_type', 'related_person', 'related_prisonstation',
+            'id', 'relation_type', 'related_person', 'related_prisonstation',
         )
         attrs = {"class": "table table-responsive table-hover"}

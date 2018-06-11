@@ -36,19 +36,35 @@
             <h3>Data-Count</h3>
             {% create_object_count app='entities' as models %}
             <div class="row">
-            {% for x in models %}
-            <div class="col-lg-3 grid-item type-one">
-                <div class="div-tile">
-                    {% if x.link %}
-                        <a href="{{ x.link }}"><h5>{{x.name}}</h5></a>
-                        {% else %}
-                        <h5>{{x.name}}</h5>
-                    {% endif %}
-                    <hr class="hrtile">
-                    <h5 class="count">{{x.count}}</h5>
+              {% for x in models %}
+                <div class="col-lg-3 grid-item type-one">
+                    <div class="div-tile">
+                        {% if x.link %}
+                            <a href="{{ x.link }}"><h5>{{x.name}}</h5></a>
+                            {% else %}
+                            <h5>{{x.name}}</h5>
+                        {% endif %}
+                        <hr class="hrtile">
+                        <h5 class="count">{{x.count}}</h5>
+                    </div>
                 </div>
+              {% endfor %}
             </div>
-            {% endfor %}
+            {% create_object_count app='detentions' as models %}
+            <div class="row">
+              {% for x in models %}
+                <div class="col-lg-3 grid-item type-one">
+                    <div class="div-tile">
+                        {% if x.link %}
+                            <a href="{{ x.link }}"><h5>{{x.name}}</h5></a>
+                            {% else %}
+                            <h5>{{x.name}}</h5>
+                        {% endif %}
+                        <hr class="hrtile">
+                        <h5 class="count">{{x.count}}</h5>
+                    </div>
+                </div>
+              {% endfor %}
             </div>
             {% create_object_count app='arche' as models %}
             <div class="row">

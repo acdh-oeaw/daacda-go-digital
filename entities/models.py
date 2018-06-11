@@ -653,3 +653,32 @@ class PersonWarCrimeCase(IdProvider):
         on_delete=models.SET_NULL, verbose_name="Type of relation",
         help_text="provide some"
     )
+
+    # @classmethod
+    # def get_createview_url(self):
+    #     return reverse('entities:personwarcrimecase_create')
+    #
+    # @classmethod
+    # def get_listview_url(self):
+    #     return reverse('entities:browse_personwarcrimecases')
+    #
+    # def get_absolute_url(self):
+    #     return reverse('entities:personwarcrimecase_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = PersonWarCrimeCase.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = PersonWarCrimeCase.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
+    def __str__(self):
+        if self.signatur:
+            return "{}".format(self.signatur)
+        else:
+            return "{}".format(self.id)

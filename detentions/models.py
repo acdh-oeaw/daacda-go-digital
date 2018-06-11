@@ -138,6 +138,11 @@ class PersonPrison(IdProvider):
     def get_createview_url(self):
         return reverse('detentions:personprison_create')
 
+    def get_absolute_url(self):
+        return reverse(
+            'detentions:personprison_detail', kwargs={'pk': self.id}
+        )
+
     def get_next(self):
         next = PersonPrison.objects.filter(id__gt=self.id)
         if next:

@@ -87,6 +87,7 @@ class PersonPrisonListView(GenericListView):
     filter_class = PersonPrisonListFilter
     formhelper_class = PersonPrisonFilterFormHelper
     init_columns = [
+        'id',
         'relation_type',
         'related_person',
         'related_prisonstation',
