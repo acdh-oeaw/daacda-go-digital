@@ -638,7 +638,7 @@ class PersonWarCrimeCaseListView(GenericListView):
 
 class PersonWarCrimeCaseDetailView(DetailView):
     model = PersonWarCrimeCase
-    template_name = 'detentions/personwarcrimecase_detail.html'
+    template_name = 'entities/personwarcrimecase_detail.html'
 
 
 class PersonWarCrimeCaseCreate(BaseCreateView):
@@ -662,7 +662,7 @@ class PersonWarCrimeCaseUpdate(BaseUpdateView):
 class PersonWarCrimeCaseDelete(DeleteView):
     model = PersonWarCrimeCase
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('detentions:browse_personwarcrimecases')
+    success_url = reverse_lazy('entities:browse_personwarcrimecases')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

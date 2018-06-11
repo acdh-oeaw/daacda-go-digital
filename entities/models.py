@@ -678,7 +678,4 @@ class PersonWarCrimeCase(IdProvider):
         return False
 
     def __str__(self):
-        if self.signatur:
-            return "{}".format(self.signatur)
-        else:
-            return "{}".format(self.id)
+        return "{}".format(self.id)

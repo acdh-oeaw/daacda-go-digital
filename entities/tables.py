@@ -137,12 +137,12 @@ class AlternativeNameTable(tables.Table):
 
 
 class PersonWarCrimeCaseTable(tables.Table):
-    name = tables.LinkColumn(
+    id = tables.LinkColumn(
         'entities:personwarcrimecase_detail',
-        args=[A('pk')], verbose_name='Name'
+        args=[A('pk')]
     )
 
     class Meta:
         model = PersonWarCrimeCase
-        sequence = ('name',)
+        sequence = ('id',)
         attrs = {"class": "table table-responsive table-hover"}
