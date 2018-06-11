@@ -38,3 +38,4 @@ dev_secret.py
 /arche/data/fileList.json
 media
 staticfiles
+/import_database_list_2019_06_04.ipynb

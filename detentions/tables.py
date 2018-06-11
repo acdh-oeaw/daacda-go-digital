@@ -26,6 +26,6 @@ class PersonPrisonTable(tables.Table):
     class Meta:
         model = PersonPrison
         sequence = (
-            'id', 'relation_type', 'related_person', 'related_prisonstation',
+            'id', 'related_person', 'relation_type', 'related_prisonstation',
         )
         attrs = {"class": "table table-responsive table-hover"}

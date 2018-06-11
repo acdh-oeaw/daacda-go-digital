@@ -144,5 +144,5 @@ class PersonWarCrimeCaseTable(tables.Table):
 
     class Meta:
         model = PersonWarCrimeCase
-        sequence = ('id',)
+        sequence = ('id', 'related_persons', 'relation_type', 'related_cases',)
         attrs = {"class": "table table-responsive table-hover"}

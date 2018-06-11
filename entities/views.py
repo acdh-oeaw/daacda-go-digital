@@ -607,9 +607,9 @@ class PersonWarCrimeCaseListView(GenericListView):
     formhelper_class = PersonWarCrimeCaseFilterFormHelper
     init_columns = [
         'id',
+        'related_persons',
         'relation_type',
         'related_cases',
-        'related_persons',
     ]
 
     def get_all_cols(self):
