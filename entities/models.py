@@ -566,15 +566,15 @@ class WarCrimeCase(IdProvider):
     related_cases = models.ManyToManyField(
         'self',
         max_length=250, blank=True,
-        verbose_name="related cases",
-        help_text="erwähnte Personen",
+        verbose_name="Related cases",
+        help_text="Erwähnte Fälle",
         related_name="has_related_cases"
     )
     related_places = models.ManyToManyField(
         Place,
         max_length=250, blank=True,
-        verbose_name="Persons mentioned in abstract",
-        help_text="erwähnte Personen",
+        verbose_name="Places mentioned in abstract",
+        help_text="Erwähnte Orte",
         related_name="wcc_mentiones_places"
     )
     type_of_crime = models.ForeignKey(
@@ -618,10 +618,38 @@ class WarCrimeCase(IdProvider):
             return "{}".format(self.id)
 
 
-# class PersonWarCrimeCase(IdProvider):
-#     related_person fk -> Person
-#     related_warcrimecase fk -> WarCrimeCase
-#     relateion type fk -> SkosConcept
-#     start_date
-#     end_date
-#     comment
+class PersonWarCrimeCase(IdProvider):
+
+    start_date = models.DateField(
+        blank=True, null=True,
+        verbose_name="Start date",
+        help_text="Provide Some"
+    )
+    end_date = models.DateField(
+        blank=True, null=True,
+        verbose_name="End date",
+        help_text="Provide Some"
+    )
+    comment = models.TextField(blank=True, verbose_name="Comment")
+    related_cases = models.ForeignKey(
+        WarCrimeCase,
+        max_length=250, blank=True, null=True,
+        verbose_name="Related cases",
+        help_text="erwähnte Personen",
+        related_name="has_related_cases_2",
+        on_delete=models.SET_NULL
+    )
+    related_persons = models.ForeignKey(
+        Person,
+        max_length=250, blank=True,
+        verbose_name="Persons mentioned in abstract",
+        help_text="erwähnte Personen",
+        related_name="has_related_persons_2", null=True,
+        on_delete=models.SET_NULL
+    )
+    relation_type = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        related_name="relation_type_of",
+        on_delete=models.SET_NULL, verbose_name="Type of relation",
+        help_text="provide some"
+    )
