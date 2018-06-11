@@ -90,7 +90,7 @@ class PersonPrison(IdProvider):
 
     relation_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="Type of the Person-Prisenstation relation",
+        verbose_name="Type of the Person-PrisonStation relation",
         help_text="provide some",
         related_name="person_prisonstation_relation",
         on_delete=models.SET_NULL
@@ -128,3 +128,24 @@ class PersonPrison(IdProvider):
             )
         else:
             return "{}".format(self.id)
+
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('detentions:browse_personprisons')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('detentions:personprison_create')
+
+    def get_next(self):
+        next = PersonPrison.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = PersonPrison.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False

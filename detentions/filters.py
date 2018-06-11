@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from detentions.models import PrisonStation
+from detentions.models import PrisonStation, PersonPrison
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -28,4 +28,16 @@ class PrisonStationListFilter(django_filters.FilterSet):
 
     class Meta:
         model = PrisonStation
+        fields = "__all__"
+
+
+class PersonPrisonListFilter(django_filters.FilterSet):
+    relation_type = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=PersonPrison._meta.get_field('relation_type').help_text,
+        label=PersonPrison._meta.get_field('relation_type').verbose_name
+        )
+
+    class Meta:
+        model = PersonPrison
         fields = "__all__"

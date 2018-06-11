@@ -15,3 +15,13 @@ class PrisonStationTable(tables.Table):
             'name', 'station_id', 'located_in_place',
         )
         attrs = {"class": "table table-responsive table-hover"}
+
+
+class PersonPrisonTable(tables.Table):
+
+    class Meta:
+        model = PersonPrison
+        sequence = (
+            'relation_type', 'related_person', 'related_prisonstation',
+        )
+        attrs = {"class": "table table-responsive table-hover"}
