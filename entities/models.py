@@ -654,16 +654,16 @@ class PersonWarCrimeCase(IdProvider):
         help_text="provide some"
     )
 
-    # @classmethod
-    # def get_createview_url(self):
-    #     return reverse('entities:personwarcrimecase_create')
-    #
-    # @classmethod
-    # def get_listview_url(self):
-    #     return reverse('entities:browse_personwarcrimecases')
-    #
-    # def get_absolute_url(self):
-    #     return reverse('entities:personwarcrimecase_detail', kwargs={'pk': self.id})
+    @classmethod
+    def get_createview_url(self):
+            return reverse('entities:personwarcrimecase_create')
+
+    @classmethod
+    def get_listview_url(self):
+            return reverse('entities:browse_personwarcrimecases')
+
+    def get_absolute_url(self):
+            return reverse('entities:personwarcrimecase_detail', kwargs={'pk': self.id})
 
     def get_next(self):
         next = PersonWarCrimeCase.objects.filter(id__gt=self.id)

@@ -12,7 +12,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
-from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource
+from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase
 from .forms import *
 from .serializer_arche import *
 from .tables import (
@@ -22,7 +22,8 @@ from .tables import (
     AlternativeNameTable,
     BomberTable,
     WarCrimeCaseTable,
-    OnlineRessourceTable
+    OnlineRessourceTable,
+    PersonWarCrimeCaseTable,
 )
 from .filters import (
     PersonListFilter,
@@ -31,7 +32,8 @@ from .filters import (
     AlternativeNameListFilter,
     BomberListFilter,
     WarCrimeCaseListFilter,
-    OnlineRessourceListFilter
+    OnlineRessourceListFilter,
+    PersonWarCrimeCaseListFilter
 )
 from webpage.utils import GenericListView, BaseCreateView, BaseUpdateView
 
@@ -596,3 +598,72 @@ class OnlineRessourceDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(OnlineRessourceDelete, self).dispatch(*args, **kwargs)
+
+
+class PersonWarCrimeCaseListView(GenericListView):
+    model = PersonWarCrimeCase
+    table_class = PersonWarCrimeCaseTable
+    filter_class = PersonWarCrimeCaseListFilter
+    formhelper_class = PersonWarCrimeCaseFilterFormHelper
+    init_columns = [
+        'id',
+        'relation_type',
+        'related_cases',
+        'related_persons',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(PersonWarCrimeCaseListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+
+class PersonWarCrimeCaseDetailView(DetailView):
+    model = PersonWarCrimeCase
+    template_name = 'detentions/personwarcrimecase_detail.html'
+
+
+class PersonWarCrimeCaseCreate(BaseCreateView):
+    model = PersonWarCrimeCase
+    form_class = PersonWarCrimeCaseForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PersonWarCrimeCaseCreate, self).dispatch(*args, **kwargs)
+
+
+class PersonWarCrimeCaseUpdate(BaseUpdateView):
+    model = PersonWarCrimeCase
+    form_class = PersonWarCrimeCaseForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PersonWarCrimeCaseUpdate, self).dispatch(*args, **kwargs)
+
+
+class PersonWarCrimeCaseDelete(DeleteView):
+    model = PersonWarCrimeCase
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('detentions:browse_personwarcrimecases')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PersonWarCrimeCaseDelete, self).dispatch(*args, **kwargs)

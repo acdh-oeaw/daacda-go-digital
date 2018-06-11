@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from entities.models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource
+from entities.models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -143,4 +143,18 @@ class OnlineRessourceListFilter(django_filters.FilterSet):
         model = OnlineRessource
         fields = [
             'www_url'
+        ]
+
+
+class PersonWarCrimeCaseListFilter(django_filters.FilterSet):
+    id = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=OnlineRessource._meta.get_field('id').help_text,
+        label=OnlineRessource._meta.get_field('id').verbose_name
+        )
+
+    class Meta:
+        model = PersonWarCrimeCase
+        fields = [
+            'id'
         ]

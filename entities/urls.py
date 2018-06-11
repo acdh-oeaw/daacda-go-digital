@@ -67,4 +67,13 @@ urlpatterns = [
         name='onlineressource_edit'),
     url(r'^onlineressource/delete/(?P<pk>[0-9]+)$', views.OnlineRessourceDelete.as_view(),
         name='onlineressource_delete'),
+    url(r'personwarcrimecases/$', views.PersonWarCrimeCaseListView.as_view(), name='browse_personwarcrimecases'),
+    url(r'personwarcrimecase/detail/(?P<pk>[0-9]+)$', views.PersonWarCrimeCaseDetailView.as_view(),
+        name='personwarcrimecase_detail'),
+    url(r'personwarcrimecase/create/$', views.PersonWarCrimeCaseCreate.as_view(),
+        name='personwarcrimecase_create'),
+    url(r'personwarcrimecase/edit/(?P<pk>[0-9]+)$', views.PersonWarCrimeCaseUpdate.as_view(),
+        name='personwarcrimecase_edit'),
+    url(r'personwarcrimecase/delete/(?P<pk>[0-9]+)$', views.PersonWarCrimeCaseDelete.as_view(),
+        name='personwarcrimecase_delete'),
 ]
