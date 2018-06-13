@@ -7,47 +7,47 @@ from django.urls import reverse
 
 class PrisonStation(IdProvider):
 
-    """Provide some Docstring"""
+    """Holds information about prison station entities."""
 
     name = models.CharField(
-        max_length=200, help_text="Bezeichnung des Gefangenenlagers",
+        max_length=200, help_text="The designation of the prison station",
         verbose_name="Kriegsgefangenenlager"
         )
     alt_name = models.ManyToManyField(
         AlternativeName, max_length=200, blank=True,
-        help_text="weitere Bezeichnung für das Gefangenenlager",
+        help_text="A further name for the prison station",
         verbose_name="alternative Bezeichnung des Gefangenenlagers"
         )
     station_id = models.CharField(
         max_length=50, blank=True,
-        help_text="Kennzeichen für das Gefangenenlager",
+        help_text="The ID for the prison station",
         verbose_name="Kennzeichen"
         )
     located_in_place = models.ForeignKey(
         Place, blank=True, null=True,
-        help_text="Ort, in dem das Gefangenenlager liegt",
+        help_text="The place where the prison camp is located",
         on_delete=models.SET_NULL, related_name='place_located',
         verbose_name="Ort des Lagers"
         )
     part_of = models.ForeignKey(
         "self", blank=True, null=True,
-        help_text="Lager, dessen Teil dieses Gefangenenlager ist",
+        help_text="The camp that this prison station is part of",
         on_delete=models.SET_NULL, verbose_name="übergeordnetes Lager"
         )
     start_date = models.DateField(
         blank=True, null=True,
-        help_text="Gründungsdatum des Gefangenenlagers",
+        help_text="The founding date of the prison station",
         verbose_name="Gründungsdatum"
         )
     end_date = models.DateField(
         blank=True, null=True,
-        help_text="Auflösungsdatum des Gefangenenlagers",
+        help_text="Date of dissolution of the prison station",
         verbose_name="Auflösungsdatum"
         )
     station_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         verbose_name="Prison Station Type",
-        help_text="provide some",
+        help_text="The type of prison station",
         related_name="has_prisonstation_type",
         on_delete=models.SET_NULL
     )
@@ -86,40 +86,40 @@ class PrisonStation(IdProvider):
 
 class PersonPrison(IdProvider):
 
-    """Defines the relation between a Person and the prisonstation."""
+    """Defines the relation between a person and the prisonstation."""
 
     relation_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="Type of the Person-PrisonStation relation",
-        help_text="provide some",
+        verbose_name="Type of relation",
+        help_text="The type of the PersonPrison relation",
         related_name="person_prisonstation_relation",
         on_delete=models.SET_NULL
     )
     related_person = models.ForeignKey(
         Person, blank=True, null=True,
-        verbose_name="person",
-        help_text="provide some",
+        verbose_name="Related person",
+        help_text="Persons related to this PersonPrison relation",
         related_name="has_related_persons",
         on_delete=models.SET_NULL
     )
     related_prisonstation = models.ForeignKey(
         PrisonStation, blank=True, null=True,
-        verbose_name="Prison Station",
-        help_text="provide some",
+        verbose_name="Related prison station",
+        help_text="Prison stations related to this PersonPrison relation",
         related_name="related_to_prisonstation",
         on_delete=models.SET_NULL
     )
     start_date = models.DateField(
         blank=True, null=True,
-        verbose_name="start of relation",
-        help_text="provide some",
+        verbose_name="Start of relation",
+        help_text="The start date of this PersonPrison relation",
     )
     end_date = models.DateField(
         blank=True, null=True,
-        verbose_name="end of relation",
-        help_text="provide some",
+        verbose_name="End of relation",
+        help_text="The end date of this PersonPrison relation",
     )
-    comment = models.TextField(blank=True, verbose_name="Comment")
+    comment = models.TextField(blank=True, verbose_name="Comment", help_text="A comment")
 
     def __str__(self):
         if self.relation_type and self.related_person and self.related_prisonstation:
