@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^detentions/', include('detentions.urls', namespace='detentions')),
     url(r'^', include('webpage.urls', namespace='webpage')),
-
 ]
 
 if settings.DEBUG is True:

@@ -107,6 +107,16 @@ class PersonForm(forms.ModelForm):
             'place_of_birth': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
             'alt_names': autocomplete.ModelSelect2Multiple(
                 url='entities-ac:altname-autocomplete'),
+            'part_of_bomber': autocomplete.ModelSelect2(
+                url='entities-ac:personpartofbomber-autocomplete'),
+            'rank': autocomplete.ModelSelect2(
+                url='entities-ac:personrank-autocomplete'),
+            'destiny_stated': autocomplete.ModelSelect2(
+                url='entities-ac:persondestinystated-autocomplete'),
+            'destiny_checked': autocomplete.ModelSelect2(
+                url='entities-ac:persondestinychecked-autocomplete'),
+            'mia': autocomplete.ModelSelect2(
+                url='entities-ac:personmia-autocomplete'),
         }
 
     def __init__(self, *args, **kwargs):

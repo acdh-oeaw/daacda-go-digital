@@ -85,3 +85,77 @@ class BomberReasonOfCrashAC(autocomplete.Select2QuerySetView):
             qs = qs.filter(pref_label__icontains=self.q)
 
         return qs
+
+
+class PersonPartOfBomberAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Bomber.objects.all()
+
+        if self.q:
+            qs = qs.filter(id__icontains=self.q)
+
+        return qs
+
+
+class PersonRankAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        try:
+            selected_scheme = SkosConceptScheme.objects.get(
+                dc_title='dienstgrad'
+            )
+            qs = SkosConcept.objects.filter(scheme=selected_scheme)
+        except:
+            qs = SkosConcept.objects.all()
+
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
+
+        return qs
+
+
+class PersonDestinyStatedAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        try:
+            selected_scheme = SkosConceptScheme.objects.get(
+                dc_title='eintrag'
+            )
+            qs = SkosConcept.objects.filter(scheme=selected_scheme)
+        except:
+            qs = SkosConcept.objects.all()
+
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
+
+        return qs
+
+
+class PersonDestinyCheckedAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        try:
+            selected_scheme = SkosConceptScheme.objects.get(
+                dc_title='erg'
+            )
+            qs = SkosConcept.objects.filter(scheme=selected_scheme)
+        except:
+            qs = SkosConcept.objects.all()
+
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
+
+        return qs
+
+
+class PersonMIAAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        try:
+            selected_scheme = SkosConceptScheme.objects.get(
+                dc_title=''
+            )
+            qs = SkosConcept.objects.filter(scheme=selected_scheme)
+        except:
+            qs = SkosConcept.objects.all()
+
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
+
+        return qs

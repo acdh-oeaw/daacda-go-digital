@@ -41,4 +41,29 @@ urlpatterns = [
             model=SkosConcept, create_field='pref_label',),
         name='bomberreasonofcrash-autocomplete',
     ),
+    url(
+        r'^personpartofbomber-autocomplete/$', dal_views.PersonPartOfBomberAC.as_view(
+            model=Bomber, create_field='id',),
+        name='personpartofbomber-autocomplete',
+    ),
+    url(
+        r'^personrank-autocomplete/$', dal_views.PersonRankAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='personrank-autocomplete',
+    ),
+    url(
+        r'^persondestinystated-autocomplete/$', dal_views.PersonDestinyStatedAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='persondestinystated-autocomplete',
+    ),
+    url(
+        r'^persondestinychecked-autocomplete/$', dal_views.PersonDestinyCheckedAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='persondestinychecked-autocomplete',
+    ),
+    url(
+        r'^personmia-autocomplete/$', dal_views.PersonMIAAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='personmia-autocomplete',
+    ),
 ]
