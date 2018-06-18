@@ -189,3 +189,39 @@ class OnlineRessourceRelatedWarCrimeCasesAC(autocomplete.Select2QuerySetView):
             qs = qs.filter(signatur__icontains=self.q)
 
         return qs
+
+
+class PersonWarCrimeCaseRelatedPersonsAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Person.objects.all()
+
+        if self.q:
+            qs = qs.filter(written_name__icontains=self.q)
+
+        return qs
+
+
+class PersonWarCrimeCaseRelatedCasesAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = WarCrimeCase.objects.all()
+
+        if self.q:
+            qs = qs.filter(signatur__icontains=self.q)
+
+        return qs
+
+
+class PersonWarCrimeCaseRelationTypeAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        try:
+            selected_scheme = SkosConceptScheme.objects.get(
+                dc_title=''
+            )
+            qs = SkosConcept.objects.filter(scheme=selected_scheme)
+        except:
+            qs = SkosConcept.objects.all()
+
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
+
+        return qs

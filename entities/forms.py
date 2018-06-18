@@ -374,6 +374,14 @@ class PersonWarCrimeCaseForm(forms.ModelForm):
     class Meta:
         model = PersonWarCrimeCase
         fields = "__all__"
+        widgets = {
+            'related_persons': autocomplete.ModelSelect2(
+                url='entities-ac:personwarcrimecaserelatedpersons-autocomplete'),
+            'related_cases': autocomplete.ModelSelect2(
+                url='entities-ac:personwarcrimecaserelatedcases-autocomplete'),
+            'relation_type': autocomplete.ModelSelect2(
+                url='entities-ac:personwarcrimecaserelationtype-autocomplete'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(PersonWarCrimeCaseForm, self).__init__(*args, **kwargs)

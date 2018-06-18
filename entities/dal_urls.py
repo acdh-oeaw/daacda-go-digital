@@ -81,4 +81,19 @@ urlpatterns = [
             model=WarCrimeCase, create_field='signatur',),
         name='onlineressourcerelatedwarcrimecases-autocomplete',
     ),
+    url(
+        r'^personwarcrimecaserelatedpersons-autocomplete/$', dal_views.PersonWarCrimeCaseRelatedPersonsAC.as_view(
+            model=Person, create_field='written_name',),
+        name='personwarcrimecaserelatedpersons-autocomplete',
+    ),
+    url(
+        r'^personwarcrimecaserelatedcases-autocomplete/$', dal_views.PersonWarCrimeCaseRelatedCasesAC.as_view(
+            model=WarCrimeCase, create_field='signatur',),
+        name='personwarcrimecaserelatedcases-autocomplete',
+    ),
+    url(
+        r'^personwarcrimecaserelationtype-autocomplete/$', dal_views.PersonWarCrimeCaseRelationTypeAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='personwarcrimecaserelationtype-autocomplete',
+    ),
 ]
