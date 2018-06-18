@@ -159,3 +159,33 @@ class PersonMIAAC(autocomplete.Select2QuerySetView):
             qs = qs.filter(pref_label__icontains=self.q)
 
         return qs
+
+
+class OnlineRessourceRelatedPersonsAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Person.objects.all()
+
+        if self.q:
+            qs = qs.filter(written_name__icontains=self.q)
+
+        return qs
+
+
+class OnlineRessourceRelatedBombersAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Bomber.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
+
+class OnlineRessourceRelatedWarCrimeCasesAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = WarCrimeCase.objects.all()
+
+        if self.q:
+            qs = qs.filter(signatur__icontains=self.q)
+
+        return qs

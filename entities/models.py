@@ -207,23 +207,31 @@ class Place(IdProvider):
 
 class Institution(IdProvider):
     """Holds information about institution entities."""
-    written_name = models.CharField(max_length=300, blank=True, help_text="The name of the institution",)
+    written_name = models.CharField(
+        max_length=300, blank=True,
+        help_text="The name of the institution",
+        verbose_name="Written name"
+    )
     authority_url = models.CharField(max_length=300, blank=True)
     alt_names = models.ManyToManyField(
         AlternativeName,
         max_length=250, blank=True,
         help_text="Alternative names of the institution",
+        verbose_name="Alternative Name",
         related_name="altname_of_inst"
     )
     abbreviation = models.CharField(
-        max_length=300, blank=True, help_text="The abbreviation of the institution",)
+        max_length=300, blank=True,
+        help_text="The abbreviation of the institution",)
     location = models.ForeignKey(
-        Place, blank=True, null=True, on_delete=models.SET_NULL, help_text="The location of the institution",
+        Place, blank=True, null=True, on_delete=models.SET_NULL,
+        help_text="The location of the institution",
     )
     parent_institution = models.ForeignKey(
         'Institution', blank=True, null=True,
         related_name='children_institutions',
-        on_delete=models.SET_NULL, help_text="The institution the institution is part of",
+        on_delete=models.SET_NULL,
+        help_text="The institution the institution is part of",
     )
     comment = models.TextField(blank=True)
     related_urls = models.ManyToManyField(
@@ -268,7 +276,7 @@ class Institution(IdProvider):
 class Bomber(models.Model):
     """Holds information about bomber entities."""
     import_name = models.CharField(
-        max_length=250, blank=True, verbose_name="Flugzeugname",
+        max_length=250, blank=True, verbose_name="Flugzeug Name",
         help_text="The name of the bomber",
     )
     crew_name = models.CharField(
@@ -292,33 +300,44 @@ class Bomber(models.Model):
         help_text="The plane ID",
     )
     name = models.CharField(
-        max_length=250, blank=True, verbose_name="Flugzeugname", help_text="The name of the plane",)
+        max_length=250, blank=True,
+        verbose_name="Flugzeugname", help_text="The name of the plane",)
     squadron = models.ForeignKey(
         Institution, blank=True, null=True,
         related_name="has_bomber",
-        on_delete=models.SET_NULL, verbose_name="Squadron", help_text="The squadron the bomber belongs to",
+        on_delete=models.SET_NULL, verbose_name="Squadron",
+        help_text="The squadron the bomber belongs to",
     )
     date_of_crash = models.DateField(
-        blank=True, null=True, verbose_name="Datum Absturz", help_text="The date of the bomber's crash",
+        blank=True, null=True,
+        verbose_name="Datum Absturz",
+        help_text="The date of the bomber's crash",
     )
     reason_of_crash = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="is_crash_reason",
-        on_delete=models.SET_NULL, verbose_name="Absturzursache", help_text="The reason for the bomber's crash",
+        on_delete=models.SET_NULL,
+        verbose_name="Absturzursache",
+        help_text="The reason for the bomber's crash",
     )
     target_place = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_target_place",
-        on_delete=models.SET_NULL, verbose_name="Zielort", help_text="The place the bomber targeted",
+        on_delete=models.SET_NULL,
+        verbose_name="Zielort", help_text="The place the bomber targeted",
     )
     last_seen = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_last_seen",
-        on_delete=models.SET_NULL, verbose_name="Ort der letzten Sichtung", help_text="The place the bomber was last seen at",)
+        on_delete=models.SET_NULL,
+        verbose_name="Ort der letzten Sichtung",
+        help_text="The place the bomber was last seen at",)
     crash_place = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_crashplace",
-        on_delete=models.SET_NULL, verbose_name="Absturzort", help_text="The place where the bomber crashed",)
+        on_delete=models.SET_NULL,
+        verbose_name="Absturzort",
+        help_text="The place where the bomber crashed",)
     lat = models.DecimalField(
         max_digits=20, decimal_places=12, blank=True, null=True,
         verbose_name="Breitengrad", help_text="The latitude of the site",
@@ -327,7 +346,10 @@ class Bomber(models.Model):
         max_digits=20, decimal_places=12, blank=True, null=True,
         verbose_name="Längengrad", help_text="The longitude of the site"
     )
-    comment = models.TextField(blank=True, verbose_name="Kommentar", help_text="Space for a comment")
+    comment = models.TextField(
+        blank=True,
+        verbose_name="Kommentar",
+        help_text="Space for a comment")
     related_urls = models.ManyToManyField(
         OnlineRessource,
         max_length=250, blank=True,
@@ -462,7 +484,9 @@ class Person(IdProvider):
         blank=True, verbose_name="Comment", help_text="A comment"
     )
     detail = models.TextField(
-        blank=True, verbose_name="Detail", help_text="Further details concerning the person"
+        blank=True,
+        verbose_name="Detail",
+        help_text="Further details concerning the person"
     )
     related_urls = models.ManyToManyField(
         OnlineRessource,
@@ -559,7 +583,9 @@ class WarCrimeCase(IdProvider):
     )
     date_accuracy = models.CharField(
         default="Y", max_length=3, choices=DATE_ACCURACY,
-        blank=True, null=True, verbose_name="Date accuracy", help_text="An information stating whether the given date is accurate"
+        blank=True, null=True,
+        verbose_name="Date accuracy",
+        help_text="An information stating whether the given date is accurate"
     )
     related_urls = models.ManyToManyField(
         OnlineRessource,
@@ -590,7 +616,9 @@ class WarCrimeCase(IdProvider):
     )
     tried = models.CharField(
         blank=True, null=True,
-        max_length=250, choices=TRIED, help_text="An information stating whether this War Crime Case was tried or not"
+        max_length=250,
+        choices=TRIED,
+        help_text="An information stating whether this War Crime Case was tried or not"
     )
 
     @classmethod
@@ -635,7 +663,8 @@ class PersonWarCrimeCase(IdProvider):
         verbose_name="End date",
         help_text="The end date of this PersonWarCrimeCase relation"
     )
-    comment = models.TextField(blank=True, verbose_name="Comment", help_text="A comment",)
+    comment = models.TextField(
+        blank=True, verbose_name="Comment", help_text="A comment",)
     related_cases = models.ForeignKey(
         WarCrimeCase,
         max_length=250, blank=True, null=True,

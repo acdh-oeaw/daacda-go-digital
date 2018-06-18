@@ -66,4 +66,19 @@ urlpatterns = [
             model=SkosConcept, create_field='pref_label',),
         name='personmia-autocomplete',
     ),
+    url(
+        r'^onlineressourcerelatedpersons-autocomplete/$', dal_views.OnlineRessourceRelatedPersonsAC.as_view(
+            model=Person, create_field='written_name',),
+        name='onlineressourcerelatedpersons-autocomplete',
+    ),
+    url(
+        r'^onlineressourcerelatedbombers-autocomplete/$', dal_views.OnlineRessourceRelatedBombersAC.as_view(
+            model=Bomber, create_field='name',),
+        name='onlineressourcerelatedbombers-autocomplete',
+    ),
+    url(
+        r'^onlineressourcerelatedwarcrimecases-autocomplete/$', dal_views.OnlineRessourceRelatedWarCrimeCasesAC.as_view(
+            model=WarCrimeCase, create_field='signatur',),
+        name='onlineressourcerelatedwarcrimecases-autocomplete',
+    ),
 ]

@@ -84,7 +84,13 @@ class OnlineRessourceForm(forms.ModelForm):
         model = OnlineRessource
         fields = "__all__"
         widgets = {
-            'abstract': CKEditorUploadingWidget()
+            'abstract': CKEditorUploadingWidget(),
+            'related_persons': autocomplete.ModelSelect2Multiple(
+                url='entities-ac:onlineressourcerelatedpersons-autocomplete'),
+            'related_bombers': autocomplete.ModelSelect2(
+                url='entities-ac:onlineressourcerelatedbombers-autocomplete'),
+            'related_warcrimecases': autocomplete.ModelSelect2Multiple(
+                url='entities-ac:onlineressourcerelatedwarcrimecases-autocomplete'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -104,7 +110,8 @@ class PersonForm(forms.ModelForm):
         widgets = {
             'belongs_to_institution': autocomplete.ModelSelect2(
                 url='entities-ac:institution-autocomplete'),
-            'place_of_birth': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+            'place_of_birth': autocomplete.ModelSelect2(
+                url='entities-ac:place-autocomplete'),
             'alt_names': autocomplete.ModelSelect2Multiple(
                 url='entities-ac:altname-autocomplete'),
             'part_of_bomber': autocomplete.ModelSelect2(
@@ -157,13 +164,18 @@ class BomberForm(forms.ModelForm):
         model = Bomber
         fields = "__all__"
         widgets = {
-              'plane_type': autocomplete.ModelSelect2(url='entities-ac:bomberplanetype-autocomplete'),
-              'squadron': autocomplete.ModelSelect2(url='entities-ac:bombersquadron-autocomplete'),
+              'plane_type': autocomplete.ModelSelect2(
+                url='entities-ac:bomberplanetype-autocomplete'),
+              'squadron': autocomplete.ModelSelect2(
+                url='entities-ac:bombersquadron-autocomplete'),
               'reason_of_crash': autocomplete.ModelSelect2(
-                  url='entities-ac:bomberreasonofcrash-autocomplete'),
-              'target_place': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
-              'last_seen': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
-              'crash_place': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+                url='entities-ac:bomberreasonofcrash-autocomplete'),
+              'target_place': autocomplete.ModelSelect2(
+                url='entities-ac:place-autocomplete'),
+              'last_seen': autocomplete.ModelSelect2(
+                url='entities-ac:place-autocomplete'),
+              'crash_place': autocomplete.ModelSelect2(
+                url='entities-ac:place-autocomplete'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -232,7 +244,8 @@ class InstitutionForm(forms.ModelForm):
         model = Institution
         fields = "__all__"
         widgets = {
-            'location': autocomplete.ModelSelect2(url='entities-ac:place-autocomplete'),
+            'location': autocomplete.ModelSelect2(
+                url='entities-ac:place-autocomplete'),
             'parent_institution': autocomplete.ModelSelect2(
                 url='entities-ac:institution-autocomplete'),
             'alt_names': autocomplete.ModelSelect2Multiple(
