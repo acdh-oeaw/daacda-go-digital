@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^bib/', include('bib.urls', namespace='bib')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^detentions/', include('detentions.urls', namespace='detentions')),
+    url(r'^detentions-ac/', include('detentions.dal_urls', namespace='detentions-ac')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]
 

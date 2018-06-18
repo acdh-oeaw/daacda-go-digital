@@ -1,4 +1,5 @@
 from django import forms
+from dal import autocomplete
 from .models import PrisonStation, PersonPrison
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
@@ -9,6 +10,16 @@ class PrisonStationForm(forms.ModelForm):
     class Meta:
         model = PrisonStation
         fields = "__all__"
+        widgets = {
+            'alt_name': autocomplete.ModelSelect2(
+                url='detentions-ac:prisonstationaltname-autocomplete'),
+            'located_in_place': autocomplete.ModelSelect2(
+                url='detentions-ac:prisonstationlocatedinplace-autocomplete'),
+            'part_of': autocomplete.ModelSelect2(
+                url='detentions-ac:prisonstationpartof-autocomplete'),
+            'station_type': autocomplete.ModelSelect2(
+                url='detentions-ac:prisonstationstationtype-autocomplete'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(PrisonStationForm, self).__init__(*args, **kwargs)
