@@ -96,4 +96,24 @@ urlpatterns = [
             model=SkosConcept, create_field='pref_label',),
         name='personwarcrimecaserelationtype-autocomplete',
     ),
+    url(
+        r'^warcrimecaserelatedpersons-autocomplete/$', dal_views.WarCrimeCaseRelatedPersonsAC.as_view(
+            model=Person, create_field='written_name',),
+        name='warcrimecaserelatedpersons-autocomplete',
+    ),
+    url(
+        r'^warcrimecaserelatedcases-autocomplete/$', dal_views.WarCrimeCaseRelatedCasesAC.as_view(
+            model=WarCrimeCase, create_field='signatur',),
+        name='warcrimecaserelatedcases-autocomplete',
+    ),
+    url(
+        r'^warcrimecaserelatedplaces-autocomplete/$', dal_views.WarCrimeCaseRelatedPlacesAC.as_view(
+            model=Place, create_field='name',),
+        name='warcrimecaserelatedplaces-autocomplete',
+    ),
+    url(
+        r'^warcrimecasecrimetype-autocomplete/$', dal_views.WarCrimeCaseCrimeTypeAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='warcrimecasecrimetype-autocomplete',
+    ),
 ]

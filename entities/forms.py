@@ -66,7 +66,15 @@ class WarCrimeCaseForm(forms.ModelForm):
         model = WarCrimeCase
         fields = "__all__"
         widgets = {
-            'abstract': CKEditorUploadingWidget()
+            'abstract': CKEditorUploadingWidget(),
+            'related_persons': autocomplete.ModelSelect2Multiple(
+                url='entities-ac:warcrimecaserelatedpersons-autocomplete'),
+            'related_cases': autocomplete.ModelSelect2Multiple(
+                url='entities-ac:warcrimecaserelatedcases-autocomplete'),
+            'related_places': autocomplete.ModelSelect2Multiple(
+                url='entities-ac:warcrimecaserelatedplaces-autocomplete'),
+            'type_of_crime': autocomplete.ModelSelect2(
+                url='entities-ac:warcrimecasecrimetype-autocomplete'),
         }
 
     def __init__(self, *args, **kwargs):
