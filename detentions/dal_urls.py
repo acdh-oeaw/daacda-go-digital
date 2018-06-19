@@ -7,8 +7,8 @@ app_name = 'vocabs'
 
 urlpatterns = [
     url(
-        r'^prisonstationaltname-autocomplete/$', dal_views.PrisonStationAltNameAC.as_view(
-            model=AlternativeName, create_field='name',),
+        r'^prisonstationaltname-autocomplete/$',
+        dal_views.PrisonStationAltNameAC.as_view(model=AlternativeName, create_field='name',),
         name='prisonstationaltname-autocomplete',
     ),
     url(
@@ -25,5 +25,20 @@ urlpatterns = [
         r'^prisonstationstationtype-autocomplete/$', dal_views.PrisonStationStationTypeAC.as_view(
             model=SkosConcept, create_field='pref_label',),
         name='prisonstationstationtype-autocomplete',
+    ),
+    url(
+        r'^personprisonrelationtype-autocomplete/$', dal_views.PersonPrisonRelationTypeAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='personprisonrelationtype-autocomplete',
+    ),
+    url(
+        r'^personprisonrelatedpersons-autocomplete/$', dal_views.PersonPrisonRelatedPersonsAC.as_view(
+            model=Person, create_field='written_name',),
+        name='personprisonrelatedpersons-autocomplete',
+    ),
+    url(
+        r'^personprisonrelatedprisonstation-autocomplete/$', dal_views.PersonPrisonRelatedPrisonStationAC.as_view(
+            model=PrisonStation, create_field='name',),
+        name='personprisonrelatedprisonstation-autocomplete',
     ),
 ]

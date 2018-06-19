@@ -63,6 +63,14 @@ class PersonPrisonForm(forms.ModelForm):
     class Meta:
         model = PersonPrison
         fields = "__all__"
+        widgets = {
+            'relation_type': autocomplete.ModelSelect2(
+                url='detentions-ac:personprisonrelationtype-autocomplete'),
+            'related_person': autocomplete.ModelSelect2(
+                url='detentions-ac:personprisonrelatedpersons-autocomplete'),
+            'related_prisonstation': autocomplete.ModelSelect2(
+                url='detentions-ac:personprisonrelatedprisonstation-autocomplete'),
+            }
 
     def __init__(self, *args, **kwargs):
         super(PersonPrisonForm, self).__init__(*args, **kwargs)
