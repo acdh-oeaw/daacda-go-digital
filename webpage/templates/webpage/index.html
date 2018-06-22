@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load stats_extras %}
 {% load webpage_extras %}
+{% load news_extras %}
 {% block content %}
     <div class="container text-center">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -32,6 +33,7 @@
         <h1 style="text-align:center">{% projects_metadata 'title' %}</h1>
         <h3>{% projects_metadata 'subtitle' %}</h3>
         <p>{% projects_metadata 'description' %}</p>
+        {% newsfeed_bootstrap_panel %}<br>
         <div>
             <h3>Data-Count</h3>
             {% create_object_count app='entities' as models %}

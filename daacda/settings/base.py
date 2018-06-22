@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'arche',
     'charts',
     'detentions',
+    'news',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
