@@ -60,14 +60,6 @@ include 'autocomplete_light/static.html
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>
-                            {% get_verbose_name bomber "import_name" %}
-                        </th>
-                        <td>
-                            {{ object.import_name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {% get_verbose_name bomber "macr_nr" %}
                         </th>
                         <td>
@@ -132,14 +124,6 @@ include 'autocomplete_light/static.html
                     </tr>
                     <tr>
                         <th>
-                           {% get_verbose_name bomber "last_seen" %}
-                        </th>
-                        <td>
-                            {{ object.last_seen }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                            {% get_verbose_name bomber "crash_place" %}
                         </th>
                         <td>
@@ -148,26 +132,50 @@ include 'autocomplete_light/static.html
                     </tr>
                     <tr>
                         <th>
-                           {% get_verbose_name bomber "lat" %}
-                        </th>
-                        <td>
-                            {{ object.lat }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "lng" %}
-                        </th>
-                        <td>
-                            {{ object.lng }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                            {% get_verbose_name bomber "comment" %}
                         </th>
                         <td>
                             {{ object.comment }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "sicht_koord" %}
+                        </th>
+                        <td>
+                            {{ object.sicht_koord }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "sicht_ort" %}
+                        </th>
+                        <td>
+                            {{ object.sicht_ort }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "sicht_land" %}
+                        </th>
+                        <td>
+                            {{ object.sicht_land }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "uhrzeit" %}
+                        </th>
+                        <td>
+                            {{ object.uhrzeit }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "uhrzeit_absturz" %}
+                        </th>
+                        <td>
+                            {{ object.uhrzeit_absturz }}
                         </td>
                     </tr>
                 </table>
