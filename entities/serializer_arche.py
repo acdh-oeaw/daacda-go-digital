@@ -93,8 +93,11 @@ def person_to_arche(items):
                     g.add((subject, ARCHE.hasAlternativeTitle, Literal(x.name)))
         if obj.forename:
             g.add((subject, ARCHE.hasFirstName, Literal(obj.forename)))
-        if obj.acad_title and obj.acad_title != 'nan':
-            g.add((subject, ARCHE.hasPersonalTitle, Literal(obj.acad_title)))
+        try:
+            if obj.acad_title and obj.acad_title != 'nan':
+                g.add((subject, ARCHE.hasPersonalTitle, Literal(obj.acad_title)))
+        except AttributeError:
+            pass
         if obj.belongs_to_institution:
             inst = arche_ids(obj.belongs_to_institution, 'institution', id_prop='authority_url')
             inst_g = inst_to_arche([obj.belongs_to_institution])
