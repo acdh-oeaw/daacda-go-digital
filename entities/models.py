@@ -275,10 +275,6 @@ class Institution(IdProvider):
 
 class Bomber(models.Model):
     """Holds information about bomber entities."""
-    import_name = models.CharField(
-        max_length=250, blank=True, verbose_name="Flugzeug Name",
-        help_text="The name of the bomber",
-    )
     crew_name = models.CharField(
         max_length=250, blank=True,
         verbose_name="Crewname (Pilot)",
@@ -326,26 +322,12 @@ class Bomber(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Zielort", help_text="The place the bomber targeted",
     )
-    last_seen = models.ForeignKey(
-        Place, blank=True, null=True,
-        related_name="is_last_seen",
-        on_delete=models.SET_NULL,
-        verbose_name="Ort der letzten Sichtung",
-        help_text="The place the bomber was last seen at",)
     crash_place = models.ForeignKey(
         Place, blank=True, null=True,
         related_name="is_crashplace",
         on_delete=models.SET_NULL,
         verbose_name="Absturzort",
         help_text="The place where the bomber crashed",)
-    lat = models.DecimalField(
-        max_digits=20, decimal_places=12, blank=True, null=True,
-        verbose_name="Breitengrad", help_text="The latitude of the site",
-    )
-    lng = models.DecimalField(
-        max_digits=20, decimal_places=12, blank=True, null=True,
-        verbose_name="Längengrad", help_text="The longitude of the site"
-    )
     comment = models.TextField(
         blank=True,
         verbose_name="Kommentar",
@@ -394,6 +376,21 @@ class Bomber(models.Model):
     @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_bombers')
+
+    def get_absolute_url(self):
+        return reverse('entities:bomber_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = Bomber.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = Bomber.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
 
 
 class Person(IdProvider):
@@ -449,13 +446,6 @@ class Person(IdProvider):
         related_name="is_mia",
         on_delete=models.SET_NULL, verbose_name="Schicksal genau",
         help_text="The person's MIA status"
-    )
-    position = models.ForeignKey(
-        SkosConcept, blank=True, null=True,
-        verbose_name="Position",
-
-        related_name="is_position",
-        on_delete=models.SET_NULL
     )
     alt_names = models.ManyToManyField(
         AlternativeName,

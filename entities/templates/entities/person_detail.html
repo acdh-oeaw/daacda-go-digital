@@ -60,6 +60,54 @@ include 'autocomplete_light/static.html
                 <table class="table table-bordered table-hover">
                   <tr>
                       <th>
+                          {% get_verbose_name person "function_in_plane" %}
+                      </th>
+                      <td>
+                          {{ object.function_in_plane }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>
+                          {% get_verbose_name person "forename" %}
+                      </th>
+                      <td>
+                          {{ object.forename }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>
+                          {% get_verbose_name person "middle_name" %}
+                      </th>
+                      <td>
+                          {{ object.middle_name }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>
+                          {% get_verbose_name person "name" %}
+                      </th>
+                      <td>
+                          {{ object.name }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>
+                          {% get_verbose_name person "written_name" %}
+                      </th>
+                      <td>
+                          {{ object.written_name }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>
+                          {% get_verbose_name person "rank" %}
+                      </th>
+                      <td>
+                        {{ object.rank }}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>
                           {% get_verbose_name person "dog_tag" %}
                       </th>
                       <td>
@@ -68,42 +116,10 @@ include 'autocomplete_light/static.html
                   </tr>
                     <tr>
                         <th>
-                            {% get_verbose_name person "written_name" %}
-                        </th>
-                        <td>
-                            {{ object.written_name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "forename" %}
-                        </th>
-                        <td>
-                            {{ object.forename }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "name" %}
-                        </th>
-                        <td>
-                            {{ object.name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "rank" %}
-                        </th>
-                        <td>
-                          {{ object.rank }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {% get_verbose_name person "part_of_bomber" %}
                         </th>
                         <td>
-                            {{ object.part_of_bomber }}
+                            <a href="{{ object.part_of_bomber.get_absolute_url }}">{{ object.part_of_bomber }}</a>
                         </td>
                     </tr>
                     <tr>
@@ -112,6 +128,14 @@ include 'autocomplete_light/static.html
                         </th>
                         <td>
                             {{ object.destiny_stated }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name person "detail" %}
+                        </th>
+                        <td>
+                            {{ object.detail }}
                         </td>
                     </tr>
                     <tr>
@@ -129,16 +153,6 @@ include 'autocomplete_light/static.html
                         </th>
                         <td>
                             {{ object.mia }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.position %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "position" %}
-                        </th>
-                        <td>
-                            {{ object.position }}
                         </td>
                     </tr>
                     {% endif %}

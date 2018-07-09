@@ -11,7 +11,6 @@ class BomberAdmin(admin.ModelAdmin):
         'macr_nr',
         'plane_type',
         'target_place',
-        'last_seen',
         'crash_place',
         'reason_of_crash',
     )
