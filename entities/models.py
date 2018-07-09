@@ -654,27 +654,34 @@ class PersonWarCrimeCase(IdProvider):
         help_text="The end date of this PersonWarCrimeCase relation"
     )
     comment = models.TextField(
-        blank=True, verbose_name="Comment", help_text="A comment",)
-    related_cases = models.ForeignKey(
+        blank=True, verbose_name="Comment", help_text="A comment"
+    )
+    related_case = models.ForeignKey(
         WarCrimeCase,
         max_length=250, blank=True, null=True,
-        verbose_name="Related cases",
-        help_text="Cases related to this PersonWarCrimeCase relation",
-        related_name="has_related_cases_2",
+        verbose_name="Case",
+        help_text="Case related to this PersonWarCrimeCase relation",
+        related_name="related_to_person",
         on_delete=models.SET_NULL
     )
-    related_persons = models.ForeignKey(
+    related_person = models.ForeignKey(
         Person,
         max_length=250, blank=True,
         verbose_name="Persons mentioned in abstract",
-        help_text="Persons related to this PersonWarCrimeCase relation",
-        related_name="has_related_persons_2", null=True,
+        help_text="Person related to this PersonWarCrimeCase relation",
+        related_name="has_related_warcase", null=True,
         on_delete=models.SET_NULL
     )
     relation_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
         related_name="relation_type_of",
         on_delete=models.SET_NULL, verbose_name="Type of relation",
+        help_text="The type of this PersonWarCrimeCase relation"
+    )
+    relation_by_crime = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        related_name="relation_by_crime",
+        on_delete=models.SET_NULL, verbose_name="Art Verbrechen",
         help_text="The type of this PersonWarCrimeCase relation"
     )
 

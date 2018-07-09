@@ -57,6 +57,12 @@ include 'autocomplete_light/static.html
                 <legend>About</legend>
                 <table class="table table-bordered table-hover">
                 <tr>
+                    <th>{% get_verbose_name personwarcrimecase "legacy_id" %}</th>
+                    <td>
+                      {{ object.legacy_id }}
+                    </td>
+                </tr>
+                <tr>
                     <th>{% get_verbose_name personwarcrimecase "start_date" %}</th>
                     <td>
                       {{ object.start_date }}
@@ -75,15 +81,15 @@ include 'autocomplete_light/static.html
                     </td>
                 </tr>
                 <tr>
-                    <th>{% get_verbose_name personwarcrimecase "related_cases" %}</th>
+                    <th>{% get_verbose_name personwarcrimecase "related_case" %}</th>
                     <td>
-                      <a href="{{ object.related_cases.get_absolute_url }}">{{ object.related_cases }}</a>
+                      <a href="{{ object.related_case.get_absolute_url }}">{{ object.related_case }}</a>
                     </td>
                 </tr>
                 <tr>
-                    <th>{% get_verbose_name personwarcrimecase "related_persons" %}</th>
+                    <th>{% get_verbose_name personwarcrimecase "related_person" %}</th>
                     <td>
-                      <a href="{{ object.related_persons.get_absolute_url }}">{{ object.related_persons }}
+                      <a href="{{ object.related_person.get_absolute_url }}">{{ object.related_person }}
                     </td>
                 </tr>
                 <tr>

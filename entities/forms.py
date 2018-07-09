@@ -25,7 +25,6 @@ class PersonFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'acad_title',
                     'alt_names',
                     'authority_url',
                     'belongs_to_institution',
@@ -51,7 +50,6 @@ class OnlineRessourceFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'acad_title',
                     'alt_names',
                     'authority_url',
                     'belongs_to_institution',
