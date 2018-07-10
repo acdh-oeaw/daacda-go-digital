@@ -56,7 +56,7 @@ include 'autocomplete_light/static.html
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <legend>About</legend>
+                <legend>Angaben zur Person</legend>
                 <table class="table table-bordered table-hover">
                   <tr>
                       <th>
@@ -74,6 +74,7 @@ include 'autocomplete_light/static.html
                           {{ object.forename }}
                       </td>
                   </tr>
+                  {% if object.middle_name.all %}
                   <tr>
                       <th>
                           {% get_verbose_name person "middle_name" %}
@@ -82,6 +83,7 @@ include 'autocomplete_light/static.html
                           {{ object.middle_name }}
                       </td>
                   </tr>
+                  {% endif %}
                   <tr>
                       <th>
                           {% get_verbose_name person "name" %}
@@ -130,6 +132,7 @@ include 'autocomplete_light/static.html
                             {{ object.destiny_stated }}
                         </td>
                     </tr>
+                    {% if object.detail != '0' %}
                     <tr>
                         <th>
                             {% get_verbose_name person "detail" %}
@@ -138,6 +141,7 @@ include 'autocomplete_light/static.html
                             {{ object.detail }}
                         </td>
                     </tr>
+                    {% endif %}
                     <tr>
                         <th>
                             {% get_verbose_name person "destiny_checked" %}
@@ -166,6 +170,7 @@ include 'autocomplete_light/static.html
                         </td>
                     </tr>
                     {% endif %}
+                    {% if object.place_of_birth.all %}
                     <tr>
                         <th>
                             {% get_verbose_name person "place_of_birth" %}
@@ -174,6 +179,7 @@ include 'autocomplete_light/static.html
                             <a href="{{ object.place_of_birth.get_absolute_url }}">{{ object.place_of_birth }}</a>
                         </td>
                     </tr>
+                    {% endif %}
                     {% if object.date_of_birth %}
                     <tr>
                         <th>
@@ -184,6 +190,7 @@ include 'autocomplete_light/static.html
                         </td>
                     </tr>
                     {% endif %}
+                    {% if object.comment %}
                     <tr>
                         <th>
                             {% get_verbose_name person "comment" %}
@@ -192,7 +199,8 @@ include 'autocomplete_light/static.html
                             {{ object.comment }}
                         </td>
                     </tr>
-                    {% if object.related_urls %}
+                    {% endif %}
+                    {% if object.related_urls.all %}
                     <tr>
                         <th>
                             {% get_verbose_name person "related_urls" %}
