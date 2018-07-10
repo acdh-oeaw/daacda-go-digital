@@ -111,7 +111,7 @@ include 'autocomplete_light/static.html
                            {% get_verbose_name bomber "target_place" %}
                         </th>
                         <td>
-                           {{ object.target_place }}
+                           <a href="{{ object.target_place.get_absolute_url }}">{{ object.target_place }}</a>
                         </td>
                     </tr>
                     <tr>
@@ -151,7 +151,7 @@ include 'autocomplete_light/static.html
                            {% get_verbose_name bomber "crash_place" %}
                         </th>
                         <td>
-                          <a href="{% url 'entities:place_detail' pk=object.id %}">{{ object.crash_place }}</a>
+                          <a href="{{ object.crash_place.get_absolute_url }}">{{ object.crash_place }}</a>
                         </td>
                     </tr>
                     <tr>
@@ -172,6 +172,7 @@ include 'autocomplete_light/static.html
                         </td>
                     </tr>
                     {% endif %}
+                    {% if object.uhrzeit_absturz %}
                     <tr>
                         <th>
                            {% get_verbose_name bomber "uhrzeit_absturz" %}
@@ -180,6 +181,7 @@ include 'autocomplete_light/static.html
                             {{ object.uhrzeit_absturz }}
                         </td>
                     </tr>
+                    {% endif %}
                     {% if object.comment %}
                     <tr>
                         <th>
