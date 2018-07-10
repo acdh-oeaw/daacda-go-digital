@@ -56,14 +56,22 @@ include 'autocomplete_light/static.html
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <legend>About</legend>
+                <legend>Über den Bomber</legend>
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>
                             {% get_verbose_name bomber "macr_nr" %}
                         </th>
                         <td>
-                            {{ object.macr_nr }}
+                              {{ object.macr_nr }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "squadron" %}
+                        </th>
+                        <td>
+                            {{ object.squadron }}
                         </td>
                     </tr>
                     <tr>
@@ -92,26 +100,10 @@ include 'autocomplete_light/static.html
                     </tr>
                     <tr>
                         <th>
-                           {% get_verbose_name bomber "squadron" %}
+                            {% get_verbose_name bomber "crew_name" %}
                         </th>
                         <td>
-                            {{ object.squadron }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "date_of_crash" %}
-                        </th>
-                        <td>
-                            {{ object.date_of_crash }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "reason_of_crash" %}
-                        </th>
-                        <td>
-                            {{ object.reason_of_crash }}
+                            {{ object.crew_name }}
                         </td>
                     </tr>
                     <tr>
@@ -119,23 +111,7 @@ include 'autocomplete_light/static.html
                            {% get_verbose_name bomber "target_place" %}
                         </th>
                         <td>
-                            {{ object.target_place }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "crash_place" %}
-                        </th>
-                        <td>
-                            {{ object.crash_place }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "comment" %}
-                        </th>
-                        <td>
-                            {{ object.comment }}
+                           {{ object.target_place }}
                         </td>
                     </tr>
                     <tr>
@@ -164,12 +140,38 @@ include 'autocomplete_light/static.html
                     </tr>
                     <tr>
                         <th>
+                           {% get_verbose_name bomber "date_of_crash" %}
+                        </th>
+                        <td>
+                            {{ object.date_of_crash }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "crash_place" %}
+                        </th>
+                        <td>
+                          <a href="{% url 'entities:place_detail' pk=object.id %}">{{ object.crash_place }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "reason_of_crash" %}
+                        </th>
+                        <td>
+                            {{ object.reason_of_crash }}
+                        </td>
+                    </tr>
+                    {% if object.uhrzeit %}
+                    <tr>
+                        <th>
                            {% get_verbose_name bomber "uhrzeit" %}
                         </th>
                         <td>
                             {{ object.uhrzeit }}
                         </td>
                     </tr>
+                    {% endif %}
                     <tr>
                         <th>
                            {% get_verbose_name bomber "uhrzeit_absturz" %}
@@ -178,6 +180,16 @@ include 'autocomplete_light/static.html
                             {{ object.uhrzeit_absturz }}
                         </td>
                     </tr>
+                    {% if object.comment %}
+                    <tr>
+                        <th>
+                           {% get_verbose_name bomber "comment" %}
+                        </th>
+                        <td>
+                            {{ object.comment }}
+                        </td>
+                    </tr>
+                    {% endif %}
                 </table>
                 {% if user.is_authenticated %}
                     <a class="btn btn-danger" href="{% url 'entities:bomber_delete' pk=object.id %}">delete</a>
