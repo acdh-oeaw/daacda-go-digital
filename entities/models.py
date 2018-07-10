@@ -1,6 +1,8 @@
 import re
 from django.db import models
 from django.urls import reverse
+from django.contrib.contenttypes.models import ContentType
+
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from idprovider.models import IdProvider
@@ -512,6 +514,11 @@ class Person(IdProvider):
 
     def get_absolute_url(self):
         return reverse('entities:person_detail', kwargs={'pk': self.id})
+
+    def get_prisonstations(self):
+        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        prisons = ct.objects.filter(related_person=self)
+        return prisons
 
     def get_next(self):
         next = Person.objects.filter(id__gt=self.id)

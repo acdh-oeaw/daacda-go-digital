@@ -239,7 +239,16 @@ include 'autocomplete_light/static.html
                     <a class="btn btn-danger" href="{% url 'entities:person_delete' pk=object.id %}">delete</a>
                 {% endif %}
             </div>
-
+            <div class="col-md-6">
+                <legend>
+                    Prison Stations
+                </legend>
+                {% for x in object.get_prisonstations %}
+                    <li>
+                        <a href="{{ x.related_prisonstation.get_absolute_url }}">{{ x.related_prisonstation }}</a>
+                    </li>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

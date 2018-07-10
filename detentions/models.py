@@ -1,8 +1,10 @@
 from django.db import models
+from django.urls import reverse
+from django.contrib.contenttypes.models import ContentType
+
 from idprovider.models import IdProvider
 from entities.models import Place, AlternativeName, Person
 from vocabs.models import SkosConcept
-from django.urls import reverse
 
 
 class PrisonStation(IdProvider):
@@ -62,6 +64,11 @@ class PrisonStation(IdProvider):
         return reverse(
             'detentions:prisonstation_detail', kwargs={'pk': self.id}
         )
+
+    def get_persons(self):
+        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        items = ct.objects.filter(related_prisonstation=self)
+        return items
 
     @classmethod
     def get_listview_url(self):
@@ -128,7 +135,6 @@ class PersonPrison(IdProvider):
             )
         else:
             return "{}".format(self.id)
-
 
     @classmethod
     def get_listview_url(self):
