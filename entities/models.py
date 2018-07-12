@@ -565,6 +565,11 @@ class Person(IdProvider):
         prisons = ct.objects.filter(related_person=self)
         return prisons
 
+    def get_warcrimecases(self):
+        ct = ContentType.objects.get(model='PersonWarCrimeCase').model_class()
+        warcrimecases = ct.objects.filter(related_person=self)
+        return warcrimecases
+
     def get_next(self):
         next = Person.objects.filter(id__gt=self.id)
         if next:
@@ -685,6 +690,11 @@ class WarCrimeCase(IdProvider):
         if prev:
             return prev.first().id
         return False
+
+    def get_persons(self):
+        ct = ContentType.objects.get(model='PersonWarCrimeCase').model_class()
+        items = ct.objects.filter(related_case=self)
+        return items
 
     def __str__(self):
         if self.signatur:

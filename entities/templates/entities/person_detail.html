@@ -249,6 +249,16 @@ include 'autocomplete_light/static.html
                     </li>
                 {% endfor %}
             </div>
+            <div class="col-md-6">
+                <legend>
+                    Warcrimes
+                </legend>
+                {% for x in object.get_warcrimecases %}
+                    <li>
+                        <a href="{{ x.related_case.get_absolute_url }}">{{ x.related_case }}</a>
+                    </li>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

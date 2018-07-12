@@ -52,7 +52,7 @@ include 'autocomplete_light/static.html
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <legend>Über den War Crime Case</legend>
+                <legend>About War Crime Case</legend>
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>
@@ -119,6 +119,41 @@ include 'autocomplete_light/static.html
                         </td>
                     </tr>
                 </table>
+                <legend>
+            Related Persons
+        </legend>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    Person
+                </th>
+                <th>
+                    role
+                </th>
+                <th>
+                    start date
+                </th>
+                <th>
+                    end date
+                </th>
+            </tr>
+            {% for x in object.get_persons %}
+                <tr>
+                    <td>
+                        <a href="{{ x.related_person.get_absolute_url}}">{{ x.related_person }}</a>
+                    </td>
+                    <td>
+                        {{ x.relation_type }}
+                    </td>
+                    <td>
+                        {{ x.start_date }}
+                    </td>
+                    <td>
+                        {{ x.end_date }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
                 {% if user.is_authenticated %}
                     <a class="btn btn-danger" href="{% url 'entities:warcrimecase_delete' pk=object.id %}">delete</a>
                 {% endif %}
