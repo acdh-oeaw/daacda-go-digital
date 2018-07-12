@@ -98,6 +98,11 @@ class GenericListView(SingleTableView):
             context['dl_csv_link'] = None
 
         model_name = self.model.__name__.lower()
+        context['conf_items'] = list(
+            BrowsConf.objects.filter(model_name=model_name)
+            .values_list('field_path', 'label')
+        )
+
         context['entity'] = model_name
         print(context['entity'])
         context['vis_list'] = ChartConfig.objects.filter(model_name=model_name)
@@ -116,18 +121,14 @@ class GenericListView(SingleTableView):
         return context
 
     def render_to_response(self, context, **kwargs):
-        download = self.request.GET.get('export-as-csv', None)
+        download = self.request.GET.get('sep', None)
         if download:
             sep = self.request.GET.get('sep', ',')
             timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
             filename = "export_{}".format(timestamp)
             response = HttpResponse(content_type='text/csv')
-            model_name = self.model.__name__.lower()
-            conf_items = list(
-                BrowsConf.objects.filter(model_name=model_name)
-                .values_list('field_path', 'label')
-            )
-            if conf_items:
+            if context['conf_items']:
+                conf_items = context['conf_items']
                 try:
                     df = pd.DataFrame(
                         list(
