@@ -33,7 +33,7 @@ include 'autocomplete_light/static.html
                 </div>
                 <div class="col-md-8">
                     <h1 style="text-align: center;">
-                        <small>person prison:</small> {{ object.name }}
+                        <small>PersonPrison:</small> {{ object.legacy_id }}
                         {% if user.is_authenticated %}
                         <small><a href="{% url 'detentions:personprison_edit' pk=object.id %}">
                             <i class="far fa-edit" title="edit"></i>
