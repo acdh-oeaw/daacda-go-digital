@@ -5,6 +5,10 @@ from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
 from django_tables2 import SingleTableView, RequestConfig
 
 
+from charts.models import ChartConfig
+from charts.views import create_payload
+
+
 def serialize(modelclass):
     """ returns the field values of a model as list """
     fields = modelclass._meta.get_fields()
@@ -87,6 +91,23 @@ class GenericListView(SingleTableView):
             context['dl_csv_link'] = self.model.dl_csv_link()
         except AttributeError:
             context['dl_csv_link'] = None
+
+        model_name = self.model.__name__.lower()
+        context['entity'] = model_name
+        print(context['entity'])
+        context['vis_list'] = ChartConfig.objects.filter(model_name=model_name)
+        context['property_name'] = self.request.GET.get('property')
+        context['charttype'] = self.request.GET.get('charttype')
+        if context['charttype'] and context['property_name']:
+            qs = self.get_queryset()
+            chartdata = create_payload(
+                context['entity'],
+                context['property_name'],
+                context['charttype'],
+                qs
+            )
+            context = dict(context, **chartdata)
+            print(chartdata)
         return context
 
 

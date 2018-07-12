@@ -12,7 +12,16 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
-from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase
+from .models import (
+    Place,
+    AlternativeName,
+    Institution,
+    Person,
+    Bomber,
+    WarCrimeCase,
+    OnlineRessource,
+    PersonWarCrimeCase
+)
 from .forms import *
 from .serializer_arche import *
 from .tables import (
