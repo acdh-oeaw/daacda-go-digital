@@ -1,5 +1,10 @@
+import datetime
+import time
+import pandas as pd
 import django_filters
+from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView
+from browsing.models import BrowsConf
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
 from django_tables2 import SingleTableView, RequestConfig
@@ -109,6 +114,46 @@ class GenericListView(SingleTableView):
             context = dict(context, **chartdata)
             print(chartdata)
         return context
+
+    def render_to_response(self, context, **kwargs):
+        download = self.request.GET.get('export-as-csv', None)
+        if download:
+            sep = self.request.GET.get('sep', ',')
+            timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
+            filename = "export_{}".format(timestamp)
+            response = HttpResponse(content_type='text/csv')
+            model_name = self.model.__name__.lower()
+            conf_items = list(
+                BrowsConf.objects.filter(model_name=model_name)
+                .values_list('field_path', 'label')
+            )
+            if conf_items:
+                try:
+                    df = pd.DataFrame(
+                        list(
+                            self.model.objects.all().values_list(*[x[0] for x in conf_items])
+                        ),
+                        columns=[x[1] for x in conf_items]
+                    )
+                except AssertionError:
+                    response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(filename)
+                    return response
+            else:
+                response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(filename)
+                return response
+            if sep == "comma":
+                df.to_csv(response, sep=',', index=False)
+            elif sep == "semicolon":
+                df.to_csv(response, sep=';', index=False)
+            elif sep == "tab":
+                df.to_csv(response, sep='\t', index=False)
+            else:
+                df.to_csv(response, sep=',', index=False)
+            response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(filename)
+            return response
+        else:
+            response = super(GenericListView, self).render_to_response(context)
+            return response
 
 
 class BaseCreateView(CreateView):
