@@ -143,7 +143,7 @@ class PersonPrisonUpdate(BaseUpdateView):
 class PersonPrisonDelete(DeleteView):
     model = PersonPrison
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('detentions:browse_personprison')
+    success_url = reverse_lazy('detentions:browse_personprisons')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

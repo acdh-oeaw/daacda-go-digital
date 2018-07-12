@@ -371,6 +371,10 @@ class Bomber(models.Model):
         verbose_name="Anmerkung (Spalte Y)",
         help_text="A comment"
     )
+    bomber_person = models.ManyToManyField(
+        "Person", blank=True, related_name="inside_bomber",
+        verbose_name="Bomberinsasse"
+    )
 
     def __str__(self):
         return "{}".format(self.macr_nr)
@@ -666,7 +670,7 @@ class PersonWarCrimeCase(IdProvider):
     related_case = models.ForeignKey(
         WarCrimeCase,
         max_length=250, blank=True, null=True,
-        verbose_name="Case",
+        verbose_name="Related case",
         help_text="Case related to this PersonWarCrimeCase relation",
         related_name="related_to_person",
         on_delete=models.SET_NULL

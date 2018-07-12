@@ -90,7 +90,7 @@ class BomberTable(tables.Table):
 
     class Meta:
         model = Bomber
-        sequence = ('id', 'macr_nr', 'squadron', 'date_of_crash', 'crash_place')
+        sequence = ('id', 'macr_nr', 'squadron', 'date_of_crash', 'crash_place',)
         attrs = {"class": "table table-responsive table-hover"}
 
 

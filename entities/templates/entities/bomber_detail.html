@@ -56,7 +56,7 @@ include 'autocomplete_light/static.html
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <legend>Über den Bomber</legend>
+                <legend>About Bomber</legend>
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>
@@ -202,6 +202,34 @@ include 'autocomplete_light/static.html
             </div>
         </div>
     </div>
+    {% if object.bomber_person.all %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <legend>Related Persons</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            {% get_verbose_name bomber "bomber_person" %}
+                        </th>
+                        <td>
+                            {% for x in object.bomber_person.all %}
+                              <ul>
+                                <li>
+                                  <a href="{% url 'entities:person_detail' pk=x.id %}">{{ x }}</a>
+                                </li>
+                              </ul>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <div id="map"/>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 </div>
 {% endblock %}
