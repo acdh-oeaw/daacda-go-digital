@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
+    'leaflet',
     'idprovider',
     'webpage',
     'vocabs',
