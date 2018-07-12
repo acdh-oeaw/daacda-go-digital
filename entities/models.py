@@ -1,4 +1,5 @@
 import re
+import json
 from django.db import models
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -393,6 +394,50 @@ class Bomber(models.Model):
         if prev:
             return prev.first().id
         return False
+
+    def get_geojson(self):
+        if self.target_place.lat and self.crash_place.lat:
+            geojson_dict = {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                float(self.target_place.lng),
+                                float(self.target_place.lat)
+                            ]
+                        },
+                        "properties": {
+                            "name": "{} (Place of target)".format(self.target_place.name),
+                            "type": 'Place of target',
+                            "self_link": self.target_place.get_absolute_url()
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                float(self.crash_place.lng),
+                                float(self.crash_place.lat)
+                            ]
+                        },
+                        "properties": {
+                            "name":  "{} (Place of crash)".format(self.crash_place.name),
+                            "type": 'Place of crash',
+                            "self_link": self.crash_place.get_absolute_url()
+                        }
+                    }
+                ]
+            }
+        else:
+            geojson_dict = None
+        if geojson_dict:
+            return json.dumps(geojson_dict)
+        else:
+            return None
 
 
 class Person(IdProvider):

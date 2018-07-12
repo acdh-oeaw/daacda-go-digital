@@ -2,18 +2,12 @@
 {% load staticfiles %}
 {% load webpage_extras %}
 {% load browsing_extras %}
+{% load leaflet_tags %}
 {% block title %}Bomber{% endblock %}
 
 {% block scriptHeader %}
-<!-- In case you are using any autocomplete-functions, don´t forget to
-include 'autocomplete_light/static.html
--->
-<!--leafletjs -->
-<link rel="stylesheet" href="{% static 'webpage/libraries/leaflet/leaflet.css' %}" />
-<script src="{% static 'webpage/libraries/leaflet/leaflet.js' %}"></script>
-<style>
-#map { height: 500px; }
-</style>
+{% leaflet_js %}
+{% leaflet_css %}
 {% endblock %}
 
 {% block content %}
@@ -198,10 +192,32 @@ include 'autocomplete_light/static.html
                 {% endif %}
             </div>
             <div class="col-md-6">
-                <div id="map"/>
+            {% leaflet_map "yourmap" callback="window.map_init_basic" %}
             </div>
         </div>
     </div>
 </div>
 </div>
+
+<script type="text/javascript">
+    function createLink(propertyObject){
+        var link = '<a href="'+propertyObject.self_link+'">'+propertyObject.name+'</a>';
+        return link
+    }
+    function onEachFeature(feature, layer) {
+        if (feature.properties && feature.properties.name) {
+            var popupContent = createLink(feature.properties);
+            layer.bindPopup(popupContent);
+        }
+      }
+
+    function map_init_basic (map, options) {
+
+        var geojsonFeature = {{ object.get_geojson|safe }};
+        var GeoJsonLayer = L.geoJson(geojsonFeature, {onEachFeature: onEachFeature});
+        GeoJsonLayer.addTo(map);
+        map.fitBounds(GeoJsonLayer.getBounds());
+
+    }
+</script>
 {% endblock %}
