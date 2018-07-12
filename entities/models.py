@@ -372,10 +372,6 @@ class Bomber(models.Model):
         verbose_name="Anmerkung (Spalte Y)",
         help_text="A comment"
     )
-    bomber_person = models.ManyToManyField(
-        "Person", blank=True, related_name="inside_bomber",
-        verbose_name="Bomberinsasse"
-    )
 
     def __str__(self):
         return "{}".format(self.macr_nr)

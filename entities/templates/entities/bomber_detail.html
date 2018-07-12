@@ -196,7 +196,7 @@
             </div>
         </div>
     </div>
-    {% if object.bomber_person.all %}
+    {% if object.has_crew.all %}
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
@@ -204,10 +204,10 @@
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>
-                            {% get_verbose_name bomber "bomber_person" %}
+                            Crew
                         </th>
                         <td>
-                            {% for x in object.bomber_person.all %}
+                            {% for x in object.has_crew.all %}
                               <ul>
                                 <li>
                                   <a href="{% url 'entities:person_detail' pk=x.id %}">{{ x }}</a>
