@@ -33,7 +33,7 @@ include 'autocomplete_light/static.html
                 </div>
                 <div class="col-md-8">
                     <h1 style="text-align: center;">
-                        <small>PersonPrison:</small> {{ object.legacy_id }}
+                        <small>PersonPrison:</small> {{ object.id }}
                         {% if user.is_authenticated %}
                         <small><a href="{% url 'detentions:personprison_edit' pk=object.id %}">
                             <i class="far fa-edit" title="edit"></i>
@@ -73,7 +73,7 @@ include 'autocomplete_light/static.html
                 <tr>
                     <th>{% get_verbose_name personprison "related_prisonstation" %}</th>
                     <td>
-                      {{ object.related_prisonstation }}
+                      <a href="{{ object.related_prisonstation.get_absolute_url }}">{{ object.related_prisonstation }}</a>
                     </td>
                 </tr>
                 <tr>
@@ -88,18 +88,34 @@ include 'autocomplete_light/static.html
                       {{ object.end_date }}
                     </td>
                 </tr>
+                {% if object.comment %}
                 <tr>
                     <th>{% get_verbose_name personprison "comment" %}</th>
                     <td>
                       {{ object.comment }}
                     </td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
+        <div class="card-body">
+                <legend>Relations</legend>
+                <table class="table table-bordered table-hover">
+                <tr>
+                  <th>{% get_verbose_name personprison "related_person" %}</th>
+                  <td>
+                    <ul>
+                      <li>
+                    <a href="{{ object.related_person.get_absolute_url }}">{{ object.related_person }}</a>
+                  </li>
+                </ul>
+                  </td>
+                </tr>
+                </table>
         {% if user.is_authenticated %}
             <a class="btn btn-danger" href="{% url 'detentions:personprison_delete' pk=object.id %}">delete</a>
         {% endif %}
-    </div>
+      </div>
 </div>
 </div>
 {% endblock %}
