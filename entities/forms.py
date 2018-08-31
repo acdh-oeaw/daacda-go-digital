@@ -159,6 +159,10 @@ class BomberFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'target_place',
+                    'crash_place',
+                    'squadron',
+                    'reason_of_crash',
                     css_id="more"
                     ),
                 )
