@@ -124,6 +124,19 @@ include 'autocomplete_light/static.html
                 </tr>
             </tbody>
         </table>
+        <legend>related objects</legend>
+        targetplace
+        {% for x in object.is_target_place.all %}
+            <li>
+                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+            </li>
+        {% endfor %}
+        crash
+        {% for x in object.is_crashplace.all %}
+            <li>
+                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+            </li>
+        {% endfor %}
         {% if user.is_authenticated %}
             <a class="btn btn-danger" href="{% url 'entities:place_delete' pk=object.id %}">delete</a>
         {% endif %}
