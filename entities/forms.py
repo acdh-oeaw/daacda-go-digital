@@ -154,6 +154,7 @@ class BomberFilterFormHelper(FormHelper):
             Fieldset(
                 'Basic search options',
                 'name',
+                'macr_nr',
                 css_id="basic_search_fields"
                 ),
             Accordion(
