@@ -463,7 +463,7 @@ def create_place(request):
         form = PlaceFormCreate(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('browsing:browse_places')
+            return redirect('entities:browse_places')
         else:
             return render(request, 'entities/edit_places.html', {'form': form})
     else:
@@ -504,7 +504,7 @@ def edit_place(request, pk):
         form = PlaceForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
-        return redirect('browsing:browse_places')
+        return redirect('entities:browse_places')
 
 
 class PlaceDelete(DeleteView):
