@@ -631,11 +631,17 @@ class WarCrimeCase(IdProvider):
         verbose_name="End date",
         help_text="The day the War Crime Case ended"
     )
-    date_accuracy = models.CharField(
+    date_accuracy_start = models.CharField(
         default="Y", max_length=3, choices=DATE_ACCURACY,
         blank=True, null=True,
-        verbose_name="Date accuracy",
-        help_text="An information stating whether the given date is accurate"
+        verbose_name="Date accuracy start date",
+        help_text="An information stating whether the given start date is accurate"
+    )
+    date_accuracy_end = models.CharField(
+        default="Y", max_length=3, choices=DATE_ACCURACY,
+        blank=True, null=True,
+        verbose_name="Date accuracy end date",
+        help_text="An information stating whether the given end date is accurate"
     )
     related_urls = models.ManyToManyField(
         OnlineRessource,
