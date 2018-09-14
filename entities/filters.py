@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from entities.models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase
+from entities.models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase, Airstrike
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -157,4 +157,18 @@ class PersonWarCrimeCaseListFilter(django_filters.FilterSet):
         model = PersonWarCrimeCase
         fields = [
             'id'
+        ]
+
+
+class AirstrikeListFilter(django_filters.FilterSet):
+    id = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Airstrike._meta.get_field('date').help_text,
+        label=Airstrike._meta.get_field('date').verbose_name
+        )
+
+    class Meta:
+        model = Airstrike
+        fields = [
+            'date'
         ]

@@ -76,4 +76,13 @@ urlpatterns = [
         name='personwarcrimecase_edit'),
     url(r'personwarcrimecase/delete/(?P<pk>[0-9]+)$', views.PersonWarCrimeCaseDelete.as_view(),
         name='personwarcrimecase_delete'),
+    url(r'airstrikes/$', views.AirstrikeListView.as_view(), name='browse_airstrikes'),
+    url(r'airstrike/detail/(?P<pk>[0-9]+)$', views.AirstrikeDetailView.as_view(),
+        name='airstrike_detail'),
+    url(r'airstrike/create/$', views.AirstrikeCreate.as_view(),
+        name='airstrike_create'),
+    url(r'airstrike/edit/(?P<pk>[0-9]+)$', views.AirstrikeUpdate.as_view(),
+        name='airstrike_edit'),
+    url(r'airstrike/delete/(?P<pk>[0-9]+)$', views.AirstrikeDelete.as_view(),
+        name='airstrike_delete'),
 ]

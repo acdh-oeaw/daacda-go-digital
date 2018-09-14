@@ -781,3 +781,61 @@ class PersonWarCrimeCase(IdProvider):
 
     def __str__(self):
         return "{}".format(self.id)
+
+
+class Airstrike(IdProvider):
+    """Holds information about air raids targeting Austrian territory."""
+    date = models.DateField(
+        blank=True, null=True,
+        verbose_name="Date",
+        help_text="The day the airstrike took place"
+    )
+    target = models.ForeignKey(
+        Place,
+        max_length=250, blank=True, null=True,
+        verbose_name="Target place of the airstrike",
+        help_text="Place targeted by the airstrike", on_delete=models.SET_NULL,
+        related_name="is_target",
+    )
+    plane_type = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Plane type",
+        help_text="The type of the plane",
+        related_name="is_plane_type_2",
+        on_delete=models.SET_NULL,
+    )
+    number_of_planes = models.IntegerField(
+        blank=True, null=True, verbose_name="Total", help_text="Estimated number of planes involved in total"
+    )
+    airforce = models.ForeignKey(
+        Institution, max_length=250, blank=True, null=True,
+        verbose_name="Airforce",
+        help_text="Name of the Airforce involved in the attack", on_delete=models.SET_NULL,
+        related_name="run_airstrike",
+    )
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('entities:airstrike_create')
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('entities:browse_airstrikes')
+
+    def get_absolute_url(self):
+        return reverse('entities:airstrike_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = Airstrike.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = Airstrike.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
+    def __str__(self):
+        return "{}".format(self.date)

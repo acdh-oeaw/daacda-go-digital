@@ -4,7 +4,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit,  Layout, Fieldset, Div, MultiField, HTML
 from crispy_forms.bootstrap import Accordion, AccordionGroup
-from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase
+from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase, Airstrike
 
 
 class PersonFilterFormHelper(FormHelper):
@@ -437,3 +437,87 @@ class PersonWarCrimeCaseFilterFormCreate(forms.ModelForm):
         super(PersonWarCrimeCaseFilterFormCreate, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
+
+
+class PlaceFilterFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(PlaceFilterFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+        self.layout = Layout(
+            Fieldset(
+                'Basic search options',
+                'name',
+                'alternative_name',
+                css_id="basic_search_fields"
+                ),
+            Accordion(
+                AccordionGroup(
+                    'Advanced search',
+                    'geonames_id',
+                    'part_of',
+                    css_id="more"
+                    ),
+                )
+            )
+
+
+class AirstrikeForm(forms.ModelForm):
+    class Meta:
+        model = Airstrike
+        fields = "__all__"
+        widgets = {
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(AirstrikeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3'
+        self.helper.field_class = 'col-md-9'
+        self.helper.add_input(Submit('submit', 'save'),)
+
+
+class AirstrikeFormCreate(forms.ModelForm):
+    class Meta:
+        model = Airstrike
+        fields = "__all__"
+        widgets = {
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(AirstrikeFormCreate, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+
+
+class AirstrikeFilterFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(AirstrikeFilterFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+        self.layout = Layout(
+            Fieldset(
+                'Basic search options',
+                'name',
+                'alternative_name',
+                css_id="basic_search_fields"
+                ),
+            Accordion(
+                AccordionGroup(
+                    'Advanced search',
+                    'geonames_id',
+                    'part_of',
+                    css_id="more"
+                    ),
+                )
+            )

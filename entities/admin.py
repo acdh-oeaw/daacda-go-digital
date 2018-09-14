@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Place, AlternativeName, Bomber, Institution, Person, WarCrimeCase, OnlineRessource
+from .models import Place, AlternativeName, Bomber, Institution, Person, WarCrimeCase, OnlineRessource, Airstrike
 from detentions.models import PrisonStation, PersonPrison
 
 
@@ -47,3 +47,4 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(OnlineRessource)
 admin.site.register(PrisonStation)
 admin.site.register(PersonPrison)
+admin.site.register(Airstrike)

@@ -1,0 +1,106 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% load browsing_extras %}
+{% block title %}Airstrike{% endblock %}
+
+{% block scriptHeader %}
+<!-- In case you are using any autocomplete-functions, don´t forget to
+include 'autocomplete_light/static.html
+-->
+<!--leafletjs -->
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card procustom-panel-create">
+        <div class="card-header procustom-panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                    <h2>
+                        <a href="{% url 'entities:airstrike_detail' pk=object.get_prev %}">
+                            <i class="fas fa-chevron-left" title="previous"></i>
+                        </a>
+                    </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                        <small>airstrike:</small> {{ object }}
+                        {% if user.is_authenticated %}
+                        <small><a href="{% url 'entities:airstrike_edit' pk=object.id %}">
+                            <i class="far fa-edit" title="edit"></i>
+                        </a>
+                    </small>
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'entities:airstrike_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <legend>About Airstrike</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            {% get_verbose_name airstrike "date" %}
+                        </th>
+                        <td>
+                            {{ object.date }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name airstrike "target" %}
+                        </th>
+                        <td>
+                            <a href="{{ object.target.get_absolute_url }}">{{ object.target }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name airstrike "plane_type" %}
+                        </th>
+                        <td>
+                            {{ object.plane_type }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name airstrike "number_of_planes" %}
+                        </th>
+                        <td>
+                            {{ object.number_of_planes }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name airstrike "airforce" %}
+                        </th>
+                        <td>
+                            {{ object.airforce }}
+                        </td>
+                    </tr>
+                </table>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-danger" href="{% url 'entities:airstrike_delete' pk=object.id %}">delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -146,3 +146,15 @@ class PersonWarCrimeCaseTable(tables.Table):
         model = PersonWarCrimeCase
         sequence = ('id', 'related_person', 'relation_type', 'related_case',)
         attrs = {"class": "table table-responsive table-hover"}
+
+
+class AirstrikeTable(tables.Table):
+    date = tables.LinkColumn(
+        'entities:airstrike_detail',
+        args=[A('pk')]
+    )
+
+    class Meta:
+        model = Airstrike
+        sequence = ('date',)
+        attrs = {"class": "table table-responsive table-hover"}

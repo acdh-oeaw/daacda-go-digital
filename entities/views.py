@@ -20,7 +20,8 @@ from .models import (
     Bomber,
     WarCrimeCase,
     OnlineRessource,
-    PersonWarCrimeCase
+    PersonWarCrimeCase,
+    Airstrike
 )
 from .forms import *
 from .serializer_arche import *
@@ -33,6 +34,7 @@ from .tables import (
     WarCrimeCaseTable,
     OnlineRessourceTable,
     PersonWarCrimeCaseTable,
+    AirstrikeTable
 )
 from .filters import (
     PersonListFilter,
@@ -42,7 +44,8 @@ from .filters import (
     BomberListFilter,
     WarCrimeCaseListFilter,
     OnlineRessourceListFilter,
-    PersonWarCrimeCaseListFilter
+    PersonWarCrimeCaseListFilter,
+    AirstrikeListFilter
 )
 from webpage.utils import GenericListView, BaseCreateView, BaseUpdateView
 
@@ -718,3 +721,89 @@ class PersonWarCrimeCaseDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PersonWarCrimeCaseDelete, self).dispatch(*args, **kwargs)
+
+
+class AirstrikeListView(GenericListView):
+    model = Airstrike
+    table_class = AirstrikeTable
+    filter_class = AirstrikeListFilter
+    formhelper_class = AirstrikeFilterFormHelper
+    init_columns = [
+        'date', 'target', 'country',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(AirstrikeListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+
+class AirstrikeRDFView(GenericListView):
+    model = Airstrike
+    table_class = AirstrikeTable
+    template_name = None
+    filter_class = AirstrikeListFilter
+    formhelper_class = AirstrikeFilterFormHelper
+
+    def render_to_response(self, context):
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
+        response = HttpResponse(content_type='application/xml; charset=utf-8')
+        filename = "places_{}".format(timestamp)
+        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        g = person_to_arche(self.get_queryset())
+        get_format = self.request.GET.get('format', default='n3')
+        result = g.serialize(destination=response, format=get_format)
+        return response
+
+
+class AirstrikeDetailView(DetailView):
+    model = Airstrike
+    template_name = 'entities/airstrike_detail.html'
+
+
+class AirstrikeCreate(BaseCreateView):
+
+    model = Airstrike
+    form_class = AirstrikeForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AirstrikeCreate, self).dispatch(*args, **kwargs)
+
+
+class AirstrikeUpdate(BaseUpdateView):
+
+    model = Airstrike
+    form_class = AirstrikeForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AirstrikeUpdate, self).dispatch(*args, **kwargs)
+
+
+class AirstrikeDelete(DeleteView):
+    model = Airstrike
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('entities:browse_entities')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(AirstrikeDelete, self).dispatch(*args, **kwargs)
