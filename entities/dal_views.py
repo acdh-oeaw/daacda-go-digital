@@ -176,7 +176,7 @@ class OnlineRessourceRelatedBombersAC(autocomplete.Select2QuerySetView):
         qs = Bomber.objects.all()
 
         if self.q:
-            qs = qs.filter(name__icontains=self.q)
+            qs = qs.filter(macr_nr__icontains=self.q)
 
         return qs
 

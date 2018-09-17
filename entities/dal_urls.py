@@ -73,7 +73,7 @@ urlpatterns = [
     ),
     url(
         r'^onlineressourcerelatedbombers-autocomplete/$', dal_views.OnlineRessourceRelatedBombersAC.as_view(
-            model=Bomber, create_field='name',),
+            model=Bomber, create_field='macr_nr',),
         name='onlineressourcerelatedbombers-autocomplete',
     ),
     url(
