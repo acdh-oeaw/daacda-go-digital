@@ -149,6 +149,18 @@ include 'autocomplete_light/static.html
     </ul>
   </td>
 </tr>
+<tr>
+  <th>site of airstrike</th>
+  <td>
+    <ul>
+        {% for x in object.is_target.all %}
+            <li>
+                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                {% endfor %}
+            </li>
+    </ul>
+  </td>
+</tr>
 {% if user.is_authenticated %}
     <a class="btn btn-danger" href="{% url 'entities:place_delete' pk=object.id %}">delete</a>
 {% endif %}
