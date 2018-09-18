@@ -470,7 +470,12 @@ class AirstrikeForm(forms.ModelForm):
         model = Airstrike
         fields = "__all__"
         widgets = {
-
+            'target': autocomplete.ModelSelect2(
+                url='entities-ac:airstriketarget-autocomplete'),
+            'plane_type': autocomplete.ModelSelect2(
+                url='entities-ac:airstrikeplanetype-autocomplete'),
+            'airforce': autocomplete.ModelSelect2(
+                url='entities-ac:airstrikeairforce-autocomplete'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -488,7 +493,12 @@ class AirstrikeFormCreate(forms.ModelForm):
         model = Airstrike
         fields = "__all__"
         widgets = {
-
+            'target': autocomplete.ModelSelect2(
+                url='entities-ac:airstriketarget-autocomplete'),
+            'plane_type': autocomplete.ModelSelect2(
+                url='entities-ac:airstrikeplanetype-autocomplete'),
+            'airforce': autocomplete.ModelSelect2(
+                url='entities-ac:airstrikeairforce-autocomplete'),
         }
 
     def __init__(self, *args, **kwargs):

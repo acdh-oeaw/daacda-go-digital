@@ -116,4 +116,19 @@ urlpatterns = [
             model=SkosConcept, create_field='pref_label',),
         name='warcrimecasecrimetype-autocomplete',
     ),
+    url(
+        r'^airstriketarget-autocomplete/$', dal_views.AirstrikeTargetAC.as_view(
+            model=Place, create_field='name',),
+        name='airstriketarget-autocomplete',
+    ),
+    url(
+        r'^airstrikeplanetype-autocomplete/$', dal_views.AirstrikePlaneTypeAC.as_view(
+            model=SkosConcept, create_field='pref_label',),
+        name='airstrikeplanetype-autocomplete',
+    ),
+    url(
+        r'^airstrikeairforce-autocomplete/$', dal_views.AirstrikeAirforceAC.as_view(
+            model=Institution, create_field='written_name',),
+        name='airstrikeairforce-autocomplete',
+    ),
 ]
