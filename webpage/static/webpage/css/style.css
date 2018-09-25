@@ -1,5 +1,6 @@
 .card {
     overflow: visible;
+    box-shadow: 7px 8px 20px 0px #5e2800;
 }
 
 a {

@@ -19,11 +19,3 @@ To import data, you have to execute the ipython script `import_data.ipynb`.
 
 1. Start a new ipython session `python manage.py shell_plus --notebook --settings=daacda.settings.dev_custom`.
 2. Execute the script cell by cell.
-
-## Jupyter Notebook
-In case you want to use [Jupyter Notebook and Django-Extensions](https://andrewbrookins.com/python/using-ipython-notebook-with-django/) use the `requirements_dev.txt` for your virtual environment.
-
-## Tests
-Install the required packages for tests `pip install -r requirements_test.txt`.
-
-Run tests `python manage.py test --settings=daacda.settings.test` and check `cover/index.html` for a HTML coverage report.

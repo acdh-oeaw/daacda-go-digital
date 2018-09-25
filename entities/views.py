@@ -47,7 +47,7 @@ from .filters import (
     PersonWarCrimeCaseListFilter,
     AirstrikeListFilter
 )
-from webpage.utils import GenericListView, BaseCreateView, BaseUpdateView
+from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 
 try:
     from browsing.models import BrowsConf
