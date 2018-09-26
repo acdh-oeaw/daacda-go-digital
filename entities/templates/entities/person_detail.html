@@ -1,266 +1,325 @@
-{% extends "webpage/base.html" %}
+{% extends "browsing/generic_detail.html" %}
 {% load staticfiles %}
+{% load leaflet_tags %}
 {% load webpage_extras %}
-{% load browsing_extras %}
-{% block title %}Person{% endblock %}
-
+{% block title %}{{ object }}{% endblock %}
 {% block scriptHeader %}
-<!-- In case you are using any autocomplete-functions, don´t forget to
-include 'autocomplete_light/static.html
--->
-<!--leafletjs -->
-<link rel="stylesheet" href="{% static 'webpage/libraries/leaflet/leaflet.css' %}" />
-<script src="{% static 'webpage/libraries/leaflet/leaflet.js' %}"></script>
+{% leaflet_js %}
+{% leaflet_css %}
 <style>
-#map { height: 500px; }
+    #map {
+        height: 500px;
+    }
 </style>
 {% endblock %}
 
-{% block content %}
-
-<div class="container">
-    <div class="card procustom-panel-create">
-        <div class="card-header procustom-panel-heading">
-            <div class="row">
-                <div class="col-md-2">
-                    {% if object.get_prev %}
-                    <h2>
-                        <a href="{% url 'entities:person_detail' pk=object.get_prev %}">
-                            <i class="fas fa-chevron-left" title="previous"></i>
-                        </a>
-                    </h2>
-                    {% endif %}
-                </div>
-                <div class="col-md-8">
-                    <h1 style="text-align: center;">
-                        <small>person:</small> {{ object }}
-                        {% if user.is_authenticated %}
-                        <small><a href="{% url 'entities:person_edit' pk=object.id %}">
-                            <i class="far fa-edit" title="edit"></i>
-                        </a>
-                    </small>
-                    {% endif %}
-                </h1>
-            </div>
-            <div class="col-md-2">
-                <h2>
-                    {% if object.get_next %}
-                    <a href="{% url 'entities:person_detail' pk=object.get_next %}" style="float:right">
-                        <i class="fas fa-chevron-right" title="next"></i>
-                    </a>
-                </h2>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+{% block custom %}
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <legend>About Person</legend>
-                <table class="table table-bordered table-hover">
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "function_in_plane" %}
-                      </th>
-                      <td>
-                          {{ object.function_in_plane }}
-                      </td>
-                  </tr>
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "forename" %}
-                      </th>
-                      <td>
-                          {{ object.forename }}
-                      </td>
-                  </tr>
-                  {% if object.middle_name.all %}
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "middle_name" %}
-                      </th>
-                      <td>
-                          {{ object.middle_name }}
-                      </td>
-                  </tr>
-                  {% endif %}
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "name" %}
-                      </th>
-                      <td>
-                          {{ object.name }}
-                      </td>
-                  </tr>
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "written_name" %}
-                      </th>
-                      <td>
-                          {{ object.written_name }}
-                      </td>
-                  </tr>
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "rank" %}
-                      </th>
-                      <td>
-                        {{ object.rank }}
-                      </td>
-                  </tr>
-                  <tr>
-                      <th>
-                          {% get_verbose_name person "dog_tag" %}
-                      </th>
-                      <td>
-                          {{ object.dog_tag }}
-                      </td>
-                  </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "part_of_bomber" %}
-                        </th>
-                        <td>
-                            <a href="{{ object.part_of_bomber.get_absolute_url }}">{{ object.part_of_bomber }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "destiny_stated" %}
-                        </th>
-                        <td>
-                            {{ object.destiny_stated }}
-                        </td>
-                    </tr>
-                    {% if object.detail != '0' %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "detail" %}
-                        </th>
-                        <td>
-                            {{ object.detail }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "destiny_checked" %}
-                        </th>
-                        <td>
-                            {{ object.destiny_checked }}
-                        </td>
-                    </tr>
-                    {% if object.mia %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "mia" %}
-                        </th>
-                        <td>
-                            {{ object.mia }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.alt_names.all %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "alt_names" %}
-                        </th>
-                        <td>
-                            {{ object.alt_names }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.place_of_birth.all %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "place_of_birth" %}
-                        </th>
-                        <td>
-                            <a href="{{ object.place_of_birth.get_absolute_url }}">{{ object.place_of_birth }}</a>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.date_of_birth %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "date_of_birth" %}
-                        </th>
-                        <td>
-                          {{ object.date_of_birth }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.comment %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "comment" %}
-                        </th>
-                        <td>
-                            {{ object.comment }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.related_urls.all %}
-                    <tr>
-                        <th>
-                            {% get_verbose_name person "related_urls" %}
-                        </th>
-                        <td>
-                          {% for x in object.related_urls.all %}
-                              <li>
-                                  <a href="{% url 'entities:onlineressource_detail' pk=x.id %}">{{ x }}</a>
-                              </li>
-                          {% endfor %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.authority_url %}
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "authority_url" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.authority_url }}">{{ object.authority_url }}</a>
-                            </td>
-                        </tr>
-                    {% endif %}
-                    {% if object.belongs_to_institution %}
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "belongs_to_institution" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.belongs_to_institution.get_absolute_url }}">{{ object.belongs_to_institution }}</a>
-                            </td>
-                        </tr>
-                    {% endif %}
-                </table>
-                {% if user.is_authenticated %}
-                    <a class="btn btn-danger" href="{% url 'entities:person_delete' pk=object.id %}">delete</a>
-                {% endif %}
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Info</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "function_in_plane" %}
+                              </th>
+                              <td>
+                                  {{ object.function_in_plane }}
+                              </td>
+                          </tr>
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "forename" %}
+                              </th>
+                              <td>
+                                  {{ object.forename }}
+                              </td>
+                          </tr>
+                          {% if object.middle_name.all %}
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "middle_name" %}
+                              </th>
+                              <td>
+                                  {{ object.middle_name }}
+                              </td>
+                          </tr>
+                          {% endif %}
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "name" %}
+                              </th>
+                              <td>
+                                  {{ object.name }}
+                              </td>
+                          </tr>
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "written_name" %}
+                              </th>
+                              <td>
+                                  {{ object.written_name }}
+                              </td>
+                          </tr>
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "rank" %}
+                              </th>
+                              <td>
+                                {{ object.rank }}
+                              </td>
+                          </tr>
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "dog_tag" %}
+                              </th>
+                              <td>
+                                  {{ object.dog_tag }}
+                              </td>
+                          </tr>
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "part_of_bomber" %}
+                                </th>
+                                <td>
+                                    <a href="{{ object.part_of_bomber.get_absolute_url }}">{{ object.part_of_bomber }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "destiny_stated" %}
+                                </th>
+                                <td>
+                                    {{ object.destiny_stated }}
+                                </td>
+                            </tr>
+                            {% if object.detail != '0' %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "detail" %}
+                                </th>
+                                <td>
+                                    {{ object.detail }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "destiny_checked" %}
+                                </th>
+                                <td>
+                                    {{ object.destiny_checked }}
+                                </td>
+                            </tr>
+                            {% if object.mia %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "mia" %}
+                                </th>
+                                <td>
+                                    {{ object.mia }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.alt_names.all %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "alt_names" %}
+                                </th>
+                                <td>
+                                    {{ object.alt_names }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.place_of_birth.all %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "place_of_birth" %}
+                                </th>
+                                <td>
+                                    <a href="{{ object.place_of_birth.get_absolute_url }}">{{ object.place_of_birth }}</a>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.date_of_birth %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "date_of_birth" %}
+                                </th>
+                                <td>
+                                  {{ object.date_of_birth }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.comment %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "comment" %}
+                                </th>
+                                <td>
+                                    {{ object.comment }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.related_urls.all %}
+                            <tr>
+                                <th>
+                                    {% get_verbose_name person "related_urls" %}
+                                </th>
+                                <td>
+                                  {% for x in object.related_urls.all %}
+                                      <li>
+                                          <a href="{% url 'entities:onlineressource_detail' pk=x.id %}">{{ x }}</a>
+                                      </li>
+                                  {% endfor %}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.authority_url %}
+                                <tr>
+                                    <th>
+                                        {% get_verbose_name person "authority_url" %}
+                                    </th>
+                                    <td>
+                                        <a href="{{ object.authority_url }}">{{ object.authority_url }}</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if object.belongs_to_institution %}
+                                <tr>
+                                    <th>
+                                        {% get_verbose_name person "belongs_to_institution" %}
+                                    </th>
+                                    <td>
+                                        <a href="{{ object.belongs_to_institution.get_absolute_url }}">{{ object.belongs_to_institution }}</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <legend>
-                    Prison Stations
-                </legend>
-                {% for x in object.get_prisonstations %}
-                    <li>
-                        <a href="{{ x.related_prisonstation.get_absolute_url }}">{{ x.related_prisonstation }}</a>
-                    </li>
-                {% endfor %}
-            </div>
-            <div class="col-md-6">
-                <legend>
-                    Warcrimes
-                </legend>
-                {% for x in object.get_warcrimecases %}
-                    <li>
-                        <a href="{{ x.related_case.get_absolute_url }}">{{ x.related_case }}</a>
-                    </li>
-                {% endfor %}
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Map</h3>
+                    </div>
+                    <div class="card-body">
+                        {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+                    </div>
+                    <script type="text/javascript">
+                        function createLink(propertyObject){
+                            var link = '<a href="'+propertyObject.self_link+'">'+propertyObject.name+'</a>';
+                            return link
+                        }
+                        function onEachFeature(feature, layer) {
+                            if (feature.properties && feature.properties.name) {
+                                var popupContent = createLink(feature.properties);
+                                layer.bindPopup(popupContent);
+                            }
+                          }
+
+                        function map_init_basic (map, options) {
+
+                            var geojsonFeature = {{ object.get_geojson|safe }};
+                            var GeoJsonLayer = L.geoJson(geojsonFeature, {onEachFeature: onEachFeature});
+                            GeoJsonLayer.addTo(map);
+                            map.fitBounds(GeoJsonLayer.getBounds());
+
+                        }
+                    </script>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-{% endblock %}
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="crew-tab" data-toggle="tab" href="#crew" role="tab" aria-controls="crew" aria-selected="true">Crew</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="prison_stations-tab" data-toggle="tab" href="#prison_stations" role="tab" aria-controls="prison_stations" aria-selected="true">Prison Stations</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="crew" role="tabpanel" aria-labelledby="crew-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Station
+                            </th>
+                            <th>
+                                Rank
+                            </th>
+                            <th>
+                                Function
+                            </th>
+                            <th>
+                                Destiny
+                            </th>
+                        </tr>
+                        {% for x in object.part_of_bomber.has_crew.all %}
+                            {% if x.id != object.id %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ x.related_prisonstation }}">{{ x }}</a>
+                                    </td>
+                                    <td>
+                                        {{ x.function_in_plane }}
+                                    </td>
+                                    <td>
+                                        {{ x.rank }}
+                                    </td>
+                                    <td>
+                                        {{ x.destiny_stated }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade show" id="prison_stations" role="tabpanel" aria-labelledby="prison_stations-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Location
+                            </th>
+                            <th>
+                                Arrival
+                            </th>
+                            <th>
+                                Departure
+                            </th>
+                        </tr>
+                        {% for x in object.has_related_persons.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ x.related_prisonstation.get_absolute_url }}">{{ x.related_prisonstation.name }}</a>
+                                </td>
+                                <td>
+                                    {{ x.related_prisonstation.located_in_place }}
+                                </td>
+                                <td>
+                                    {{ x.start_date }}
+                                </td>
+                                <td>
+                                    {{ x.end_date }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock custom%}

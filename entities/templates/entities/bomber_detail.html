@@ -198,97 +198,41 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="target_place-tab" data-toggle="tab" href="#target_place" role="tab" aria-controls="target_place" aria-selected="true">Target Place</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="crash_place-tab" data-toggle="tab" href="#crash_place" role="tab" aria-controls="crash_place" aria-selected="false">Crash Place</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="detention_center-tab" data-toggle="tab" href="#detention_center" role="tab" aria-controls="detention_center" aria-selected="false">Prison Station</a>
+                    <a class="nav-link active" id="crew-tab" data-toggle="tab" href="#crew" role="tab" aria-controls="crew" aria-selected="true">Crew</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="target_place" role="tabpanel" aria-labelledby="target_place-tab">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                Marc
-                            </th>
-                            <th>
-                                Plane Type
-                            </th>
-                            <th>
-                                Day of Attack
-                            </th>
-                        </tr>
-                        {% for x in object.is_target_place.all %}
-                        <tr>
-                            <td>
-                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                            </td>
-                            <td>
-                                {{ x.plane_type }}
-                            </td>
-                            <td>
-                                {{ x.date_of_crash }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="crash_place" role="tabpanel" aria-labelledby="crash_place-tab">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                Marc
-                            </th>
-                            <th>
-                                Plane Type
-                            </th>
-                            <th>
-                                Day of Crash
-                            </th>
-                        </tr>
-                        {% for x in object.is_crashplace.all %}
-                        <tr>
-                            <td>
-                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                            </td>
-                            <td>
-                                {{ x.plane_type }}
-                            </td>
-                            <td>
-                                {{ x.date_of_crash }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="detention_center" role="tabpanel" aria-labelledby="detention_center-tab">
+                <div class="tab-pane fade show active" id="crew" role="tabpanel" aria-labelledby="crew-tab">
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>
                                 Name
                             </th>
                             <th>
-                                station_id
+                                Rank
                             </th>
                             <th>
-                                station_type
+                                Function
+                            </th>
+                            <th>
+                                Destiny
                             </th>
                         </tr>
-                        {% for x in object.place_located.all %}
+                        {% for x in object.has_crew.all %}
                         <tr>
                             <td>
-                                <a href="{{ x.get_absolute_url }}">{{ x.name }}</a>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                             </td>
                             <td>
-                                {{ x.station_id }}
+                                {{ x.function_in_plane }}
                             </td>
                             <td>
-                                {{ x.station_type }}
+                                {{ x.rank }}
+                            </td>
+                            <td>
+                                {{ x.destiny_stated }}
                             </td>
                         </tr>
                         {% endfor %}
