@@ -134,6 +134,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="crash_place-tab" data-toggle="tab" href="#crash_place" role="tab" aria-controls="crash_place" aria-selected="false">Crash Place</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="detention_center-tab" data-toggle="tab" href="#detention_center" role="tab" aria-controls="detention_center" aria-selected="false">Prison Station</a>
+                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -189,6 +192,34 @@
                             </td>
                             <td>
                                 {{ x.date_of_crash }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="detention_center" role="tabpanel" aria-labelledby="detention_center-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                station_id
+                            </th>
+                            <th>
+                                station_type
+                            </th>
+                        </tr>
+                        {% for x in object.place_located.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x.name }}</a>
+                            </td>
+                            <td>
+                                {{ x.station_id }}
+                            </td>
+                            <td>
+                                {{ x.station_type }}
                             </td>
                         </tr>
                         {% endfor %}
