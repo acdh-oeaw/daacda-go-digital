@@ -1,251 +1,300 @@
-{% extends "webpage/base.html" %}
+{% extends "browsing/generic_detail.html" %}
 {% load staticfiles %}
-{% load webpage_extras %}
-{% load browsing_extras %}
 {% load leaflet_tags %}
-{% block title %}Bomber{% endblock %}
-
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
 {% block scriptHeader %}
 {% leaflet_js %}
 {% leaflet_css %}
+<style>
+    #map {
+        height: 500px;
+    }
+</style>
 {% endblock %}
 
-{% block content %}
-
-<div class="container">
-    <div class="card procustom-panel-create">
-        <div class="card-header procustom-panel-heading">
-            <div class="row">
-                <div class="col-md-2">
-                    {% if object.get_prev %}
-                    <h2>
-                        <a href="{% url 'entities:bomber_detail' pk=object.get_prev %}">
-                            <i class="fas fa-chevron-left" title="previous"></i>
-                        </a>
-                    </h2>
-                    {% endif %}
+{% block custom %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Info</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    {% get_verbose_name bomber "macr_nr" %}
+                                </th>
+                                <td>
+                                      {{ object.macr_nr }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "squadron" %}
+                                </th>
+                                <td>
+                                    {{ object.squadron }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {% get_verbose_name bomber "plane_type" %}
+                                </th>
+                                <td>
+                                    {{ object.plane_type }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "plane_id" %}
+                                </th>
+                                <td>
+                                    {{ object.plane_id }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "name" %}
+                                </th>
+                                <td>
+                                    {{ object.name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {% get_verbose_name bomber "crew_name" %}
+                                </th>
+                                <td>
+                                    {{ object.crew_name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "target_place" %}
+                                </th>
+                                <td>
+                                   <a href="{{ object.target_place.get_absolute_url }}">{{ object.target_place }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "sicht_koord" %}
+                                </th>
+                                <td>
+                                    {{ object.sicht_koord }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "sicht_ort" %}
+                                </th>
+                                <td>
+                                    {{ object.sicht_ort }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "sicht_land" %}
+                                </th>
+                                <td>
+                                    {{ object.sicht_land }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "date_of_crash" %}
+                                </th>
+                                <td>
+                                    {{ object.date_of_crash }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "crash_place" %}
+                                </th>
+                                <td>
+                                  <a href="{{ object.crash_place.get_absolute_url }}">{{ object.crash_place }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "reason_of_crash" %}
+                                </th>
+                                <td>
+                                    {{ object.reason_of_crash }}
+                                </td>
+                            </tr>
+                            {% if object.uhrzeit %}
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "uhrzeit" %}
+                                </th>
+                                <td>
+                                    {{ object.uhrzeit }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.uhrzeit_absturz %}
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "uhrzeit_absturz" %}
+                                </th>
+                                <td>
+                                    {{ object.uhrzeit_absturz }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if object.comment %}
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "comment" %}
+                                </th>
+                                <td>
+                                    {{ object.comment }}
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <h1 style="text-align: center;">
-                        <small>bomber:</small> {{ object }}
-                        {% if user.is_authenticated %}
-                        <small><a href="{% url 'entities:bomber_edit' pk=object.id %}">
-                            <i class="far fa-edit" title="edit"></i>
-                        </a>
-                    </small>
-                    {% endif %}
-                </h1>
             </div>
-            <div class="col-md-2">
-                <h2>
-                    {% if object.get_next %}
-                    <a href="{% url 'entities:bomber_detail' pk=object.get_next %}" style="float:right">
-                        <i class="fas fa-chevron-right" title="next"></i>
-                    </a>
-                </h2>
-                {% endif %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Map</h3>
+                    </div>
+                    <div class="card-body">
+                        {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+                    </div>
+                    <script type="text/javascript">
+                        function createLink(propertyObject){
+                            var link = '<a href="'+propertyObject.self_link+'">'+propertyObject.name+'</a>';
+                            return link
+                        }
+                        function onEachFeature(feature, layer) {
+                            if (feature.properties && feature.properties.name) {
+                                var popupContent = createLink(feature.properties);
+                                layer.bindPopup(popupContent);
+                            }
+                          }
+
+                        function map_init_basic (map, options) {
+
+                            var geojsonFeature = {{ object.get_geojson|safe }};
+                            var GeoJsonLayer = L.geoJson(geojsonFeature, {onEachFeature: onEachFeature});
+                            GeoJsonLayer.addTo(map);
+                            map.fitBounds(GeoJsonLayer.getBounds());
+
+                        }
+                    </script>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <legend>About Bomber</legend>
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>
-                            {% get_verbose_name bomber "macr_nr" %}
-                        </th>
-                        <td>
-                              {{ object.macr_nr }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "squadron" %}
-                        </th>
-                        <td>
-                            {{ object.squadron }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name bomber "plane_type" %}
-                        </th>
-                        <td>
-                            {{ object.plane_type }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "plane_id" %}
-                        </th>
-                        <td>
-                            {{ object.plane_id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "name" %}
-                        </th>
-                        <td>
-                            {{ object.name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name bomber "crew_name" %}
-                        </th>
-                        <td>
-                            {{ object.crew_name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "target_place" %}
-                        </th>
-                        <td>
-                           <a href="{{ object.target_place.get_absolute_url }}">{{ object.target_place }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "sicht_koord" %}
-                        </th>
-                        <td>
-                            {{ object.sicht_koord }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "sicht_ort" %}
-                        </th>
-                        <td>
-                            {{ object.sicht_ort }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "sicht_land" %}
-                        </th>
-                        <td>
-                            {{ object.sicht_land }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "date_of_crash" %}
-                        </th>
-                        <td>
-                            {{ object.date_of_crash }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "crash_place" %}
-                        </th>
-                        <td>
-                          <a href="{{ object.crash_place.get_absolute_url }}">{{ object.crash_place }}</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "reason_of_crash" %}
-                        </th>
-                        <td>
-                            {{ object.reason_of_crash }}
-                        </td>
-                    </tr>
-                    {% if object.uhrzeit %}
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "uhrzeit" %}
-                        </th>
-                        <td>
-                            {{ object.uhrzeit }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.uhrzeit_absturz %}
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "uhrzeit_absturz" %}
-                        </th>
-                        <td>
-                            {{ object.uhrzeit_absturz }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if object.comment %}
-                    <tr>
-                        <th>
-                           {% get_verbose_name bomber "comment" %}
-                        </th>
-                        <td>
-                            {{ object.comment }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                </table>
-                {% if user.is_authenticated %}
-                    <a class="btn btn-danger" href="{% url 'entities:bomber_delete' pk=object.id %}">delete</a>
-                {% endif %}
-            </div>
-            <div class="col-md-6">
-            {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="target_place-tab" data-toggle="tab" href="#target_place" role="tab" aria-controls="target_place" aria-selected="true">Target Place</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="crash_place-tab" data-toggle="tab" href="#crash_place" role="tab" aria-controls="crash_place" aria-selected="false">Crash Place</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="detention_center-tab" data-toggle="tab" href="#detention_center" role="tab" aria-controls="detention_center" aria-selected="false">Prison Station</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="target_place" role="tabpanel" aria-labelledby="target_place-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Marc
+                            </th>
+                            <th>
+                                Plane Type
+                            </th>
+                            <th>
+                                Day of Attack
+                            </th>
+                        </tr>
+                        {% for x in object.is_target_place.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </td>
+                            <td>
+                                {{ x.plane_type }}
+                            </td>
+                            <td>
+                                {{ x.date_of_crash }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="crash_place" role="tabpanel" aria-labelledby="crash_place-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Marc
+                            </th>
+                            <th>
+                                Plane Type
+                            </th>
+                            <th>
+                                Day of Crash
+                            </th>
+                        </tr>
+                        {% for x in object.is_crashplace.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </td>
+                            <td>
+                                {{ x.plane_type }}
+                            </td>
+                            <td>
+                                {{ x.date_of_crash }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="detention_center" role="tabpanel" aria-labelledby="detention_center-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                station_id
+                            </th>
+                            <th>
+                                station_type
+                            </th>
+                        </tr>
+                        {% for x in object.place_located.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x.name }}</a>
+                            </td>
+                            <td>
+                                {{ x.station_id }}
+                            </td>
+                            <td>
+                                {{ x.station_type }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    {% if object.has_crew.all %}
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <legend>Related Persons</legend>
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>
-                            Crew
-                        </th>
-                        <td>
-                            {% for x in object.has_crew.all %}
-                              <ul>
-                                <li>
-                                  <a href="{% url 'entities:person_detail' pk=x.id %}">{{ x }}</a>
-                                </li>
-                              </ul>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <div id="map"/>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
-</div>
-
-<script type="text/javascript">
-    function createLink(propertyObject){
-        var link = '<a href="'+propertyObject.self_link+'">'+propertyObject.name+'</a>';
-        return link
-    }
-    function onEachFeature(feature, layer) {
-        if (feature.properties && feature.properties.name) {
-            var popupContent = createLink(feature.properties);
-            layer.bindPopup(popupContent);
-        }
-      }
-
-    function map_init_basic (map, options) {
-
-        var geojsonFeature = {{ object.get_geojson|safe }};
-        var GeoJsonLayer = L.geoJson(geojsonFeature, {onEachFeature: onEachFeature});
-        GeoJsonLayer.addTo(map);
-        map.fitBounds(GeoJsonLayer.getBounds());
-
-    }
-</script>
-{% endblock %}
+{% endblock custom%}
