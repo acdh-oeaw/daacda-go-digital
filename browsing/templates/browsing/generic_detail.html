@@ -45,8 +45,8 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
-        {% block custom %}
+    {% block custom %}
+        <div class="card-body">
             <legend>Basic Information</legend>
             {{ object.field_dict }}
 

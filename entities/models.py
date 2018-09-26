@@ -144,7 +144,8 @@ class Place(IdProvider):
         blank=True, null=True, help_text="The latitude of the place"
     )
     lng = models.DecimalField(
-        max_digits=20, decimal_places=12, blank=True, null=True, help_text="The longitude of the place"
+        max_digits=20, decimal_places=12, blank=True, null=True,
+        help_text="The longitude of the place"
     )
     part_of = models.ForeignKey(
         "Place", null=True, blank=True,
