@@ -1,161 +1,143 @@
-{% extends "webpage/base.html" %}
+{% extends "browsing/generic_detail.html" %}
 {% load staticfiles %}
+{% load leaflet_tags %}
 {% load webpage_extras %}
-{% load browsing_extras %}
-{% block title %}War Crime Case{% endblock %}
-
+{% block title %}{{ object }}{% endblock %}
 {% block scriptHeader %}
-<!-- In case you are using any autocomplete-functions, don´t forget to
-include 'autocomplete_light/static.html
--->
-<!--leafletjs -->
-
+{% leaflet_js %}
+{% leaflet_css %}
+<style>
+    #map {
+        height: 500px;
+    }
+</style>
 {% endblock %}
 
-{% block content %}
-
-<div class="container">
-    <div class="card procustom-panel-create">
-        <div class="card-header procustom-panel-heading">
-            <div class="row">
-                <div class="col-md-2">
-                    {% if object.get_prev %}
-                    <h2>
-                        <a href="{% url 'entities:warcrimecase_detail' pk=object.get_prev %}">
-                            <i class="fas fa-chevron-left" title="previous"></i>
-                        </a>
-                    </h2>
-                    {% endif %}
-                </div>
-                <div class="col-md-8">
-                    <h1 style="text-align: center;">
-                        <small>war crime case:</small> {{ object }}
-                        {% if user.is_authenticated %}
-                        <small><a href="{% url 'entities:warcrimecase_edit' pk=object.id %}">
-                            <i class="far fa-edit" title="edit"></i>
-                        </a>
-                    </small>
-                    {% endif %}
-                </h1>
-            </div>
-            <div class="col-md-2">
-                <h2>
-                    {% if object.get_next %}
-                    <a href="{% url 'entities:warcrimecase_detail' pk=object.get_next %}" style="float:right">
-                        <i class="fas fa-chevron-right" title="next"></i>
-                    </a>
-                </h2>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+{% block custom %}
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                <legend>About War Crime Case</legend>
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>
-                            {% get_verbose_name warcrimecase "signatur" %}
-                        </th>
-                        <td>
-                            {{ object.signatur }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name warcrimecase "abstract" %}
-                        </th>
-                        <td>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Info</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th>
+                                    {% get_verbose_name warcrimecase "signatur" %}
+                                </th>
+                                <td>
+                                    {{ object.signatur }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {% get_verbose_name warcrimecase "start_date" %}
+                                </th>
+                                <td>
+                                    {{ object.start_date }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name warcrimecase "date_accuracy_start" %}
+                                </th>
+                                <td>
+                                    {{ object.date_accuracy_start }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name warcrimecase "end_date" %}
+                                </th>
+                                <td>
+                                    {{ object.end_date }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name warcrimecase "date_accuracy_end" %}
+                                </th>
+                                <td>
+                                    {{ object.date_accuracy_end }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                   {% get_verbose_name warcrimecase "related_urls" %}
+                                </th>
+                                <td>
+                                  {% for x in object.related_urls.all %}
+                                      <li>
+                                          <a href="{% url 'entities:onlineressource_detail' pk=x.id %}">{{ x }}</a>
+                                      </li>
+                                  {% endfor %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Abstract</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
                             {{ object.abstract|safe }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name warcrimecase "start_date" %}
-                        </th>
-                        <td>
-                            {{ object.start_date }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name warcrimecase "date_accuracy_start" %}
-                        </th>
-                        <td>
-                            {{ object.date_accuracy_start }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name warcrimecase "end_date" %}
-                        </th>
-                        <td>
-                            {{ object.end_date }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name warcrimecase "date_accuracy_end" %}
-                        </th>
-                        <td>
-                            {{ object.date_accuracy_end }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                           {% get_verbose_name warcrimecase "related_urls" %}
-                        </th>
-                        <td>
-                          {% for x in object.related_urls.all %}
-                              <li>
-                                  <a href="{% url 'entities:onlineressource_detail' pk=x.id %}">{{ x }}</a>
-                              </li>
-                          {% endfor %}
-                        </td>
-                    </tr>
-                </table>
-                <legend>
-            Related Persons
-        </legend>
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>
-                    Person
-                </th>
-                <th>
-                    role
-                </th>
-                <th>
-                    start date
-                </th>
-                <th>
-                    end date
-                </th>
-            </tr>
-            {% for x in object.get_persons %}
-                <tr>
-                    <td>
-                        <a href="{{ x.related_person.get_absolute_url}}">{{ x.related_person }}</a>
-                    </td>
-                    <td>
-                        {{ x.relation_type }}
-                    </td>
-                    <td>
-                        {{ x.start_date }}
-                    </td>
-                    <td>
-                        {{ x.end_date }}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-                {% if user.is_authenticated %}
-                    <a class="btn btn-danger" href="{% url 'entities:warcrimecase_delete' pk=object.id %}">delete</a>
-                {% endif %}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-{% endblock %}
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="related_persons-tab" data-toggle="tab" href="#related_persons" role="tab" aria-controls="related_persons" aria-selected="true">related Persons</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="crew" role="tabpanel" aria-labelledby="crew-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                start date
+                            </th>
+                            <th>
+                                by crime
+                            </th>
+                            <th>
+                                Bomber
+                            </th>
+                        </tr>
+                        {% for x in object.related_to_person.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ x.related_person.get_absolute_url }}">{{ x.related_person }}</a>
+                                </td>
+                                <td>
+                                    {{ x.start_date }}
+                                </td>
+                                <td>
+                                    {{ x.relation_by_crime }}
+                                </td>
+                                <td>
+                                    <a href="{{ x.related_person.part_of_bomber.get_absolute_url }}">{{ x.related_person.part_of_bomber }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock custom%}
