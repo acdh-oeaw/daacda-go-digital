@@ -114,52 +114,13 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="crew-tab" data-toggle="tab" href="#crew" role="tab" aria-controls="crew" aria-selected="true">Crew</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="prison_stations-tab" data-toggle="tab" href="#prison_stations" role="tab" aria-controls="prison_stations" aria-selected="true">Prison Stations</a>
+                    <a class="nav-link active" id="related_persons-tab" data-toggle="tab" href="#related_persons" role="tab" aria-controls="related_persons" aria-selected="true">related Persons</a>
                 </li>
             </ul>
         </div>
         <div class="card-body">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="crew" role="tabpanel" aria-labelledby="crew-tab">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                Station
-                            </th>
-                            <th>
-                                Rank
-                            </th>
-                            <th>
-                                Function
-                            </th>
-                            <th>
-                                Destiny
-                            </th>
-                        </tr>
-                        {% for x in object.part_of_bomber.has_crew.all %}
-                            {% if x.id != object.id %}
-                                <tr>
-                                    <td>
-                                        <a href="{{ x.related_prisonstation }}">{{ x }}</a>
-                                    </td>
-                                    <td>
-                                        {{ x.function_in_plane }}
-                                    </td>
-                                    <td>
-                                        {{ x.rank }}
-                                    </td>
-                                    <td>
-                                        {{ x.destiny_stated }}
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="tab-pane fade show" id="prison_stations" role="tabpanel" aria-labelledby="prison_stations-tab">
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>
@@ -178,7 +139,7 @@
                         {% for x in object.related_to_prisonstation.all %}
                             <tr>
                                 <td>
-                                    <a href="{{ x.related_person.get_absolute_url }}">{{ x.related_person.name }}</a>
+                                    <a href="{{ x.related_person.get_absolute_url }}">{{ x.related_person }}</a>
                                 </td>
                                 <td>
                                     {{ x.start_date }}
@@ -187,7 +148,7 @@
                                     {{ x.end_date }}
                                 </td>
                                 <td>
-                                    {{ x.end_date }}
+                                    <a href="{{ x.related_person.part_of_bomber.get_absolute_url }}">{{ x.related_person.part_of_bomber }}</a>
                                 </td>
                             </tr>
                         {% endfor %}
