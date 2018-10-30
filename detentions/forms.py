@@ -49,10 +49,8 @@ class PrisonStationFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'acad_title',
-                    'alt_names',
-                    'authority_url',
-                    'belongs_to_institution',
+                    'station_id',
+                    'located_in_place',
                     css_id="more"
                     ),
                 )
@@ -93,17 +91,15 @@ class PersonPrisonFilterFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
-                'name',
-                'written_name',
+                'related_person',
+                'related_prisonstation',
                 css_id="basic_search_fields"
                 ),
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'acad_title',
-                    'alt_names',
-                    'authority_url',
-                    'belongs_to_institution',
+                    'start_date',
+                    'end_date',
                     css_id="more"
                     ),
                 )

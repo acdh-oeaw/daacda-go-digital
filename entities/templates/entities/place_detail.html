@@ -97,7 +97,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Map</h3>
+                        <h4 class="card-title">Map</h4>
                     </div>
                     <div class="card-body">
                         <div id="map"/>
@@ -136,6 +136,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="detention_center-tab" data-toggle="tab" href="#detention_center" role="tab" aria-controls="detention_center" aria-selected="false">Prison Station</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="airstrike_site-tab" data-toggle="tab" href="#airstrike_site" role="tab" aria-controls="airstrike_site" aria-selected="false">Airstrike Site</a>
                 </li>
             </ul>
         </div>
@@ -220,6 +223,28 @@
                             </td>
                             <td>
                                 {{ x.station_type }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="airstrike_site" role="tabpanel" aria-labelledby="airstrike_site-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Target
+                            </th>
+                        </tr>
+                        {% for x in object.is_target.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x.date }}</a>
+                            </td>
+                            <td>
+                                {{ x.target }}
                             </td>
                         </tr>
                         {% endfor %}

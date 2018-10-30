@@ -301,11 +301,12 @@ class Bomber(models.Model):
     )
     name = models.CharField(
         max_length=250, blank=True,
-        verbose_name="Flugzeugname", help_text="The name of the plane",)
+        verbose_name="Flugzeugname", help_text="The name of the plane",
+    )
     squadron = models.ForeignKey(
         Institution, blank=True, null=True,
         related_name="has_bomber",
-        on_delete=models.SET_NULL, verbose_name="Squadron",
+        on_delete=models.SET_NULL, verbose_name="Staffel",
         help_text="The squadron the bomber belongs to",
     )
     date_of_crash = models.DateField(

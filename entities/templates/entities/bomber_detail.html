@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Info</h3>
+                        <h4 class="card-title">Info</h4>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
@@ -157,6 +157,14 @@
                                 </td>
                             </tr>
                             {% endif %}
+                            <tr>
+                                <th>
+                                   {% get_verbose_name bomber "squadron" %}
+                                </th>
+                                <td>
+                                   <a href="{{ object.squadron.get_absolute_url }}">{{ object.squadron }}</a>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -164,7 +172,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Map</h3>
+                        <h4 class="card-title">Map</h4>
                     </div>
                     <div class="card-body">
                         {% leaflet_map "yourmap" callback="window.map_init_basic" %}
