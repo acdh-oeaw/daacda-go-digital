@@ -186,6 +186,12 @@ class Place(IdProvider):
     def get_createview_url(self):
         return reverse('entities:place_create')
 
+    def get_edit_url(self):
+        return reverse('entities:place_edit', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('entities:place_delete', kwargs={'pk': self.id})
+
     @classmethod
     def get_arche_dump(self):
         return reverse('entities:rdf_places')
@@ -382,8 +388,14 @@ class Bomber(models.Model):
     def get_listview_url(self):
         return reverse('entities:browse_bombers')
 
+    def get_edit_url(self):
+        return reverse('entities:bomber_edit', kwargs={'pk': self.id})
+
     def get_absolute_url(self):
         return reverse('entities:bomber_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('entities:bomber_delete', kwargs={'pk': self.id})
 
     def get_next(self):
         next = Bomber.objects.filter(id__gt=self.id)
@@ -554,9 +566,15 @@ class Person(IdProvider):
     def get_createview_url(self):
         return reverse('entities:person_create')
 
+    def get_delete_url(self):
+        return reverse('entities:person_delete', kwargs={'pk': self.id})
+
     @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_persons')
+
+    def get_edit_url(self):
+        return reverse('entities:person_edit', kwargs={'pk': self.id})
 
     @classmethod
     def get_arche_dump(self):
@@ -687,6 +705,9 @@ class WarCrimeCase(IdProvider):
     def get_listview_url(self):
         return reverse('entities:browse_warcrimecases')
 
+    def get_edit_url(self):
+        return reverse('entities:warcrimecase_edit', kwargs={'pk': self.id})
+
     def get_absolute_url(self):
         return reverse('entities:warcrimecase_detail', kwargs={'pk': self.id})
 
@@ -765,6 +786,9 @@ class PersonWarCrimeCase(IdProvider):
     @classmethod
     def get_listview_url(self):
             return reverse('entities:browse_personwarcrimecases')
+
+    def get_edit_url(self):
+        return reverse('entities:personwarcrimecase_edit', kwargs={'pk': self.id})
 
     def get_absolute_url(self):
             return reverse('entities:personwarcrimecase_detail', kwargs={'pk': self.id})

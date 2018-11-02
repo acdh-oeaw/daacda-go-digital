@@ -65,6 +65,9 @@ class PrisonStation(IdProvider):
             'detentions:prisonstation_detail', kwargs={'pk': self.id}
         )
 
+    def get_delete_url(self):
+        return reverse('detentions:prisonstation_delete', kwargs={'pk': self.id})
+
     def get_persons(self):
         ct = ContentType.objects.get(model='PersonPrison').model_class()
         items = ct.objects.filter(related_prisonstation=self)
@@ -77,6 +80,9 @@ class PrisonStation(IdProvider):
     @classmethod
     def get_createview_url(self):
         return reverse('detentions:prisonstation_create')
+
+    def get_edit_url(self):
+        return reverse('detentions:prisonstation_edit', kwargs={'pk': self.id})
 
     def get_next(self):
         next = PrisonStation.objects.filter(id__gt=self.id)
@@ -143,6 +149,9 @@ class PersonPrison(IdProvider):
     @classmethod
     def get_createview_url(self):
         return reverse('detentions:personprison_create')
+
+    def get_edit_url(self):
+        return reverse('detentions:personprison_edit', kwargs={'pk': self.id})
 
     def get_absolute_url(self):
         return reverse(

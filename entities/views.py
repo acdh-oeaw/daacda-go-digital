@@ -221,7 +221,7 @@ class PersonUpdate(BaseUpdateView):
 class PersonDelete(DeleteView):
     model = Person
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_entities')
+    success_url = reverse_lazy('entities:browse_persons')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -802,7 +802,7 @@ class AirstrikeUpdate(BaseUpdateView):
 class AirstrikeDelete(DeleteView):
     model = Airstrike
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_entities')
+    success_url = reverse_lazy('entities:browse_airstrikes')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
