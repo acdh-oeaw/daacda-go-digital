@@ -115,6 +115,16 @@
                                     {{ object.destiny_checked }}
                                 </td>
                             </tr>
+                            {% if object.me_record %}
+                                <tr>
+                                    <th>
+                                        {% get_verbose_name person "me_record" %}
+                                    </th>
+                                    <td>
+                                        {{ object.me_record }}
+                                    </td>
+                                </tr>
+                            {% endif %}
                             {% if object.mia %}
                             <tr>
                                 <th>

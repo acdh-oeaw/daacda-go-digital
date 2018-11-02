@@ -561,6 +561,11 @@ class Person(IdProvider):
         on_delete=models.SET_NULL, verbose_name="Funktion",
         help_text="The person's function inside the bomber"
     )
+    me_record = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Maschine Englisch",
+        help_text="German record about crashed airplane"
+    )
 
     @classmethod
     def get_createview_url(self):
