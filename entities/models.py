@@ -260,6 +260,12 @@ class Institution(IdProvider):
     def get_listview_url(self):
         return reverse('entities:browse_institutions')
 
+    def get_edit_url(self):
+        return reverse('entities:institution_edit', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('entities:institution_delete', kwargs={'pk': self.id})
+
     @classmethod
     def get_createview_url(self):
         return reverse('entities:institution_create')
@@ -852,6 +858,12 @@ class Airstrike(IdProvider):
     @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_airstrikes')
+
+    def get_edit_url(self):
+        return reverse('entities:airstrike_edit', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('entities:airstrike_delete', kwargs={'pk': self.id})
 
     def get_absolute_url(self):
         return reverse('entities:airstrike_detail', kwargs={'pk': self.id})
