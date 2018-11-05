@@ -63,6 +63,11 @@ class OnlineRessource(IdProvider):
         )
 
     @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_onlineressources')
 
@@ -93,6 +98,11 @@ class AlternativeName(IdProvider):
         return reverse(
             'entities:alternativename_detail', kwargs={'pk': self.id}
         )
+
+    @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
 
     @classmethod
     def get_listview_url(self):
@@ -179,6 +189,11 @@ class Place(IdProvider):
         super(Place, self).save(*args, **kwargs)
 
     @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_places')
 
@@ -255,6 +270,11 @@ class Institution(IdProvider):
     @classmethod
     def get_arche_dump(self):
         return reverse('entities:rdf_institutions')
+
+    @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
 
     @classmethod
     def get_listview_url(self):
@@ -389,6 +409,11 @@ class Bomber(models.Model):
 
     def __str__(self):
         return "{}".format(self.macr_nr)
+
+    @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
 
     @classmethod
     def get_listview_url(self):
@@ -581,6 +606,11 @@ class Person(IdProvider):
         return reverse('entities:person_delete', kwargs={'pk': self.id})
 
     @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_persons')
 
@@ -713,6 +743,11 @@ class WarCrimeCase(IdProvider):
         return reverse('entities:warcrimecase_create')
 
     @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
     def get_listview_url(self):
         return reverse('entities:browse_warcrimecases')
 
@@ -795,6 +830,11 @@ class PersonWarCrimeCase(IdProvider):
             return reverse('entities:personwarcrimecase_create')
 
     @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
     def get_listview_url(self):
             return reverse('entities:browse_personwarcrimecases')
 
@@ -854,6 +894,11 @@ class Airstrike(IdProvider):
     @classmethod
     def get_createview_url(self):
         return reverse('entities:airstrike_create')
+
+    @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
 
     @classmethod
     def get_listview_url(self):
