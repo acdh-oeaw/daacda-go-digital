@@ -754,6 +754,9 @@ class WarCrimeCase(IdProvider):
     def get_edit_url(self):
         return reverse('entities:warcrimecase_edit', kwargs={'pk': self.id})
 
+    def get_delete_url(self):
+        return reverse('entities:warcrimecase_delete', kwargs={'pk': self.id})
+
     def get_absolute_url(self):
         return reverse('entities:warcrimecase_detail', kwargs={'pk': self.id})
 
@@ -840,6 +843,9 @@ class PersonWarCrimeCase(IdProvider):
 
     def get_edit_url(self):
         return reverse('entities:personwarcrimecase_edit', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('entities:personwarcrimecase_delete', kwargs={'pk': self.id})
 
     def get_absolute_url(self):
             return reverse('entities:personwarcrimecase_detail', kwargs={'pk': self.id})

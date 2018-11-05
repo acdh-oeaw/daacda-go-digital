@@ -78,6 +78,11 @@ class PrisonStation(IdProvider):
         return reverse('detentions:browse_prisonstations')
 
     @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
     def get_createview_url(self):
         return reverse('detentions:prisonstation_create')
 
@@ -145,6 +150,11 @@ class PersonPrison(IdProvider):
     @classmethod
     def get_listview_url(self):
         return reverse('detentions:browse_personprisons')
+
+    @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
 
     @classmethod
     def get_createview_url(self):
