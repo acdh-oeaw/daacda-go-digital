@@ -11,6 +11,6 @@ PROJECT_METADATA = {
     'purpose_en': 'The complete collection of data on all aircraft crashes and affected crews created for this web application for the first time provides a comprehensive picture of the fate of downed airmen in today´s Austria, based on a networked view of sources, data and information from US, British, German and Austrian Archives.',
     'version': '0.0.1',
     'matomo_id': '88',
-    'matomo_url': '//piwik.apollo.arz.oeaw.ac.at/',
+    'matomo_url': '//matomo.acdh.oeaw.ac.at/',
     'imprint': 'https://www.oeaw.ac.at/die-oeaw/impressum/',
 }
