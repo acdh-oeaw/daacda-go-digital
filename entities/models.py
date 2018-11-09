@@ -179,7 +179,7 @@ class Place(IdProvider):
         try:
             number = re.findall(r'\d+', str(self.geonames_id))[0]
             return None
-        except:
+        except Exception as e:
             return None
 
     def save(self, *args, **kwargs):
@@ -888,7 +888,8 @@ class Airstrike(IdProvider):
         on_delete=models.SET_NULL,
     )
     number_of_planes = models.IntegerField(
-        blank=True, null=True, verbose_name="Total", help_text="Estimated number of planes involved in total"
+        blank=True, null=True, verbose_name="Total", help_text="Estimated number of\
+        planes involved in total"
     )
     airforce = models.ForeignKey(
         Institution, max_length=250, blank=True, null=True,
