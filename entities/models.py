@@ -237,6 +237,7 @@ class Place(IdProvider):
                 "properties": {
                     "name": getattr(self, 'name', 'NONE'),
                     "geonames_id": getattr(self, 'geonames_id', 'NONE'),
+                    "link": self.get_absolute_url()
                 }
             }
             return geojson
