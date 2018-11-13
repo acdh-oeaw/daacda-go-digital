@@ -226,6 +226,23 @@ class Place(IdProvider):
     def get_absolute_url(self):
         return reverse('entities:place_detail', kwargs={'pk': self.id})
 
+    def get_geojson(self):
+        if self.lng:
+            geojson = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [float(self.lng), float(self.lat)]
+                    },
+                "properties": {
+                    "name": getattr(self, 'name', 'NONE'),
+                    "geonames_id": getattr(self, 'geonames_id', 'NONE'),
+                }
+            }
+            return geojson
+        else:
+            return None
+
     def __str__(self):
         return "{}".format(self.name)
 

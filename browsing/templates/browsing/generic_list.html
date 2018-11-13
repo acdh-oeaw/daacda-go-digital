@@ -268,6 +268,18 @@
                        <a class="btn btn-outline-secondary" href="#table-results">Table</a>
                         {% leaflet_map "yourmap" callback="window.map_init_basic" %}
                     </div>
+                    {% if geojson %}
+                        <div class="card-footer">
+                            {{ geojson }}
+                        </div>
+                        <script type="text/javascript">
+                            function map_init_basic(map, options) {
+                                var MyLayer = L.geoJson({{geojson|safe }}, {});
+                                MyLayer.addTo(map);
+                                map.fitBounds(MyLayer.getBounds());
+                            }
+                        </script>
+                    {% endif %}
                 </div>
             </div>
         </div>
