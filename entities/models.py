@@ -974,5 +974,28 @@ class Airstrike(IdProvider):
             return prev.first().id
         return False
 
+    def get_list_geojson(self):
+        if self.target.lng:
+            json_date = self.date.strftime("%Y-%m-%d")
+            geojson = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [float(self.target.lng), float(self.target.lat)]
+                    },
+                "properties": {
+                    "name": json_date,
+                    "type": "Targetplace of Attack",
+                    "label": "{}: attacked on {}".format(
+                        self.target.name,
+                        json_date),
+                    "geonames_id": getattr(self, 'geonames_id', 'NONE'),
+                    "self_link": self.get_absolute_url()
+                }
+            }
+            return geojson
+        else:
+            return None
+
     def __str__(self):
         return "{}".format(self.date)
