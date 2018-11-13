@@ -226,7 +226,7 @@ class Place(IdProvider):
     def get_absolute_url(self):
         return reverse('entities:place_detail', kwargs={'pk': self.id})
 
-    def get_geojson(self):
+    def get_list_geojson(self):
         if self.lng:
             geojson = {
                 "type": "Feature",
@@ -236,8 +236,10 @@ class Place(IdProvider):
                     },
                 "properties": {
                     "name": getattr(self, 'name', 'NONE'),
+                    "type": "Place",
+                    "label": getattr(self, 'name', 'NONE'),
                     "geonames_id": getattr(self, 'geonames_id', 'NONE'),
-                    "link": self.get_absolute_url()
+                    "self_link": self.get_absolute_url()
                 }
             }
             return geojson
@@ -457,6 +459,28 @@ class Bomber(models.Model):
         if prev:
             return prev.first().id
         return False
+
+    def get_list_geojson(self):
+        if self.crash_place.lng:
+            geojson = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [float(self.crash_place.lng), float(self.crash_place.lat)]
+                    },
+                "properties": {
+                    "name": getattr(self, 'name', 'NONE'),
+                    "type": "Crashplace of Bomber",
+                    "label": "{}: Crashplace of Bomber {}".format(
+                        self.crash_place.name,
+                        self.macr_nr),
+                    "geonames_id": getattr(self, 'geonames_id', 'NONE'),
+                    "self_link": self.get_absolute_url()
+                }
+            }
+            return geojson
+        else:
+            return None
 
     def get_geojson(self):
         if self.target_place and self.crash_place:

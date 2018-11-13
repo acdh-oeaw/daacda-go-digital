@@ -279,7 +279,7 @@
                             function map_init_basic(map, options) {
                                 var MyLayer = L.geoJson({{geojson|safe }}, {
                                     onEachFeature: function (feature, layer) {
-                                        layer.bindPopup('<h3><a href="'+feature.properties.link+'">'+feature.properties.name+'</a></h3>');
+                                        layer.bindPopup('<h3><a href="'+feature.properties.self_link+'">'+feature.properties.label+'</a></h3>');
                                     }
                                 });
                                 // MyLayer.addTo(map);

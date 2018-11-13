@@ -246,6 +246,15 @@ class BomberListView(GenericListView):
         context[self.context_filter_name] = self.filter
         togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
         context['togglable_colums'] = togglable_colums
+        gj_dicts = [
+            x.get_list_geojson() for x in self.get_queryset()
+            .filter(crash_place__lat__isnull=False)
+        ]
+        feature_collection = {
+            'type': 'FeatureCollection',
+            'features': gj_dicts
+        }
+        context['geojson'] = json.dumps(feature_collection)
         return context
 
     def get_table(self, **kwargs):
@@ -385,7 +394,7 @@ class PlaceListView(GenericListView):
         context[self.context_filter_name] = self.filter
         togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
         context['togglable_colums'] = togglable_colums
-        gj_dicts = [x.get_geojson() for x in self.get_queryset().filter(lat__isnull=False)]
+        gj_dicts = [x.get_list_geojson() for x in self.get_queryset().filter(lat__isnull=False)]
         feature_collection = {
             'type': 'FeatureCollection',
             'features': gj_dicts
