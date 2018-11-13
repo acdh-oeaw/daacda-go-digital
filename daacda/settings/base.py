@@ -148,3 +148,23 @@ VOCABS_SETTINGS = {
     'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
     'default_lang': "eng"
 }
+
+
+LEAFLET_CONFIG = {
+    'TILES': [
+        (
+            'BASIC',
+            'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
+            {
+                'attribution': 'Map data &copy;\
+                <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,\
+                <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,\
+                Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                'maxZoom': 18,
+                'id': 'mapbox.light',
+                'accessToken': 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bD\
+                AwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+            }
+        )
+    ]
+}
