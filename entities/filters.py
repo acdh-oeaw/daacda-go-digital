@@ -1,6 +1,10 @@
 import django_filters
 from dal import autocomplete
-from entities.models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase, Airstrike
+from entities.models import (
+    Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase,
+    OnlineRessource, PersonWarCrimeCase, Airstrike
+)
+
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -137,6 +141,14 @@ class OnlineRessourceListFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         help_text=OnlineRessource._meta.get_field('www_url').help_text,
         label=OnlineRessource._meta.get_field('www_url').verbose_name
+        )
+    related_persons = django_filters.ModelMultipleChoiceFilter(
+        queryset=Person.objects.all(),
+        help_text=OnlineRessource._meta.get_field('related_persons').help_text,
+        label=OnlineRessource._meta.get_field('related_persons').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:person-autocomplete',
+            )
         )
 
     class Meta:

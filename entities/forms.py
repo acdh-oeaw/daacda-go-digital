@@ -4,7 +4,10 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit,  Layout, Fieldset, Div, MultiField, HTML
 from crispy_forms.bootstrap import Accordion, AccordionGroup
-from .models import Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase, OnlineRessource, PersonWarCrimeCase, Airstrike
+from .models import (
+    Place, AlternativeName, Institution, Person, Bomber,
+    WarCrimeCase, OnlineRessource, PersonWarCrimeCase, Airstrike
+)
 
 
 class PersonFilterFormHelper(FormHelper):
@@ -45,7 +48,7 @@ class OnlineRessourceFilterFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
-                # 'related_persons',
+                'related_persons',
                 css_id="basic_search_fields"
                 ),
             Accordion(
