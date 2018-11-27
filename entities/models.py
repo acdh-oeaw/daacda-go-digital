@@ -71,6 +71,12 @@ class OnlineRessource(IdProvider):
     def get_listview_url(self):
         return reverse('entities:browse_onlineressources')
 
+    def get_edit_url(self):
+        return reverse('entities:onlineressource_edit', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('entities:onlineressource_delete', kwargs={'pk': self.id})
+
     @classmethod
     def get_createview_url(self):
         return reverse('entities:onlineressource_create')

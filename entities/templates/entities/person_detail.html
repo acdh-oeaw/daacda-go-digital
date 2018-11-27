@@ -255,6 +255,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="prison_stations-tab" data-toggle="tab" href="#prison_stations" role="tab" aria-controls="prison_stations" aria-selected="true">Prison Stations</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="onlineressource-tab" data-toggle="tab" href="#onlineressource" role="tab" aria-controls="onlineressource" aria-selected="true">Online Ressources</a>
+                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -327,6 +330,28 @@
                                 </td>
                             </tr>
                         {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade show" id="onlineressource" role="tabpanel" aria-labelledby="onlineressource-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                URL
+                            </th>
+                            <th>
+                                description_short
+                            </th>
+                            </tr>
+                            {% for x in object.URLperson.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ x }}">{{ x }}</a>
+                                </td>
+                                <td>
+                                    {{ x.description_short }}
+                                </td>
+                            </tr>
+                            {% endfor %}
                     </table>
                 </div>
             </div>

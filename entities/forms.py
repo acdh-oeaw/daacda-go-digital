@@ -40,19 +40,18 @@ class OnlineRessourceFilterFormHelper(FormHelper):
         self.helper = FormHelper()
         self.form_class = 'genericFilterForm'
         self.form_method = 'GET'
-        self.helper.form_tag = False
+        self.helper.form_tag = True
         self.add_input(Submit('Filter', 'Search'))
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
+                # 'related_persons',
                 css_id="basic_search_fields"
                 ),
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'alt_names',
-                    'authority_url',
-                    'belongs_to_institution',
+                    'www_url',
                     css_id="more"
                     ),
                 )

@@ -142,7 +142,7 @@ class OnlineRessourceListFilter(django_filters.FilterSet):
     class Meta:
         model = OnlineRessource
         fields = [
-            'www_url'
+            'www_url', 'related_persons'
         ]
 
 
