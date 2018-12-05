@@ -13,7 +13,7 @@ class PrisonStation(IdProvider):
 
     name = models.CharField(
         max_length=200, help_text="The designation of the prison station",
-        verbose_name="Kriegsgefangenenlager"
+        verbose_name="Gefangenschaft"
         )
     alt_name = models.ManyToManyField(
         AlternativeName, max_length=200, blank=True,
@@ -29,7 +29,7 @@ class PrisonStation(IdProvider):
         Place, blank=True, null=True,
         help_text="The place where the prison camp is located",
         on_delete=models.SET_NULL, related_name='place_located',
-        verbose_name="Ort des Lagers"
+        verbose_name="Ort der Gefangenschaft"
         )
     part_of = models.ForeignKey(
         "self", blank=True, null=True,

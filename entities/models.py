@@ -434,7 +434,12 @@ class Bomber(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.macr_nr)
+        if self.name:
+            return "{}".format(self.name)
+        elif self.plane_id:
+            return "{}".format(self.plane_id)
+        else:
+            return "{}".format(self.id)
 
     @classmethod
     def get_class_name(self):
@@ -930,13 +935,13 @@ class Airstrike(IdProvider):
     )
     plane_type = models.ForeignKey(
         SkosConcept, blank=True, null=True,
-        verbose_name="Plane type",
+        verbose_name="Attack type",
         help_text="The type of the plane",
         related_name="is_plane_type_2",
         on_delete=models.SET_NULL,
     )
     number_of_planes = models.IntegerField(
-        blank=True, null=True, verbose_name="Total", help_text="Estimated number of\
+        blank=True, null=True, verbose_name="Number of Planes", help_text="Estimated number of\
         planes involved in total"
     )
     airforce = models.ForeignKey(
