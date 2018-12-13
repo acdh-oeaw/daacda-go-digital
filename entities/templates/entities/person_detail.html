@@ -97,7 +97,7 @@
                                     {{ object.part_of_bomber.macr_nr }}
                                 </td>
                             </tr>
-                            
+
                             <tr>
                                 <th>
                                     {% get_verbose_name person "destiny_stated" %}
@@ -289,7 +289,7 @@
                             {% if x.id != object.id %}
                                 <tr>
                                     <td>
-                                        <a href="{{ x.related_prisonstation }}">{{ x }}</a>
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                                     </td>
                                     <td>
                                         {{ x.function_in_plane }}
