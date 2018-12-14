@@ -55,10 +55,10 @@
                                 </th>
                                 <td>
                                     <ul>
-                                        {% for x in object.alternative_name.all %}
+                                        {% for x in object.alt_names.all %}
                                             {% if x.id %}
                                             <li>
-                                                <a href="{% url 'entities:alternativename_detail' k=x.id %}">{{ x }}</a></li>
+                                                <a href="{% url 'entities:alternativename_detail' pk=x.id %}">{{ x }}</a></li>
                                             {% endif %}
                                         {% endfor %}
                                     </ul>
