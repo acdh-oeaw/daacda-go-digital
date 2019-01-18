@@ -65,6 +65,16 @@
                                   {{ object.written_name }}
                               </td>
                           </tr>
+                          {% if object.nation %}
+                          <tr>
+                              <th>
+                                  {% get_verbose_name person "nation" %}
+                              </th>
+                              <td>
+                                  {{ object.nation }}
+                              </td>
+                          </tr>
+                          {% endif %}
                           <tr>
                               <th>
                                   {% get_verbose_name person "rank" %}

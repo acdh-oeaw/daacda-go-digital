@@ -1,6 +1,10 @@
 import django_filters
 from dal import autocomplete
 from detentions.models import PrisonStation, PersonPrison
+from entities.models import (
+    Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase,
+    OnlineRessource, PersonWarCrimeCase, Airstrike
+)
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -37,6 +41,14 @@ class PersonPrisonListFilter(django_filters.FilterSet):
         help_text=PersonPrison._meta.get_field('relation_type').help_text,
         label=PersonPrison._meta.get_field('relation_type').verbose_name
         )
+    related_person = django_filters.ModelMultipleChoiceFilter(
+        queryset=Person.objects.all(),
+        help_text=PersonPrison._meta.get_field('related_person').help_text,
+        label=PersonPrison._meta.get_field('related_person').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:person-autocomplete',
+            )
+    )
 
     class Meta:
         model = PersonPrison
