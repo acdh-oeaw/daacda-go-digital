@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'detentions',
     'news',
     'browsing',
+    'materials',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
