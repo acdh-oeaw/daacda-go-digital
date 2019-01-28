@@ -396,7 +396,20 @@ class Bomber(models.Model):
         related_name="is_crashplace",
         on_delete=models.SET_NULL,
         verbose_name="Absturzort",
-        help_text="The place where the bomber crashed",)
+        help_text="The place where the bomber crashed"
+    )
+    crash_lat = models.DecimalField(
+        max_digits=20, decimal_places=12,
+        verbose_name="Latitude crash site",
+        blank=True, null=True,
+        help_text="The latitude of the exact crashplace. Must not made public!"
+    )
+    crash_lng = models.DecimalField(
+        max_digits=20, decimal_places=12,
+        blank=True, null=True,
+        verbose_name="Longitude crash site",
+        help_text="The longitude of the exact crashplace. Must not made public!"
+    )
     comment = models.TextField(
         blank=True,
         verbose_name="Kommentar",
