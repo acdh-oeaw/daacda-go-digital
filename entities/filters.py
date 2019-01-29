@@ -94,10 +94,13 @@ class InstitutionListFilter(django_filters.FilterSet):
 
 
 class PlaceListFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(
-        lookup_expr='icontains',
+    name = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
         help_text=Place._meta.get_field('name').help_text,
-        label=Place._meta.get_field('name').verbose_name
+        label=Place._meta.get_field('name').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:place-autocomplete',
+            )
         )
     geonames_id = django_filters.CharFilter(
         lookup_expr='icontains',
@@ -118,21 +121,24 @@ class PlaceListFilter(django_filters.FilterSet):
     class Meta:
         model = Place
         fields = [
-            'id'
+            'id', 'name'
         ]
 
 
 class AlternativeNameListFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(
-        lookup_expr='icontains',
+    name = django_filters.ModelMultipleChoiceFilter(
+        queryset=AlternativeName.objects.all(),
         help_text=AlternativeName._meta.get_field('name').help_text,
-        label=AlternativeName._meta.get_field('name').verbose_name
+        label=AlternativeName._meta.get_field('name').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:altname-autocomplete',
+            )
         )
 
     class Meta:
         model = AlternativeName
         fields = [
-            'id'
+            'id', 'name'
         ]
 
 

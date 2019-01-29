@@ -279,6 +279,11 @@ class AlternativeNameForm(forms.ModelForm):
     class Meta:
         model = AlternativeName
         fields = "__all__"
+        widgets = {
+            'name': autocomplete.ModelSelect2(
+                url='entities-ac:altname-autocomplete'
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super(AlternativeNameForm, self).__init__(*args, **kwargs)
@@ -304,13 +309,6 @@ class AlternativeNameFilterFormHelper(FormHelper):
                 'name',
                 css_id="basic_search_fields"
                 ),
-            Accordion(
-                AccordionGroup(
-                    'Advanced search',
-                    'name',
-                    css_id="more"
-                    ),
-                )
             )
 
 

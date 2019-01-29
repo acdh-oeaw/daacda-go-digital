@@ -19,8 +19,10 @@ class PlaceAC(autocomplete.Select2QuerySetView):
         qs = Place.objects.all()
 
         if self.q:
-            qs = qs.filter(name__icontains=self.q)
-
+            qs = qs.filter(
+                Q(name__icontains=self.q) |
+                Q(alt_names__name__icontains=self.q)
+            )
         return qs
 
 
