@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^vocabs-ac/', include('vocabs.dal_urls', namespace='vocabs-ac')),
     url(r'^entities-ac/', include('entities.dal_urls', namespace='entities-ac')),
     url(r'^entities/', include('entities.urls', namespace='entities')),
+    url(r'^materials/', include('materials.urls', namespace='materials')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^detentions/', include('detentions.urls', namespace='detentions')),
     url(r'^detentions-ac/', include('detentions.dal_urls', namespace='detentions-ac')),
