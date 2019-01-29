@@ -164,7 +164,7 @@ LEAFLET_CONFIG = {
                 Imagery © <a href="http://mapbox.com">Mapbox</a>',
                 'maxZoom': 18,
                 'id': 'mapbox.light',
-                'accessToken': 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+                'accessToken': 'pk.eyJ1IjoiY3NhZTgwOTIiLCJhIjoiY2lnM2FoZWpjMDJqZnY1a2gxdWl6a29kaiJ9.FQXlsKIu60WhiXLrfI59VA'
             }
         )
     ]
