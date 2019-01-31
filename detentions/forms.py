@@ -19,6 +19,8 @@ class PrisonStationForm(forms.ModelForm):
                 url='detentions-ac:prisonstationpartof-autocomplete'),
             'station_type': autocomplete.ModelSelect2(
                 url='detentions-ac:prisonstationstationtype-autocomplete'),
+            'station_type': autocomplete.ModelSelect2(
+                url='/vocabs-ac/specific-concept-ac/type_of_prison_station'),
         }
 
     def __init__(self, *args, **kwargs):
