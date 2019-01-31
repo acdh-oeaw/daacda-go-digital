@@ -17,6 +17,11 @@ urlpatterns = [
         name='prisonstationlocatedinplace-autocomplete',
     ),
     url(
+        r'^personprisonlocatedinplace-autocomplete/$', dal_views.PersonPrisonLocatedInPlaceAC.as_view(
+            model=Place, create_field='name',),
+        name='personprisonlocatedinplace-autocomplete',
+    ),
+    url(
         r'^prisonstationpartof-autocomplete/$', dal_views.PrisonStationPartOfAC.as_view(
             model=Place, create_field='name',),
         name='prisonstationpartof-autocomplete',

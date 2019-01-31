@@ -25,6 +25,16 @@ class PrisonStationLocatedInPlaceAC(autocomplete.Select2QuerySetView):
         return qs
 
 
+class PersonPrisonLocatedInPlaceAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Place.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
+
 class PrisonStationPartOfAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = PrisonStation.objects.all()
