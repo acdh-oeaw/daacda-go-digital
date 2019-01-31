@@ -37,12 +37,22 @@
                     </td>
                 </tr>
                 {% endif %}
-                <tr>
-                    <th>{% get_verbose_name personprison "related_prisonstation" %}</th>
-                    <td>
-                      <a href="{{ object.related_prisonstation.get_absolute_url }}">{{ object.related_prisonstation }}</a>
-                    </td>
-                </tr>
+                {% if object.related_prisonstation %}
+                    <tr>
+                        <th>{% get_verbose_name personprison "related_prisonstation" %}</th>
+                        <td>
+                          <a href="{{ object.related_prisonstation.get_absolute_url }}">{{ object.related_prisonstation }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if object.related_location %}
+                    <tr>
+                        <th>{% get_verbose_name personprison "related_location" %}</th>
+                        <td>
+                          <a href="{{ object.related_location.get_absolute_url }}">{{ object.related_location }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th>{% get_verbose_name personprison "start_date" %}</th>
                     <td>
