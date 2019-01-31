@@ -70,6 +70,8 @@ class PersonPrisonForm(forms.ModelForm):
                 url='detentions-ac:personprisonrelatedpersons-autocomplete'),
             'related_prisonstation': autocomplete.ModelSelect2(
                 url='detentions-ac:personprisonrelatedprisonstation-autocomplete'),
+            'relation_type': autocomplete.ModelSelect2(
+                url='/vocabs-ac/specific-concept-ac/person-prison-rel-type'),
             }
 
     def __init__(self, *args, **kwargs):
