@@ -132,6 +132,8 @@ class PersonForm(forms.ModelForm):
                 url='entities-ac:persondestinychecked-autocomplete'),
             'mia': autocomplete.ModelSelect2(
                 url='entities-ac:personmia-autocomplete'),
+            'nation': autocomplete.ModelSelect2(
+                url='/vocabs-ac/specific-concept-ac/nationality'),
         }
 
     def __init__(self, *args, **kwargs):
