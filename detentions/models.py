@@ -127,6 +127,13 @@ class PersonPrison(IdProvider):
         related_name="related_to_prisonstation",
         on_delete=models.SET_NULL
     )
+    related_location = models.ForeignKey(
+        Place, blank=True, null=True,
+        verbose_name="Related Location",
+        help_text="Place where some interaction happend",
+        related_name="related_to_personprison",
+        on_delete=models.SET_NULL
+    )
     start_date = models.DateField(
         blank=True, null=True,
         verbose_name="Start of relation",
@@ -143,6 +150,10 @@ class PersonPrison(IdProvider):
         if self.relation_type and self.related_person and self.related_prisonstation:
             return "{} - {}- {}".format(
                 self.related_person, self.relation_type, self.related_prisonstation
+            )
+        elif self.relation_type and self.related_person and self.related_location:
+            return "{} - {}- {}".format(
+                self.related_person, self.relation_type, self.related_location
             )
         else:
             return "{}".format(self.id)
