@@ -319,6 +319,9 @@
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>
+                                Relation Type
+                            </th>
+                            <th>
                                 Name
                             </th>
                             <th>
@@ -333,6 +336,9 @@
                         </tr>
                         {% for x in object.has_related_persons.all %}
                             <tr>
+                                <td>
+                                    {{ x.relation_type }}
+                                </td>
                                 <td>
                                     <a href="{{ x.related_prisonstation.get_absolute_url }}">{{ x.related_prisonstation.name }}</a>
                                 </td>
