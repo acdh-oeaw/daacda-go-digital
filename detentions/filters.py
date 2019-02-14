@@ -29,6 +29,12 @@ class PrisonStationListFilter(django_filters.FilterSet):
         help_text=PrisonStation._meta.get_field('name').help_text,
         label=PrisonStation._meta.get_field('name').verbose_name
         )
+    name_exact = django_filters.CharFilter(
+        field_name='name',
+        lookup_expr='exact',
+        help_text=PrisonStation._meta.get_field('name').help_text,
+        label="Exact Name"
+        )
 
     class Meta:
         model = PrisonStation

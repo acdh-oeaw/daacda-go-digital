@@ -45,6 +45,7 @@ class PrisonStationFilterFormHelper(FormHelper):
             Fieldset(
                 'Basic search options',
                 'name',
+                'name_exact',
                 'written_name',
                 css_id="basic_search_fields"
                 ),
