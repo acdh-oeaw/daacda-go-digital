@@ -174,6 +174,9 @@ class PersonPrison(IdProvider):
     def get_edit_url(self):
         return reverse('detentions:personprison_edit', kwargs={'pk': self.id})
 
+    def get_delete_url(self):
+        return reverse('detentions:personprison_delete', kwargs={'pk': self.id})
+
     def get_absolute_url(self):
         return reverse(
             'detentions:personprison_detail', kwargs={'pk': self.id}

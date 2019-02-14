@@ -46,7 +46,6 @@ class PrisonStationFilterFormHelper(FormHelper):
                 'Basic search options',
                 'name',
                 'name_exact',
-                'written_name',
                 css_id="basic_search_fields"
                 ),
             Accordion(
