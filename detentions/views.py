@@ -23,6 +23,7 @@ class PrisonStationListView(GenericListView):
         'station_id',
         'located_in_place',
     ]
+    enable_merge = True
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())

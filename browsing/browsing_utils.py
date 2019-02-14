@@ -8,6 +8,7 @@ from django.apps import apps
 from django.conf import settings
 from django.db.models.fields.related import ManyToManyField
 from django.http import HttpResponse
+from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, UpdateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
@@ -17,6 +18,24 @@ from . models import BrowsConf
 if 'charts' in settings.INSTALLED_APPS:
     from charts.models import ChartConfig
     from charts.views import create_payload
+
+
+input_form = """
+  <input type="checkbox" name="keep" value="{}" title="keep this"/> |
+  <input type="checkbox" name="remove" value="{}" title="remove this"/>
+"""
+
+
+class MergeColumn(django_tables2.Column):
+    """ renders a column with to checkbox - used to select objects for merging """
+
+    def __init__(self, *args, **kwargs):
+        super(MergeColumn, self).__init__(*args, **kwargs)
+
+    def render(self, value):
+        return mark_safe(
+            input_form.format(value, value)
+        )
 
 
 def get_entities_table(model_class):
@@ -65,6 +84,8 @@ class GenericListView(django_tables2.SingleTableView):
     paginate_by = 25
     template_name = 'browsing/generic_list.html'
     init_columns = []
+    enable_merge = False
+    enable_delete = False
 
     def get_table_class(self):
         if self.table_class:
@@ -77,8 +98,6 @@ class GenericListView(django_tables2.SingleTableView):
         )
 
     def get_all_cols(self):
-        print('get_table')
-        print(self.get_table().base_columns.keys())
         all_cols = list(self.get_table().base_columns.keys())
         return all_cols
 
@@ -99,6 +118,7 @@ class GenericListView(django_tables2.SingleTableView):
 
     def get_context_data(self, **kwargs):
         context = super(GenericListView, self).get_context_data()
+        context['enable_merge'] = self.enable_merge
         togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
         context['togglable_colums'] = togglable_colums
         context[self.context_filter_name] = self.filter
@@ -124,13 +144,20 @@ class GenericListView(django_tables2.SingleTableView):
             context['download'] = None
         model_name = self.model.__name__.lower()
         context['entity'] = model_name
+        context['app_name'] = self.model._meta.app_label
         context['conf_items'] = list(
             BrowsConf.objects.filter(model_name=model_name)
             .values_list('field_path', 'label')
         )
-        print(context['conf_items'])
         if 'charts' in settings.INSTALLED_APPS:
-            context['vis_list'] = ChartConfig.objects.filter(model_name=model_name)
+            model = self.model
+            app_label = model._meta.app_label
+            print(app_label)
+            filtered_objs = ChartConfig.objects.filter(
+                model_name=model.__name__.lower(),
+                app_name=app_label
+            )
+            context['vis_list'] = filtered_objs
             context['property_name'] = self.request.GET.get('property')
             context['charttype'] = self.request.GET.get('charttype')
             if context['charttype'] and context['property_name']:
@@ -139,7 +166,8 @@ class GenericListView(django_tables2.SingleTableView):
                     context['entity'],
                     context['property_name'],
                     context['charttype'],
-                    qs
+                    qs,
+                    app_label=app_label
                 )
                 context = dict(context, **chartdata)
         return context
@@ -191,10 +219,7 @@ class BaseCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(BaseCreateView, self).get_context_data()
         context['docstring'] = "{}".format(self.model.__doc__)
-        if self.model.__name__.endswith('s'):
-            context['class_name'] = "{}".format(self.model.__name__)
-        else:
-            context['class_name'] = "{}s".format(self.model.__name__)
+        context['class_name'] = "{}".format(self.model.__name__)
         return context
 
 
@@ -206,10 +231,11 @@ class BaseUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(BaseUpdateView, self).get_context_data()
         context['docstring'] = "{}".format(self.model.__doc__)
-        if self.model.__name__.endswith('s'):
-            context['class_name'] = "{}".format(self.model.__name__)
-        else:
-            context['class_name'] = "{}s".format(self.model.__name__)
+        context['class_name'] = "{}".format(self.model.__name__)
+        # if self.model.__name__.endswith('s'):
+        #     context['class_name'] = "{}".format(self.model.__name__)
+        # else:
+        #     context['class_name'] = "{}s".format(self.model.__name__)
         return context
 
 

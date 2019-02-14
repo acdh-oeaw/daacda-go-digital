@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
     url(r'^arche/', include('arche.urls', namespace='arche')),
+    url(r'^browsing/', include('browsing.urls', namespace='browsing')),
     url(r'^charts/', include('charts.urls', namespace='charts')),
     url(r'^sparql/', include('sparql.urls', namespace='sparql')),
     url(r'^vocabs/', include('vocabs.urls', namespace='vocabs')),

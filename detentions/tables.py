@@ -1,5 +1,8 @@
 import django_tables2 as tables
+
+from browsing.browsing_utils import MergeColumn
 from django_tables2.utils import A
+
 from detentions.models import *
 
 
@@ -8,6 +11,7 @@ class PrisonStationTable(tables.Table):
         'detentions:prisonstation_detail',
         args=[A('pk')], verbose_name='Kriegsgefangenenlager'
     )
+    merge = MergeColumn(verbose_name='keep | remove', accessor='pk')
 
     class Meta:
         model = PrisonStation
