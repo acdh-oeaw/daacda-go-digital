@@ -340,10 +340,18 @@
                                     {{ x.relation_type }}
                                 </td>
                                 <td>
-                                    <a href="{{ x.related_prisonstation.get_absolute_url }}">{{ x.related_prisonstation.name }}</a>
+                                    {% if x.related_prisonstation %}
+                                        <a href="{{ x.related_prisonstation.get_absolute_url }}">{{ x.related_prisonstation.name }}</a>
+                                    {% endif %}
                                 </td>
                                 <td>
-                                    {{ x.related_prisonstation.located_in_place }}
+                                    {% if x.related_location %}
+                                        <a href="{{ x.related_location.get_absolute_url }}">{{ x.related_location }}</a>
+                                    {% else %}
+                                        <a href="{{ x.related_prisonstation.located_in_place.get_absolute_url }}">
+                                            {{ x.related_prisonstation.located_in_place }}
+                                        </a>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ x.start_date }}
