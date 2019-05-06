@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
-from idprovider.models import IdProvider
+from idprovider.models import IdProvider, ACCURACY
 from entities.models import Place, AlternativeName, Person
 from vocabs.models import SkosConcept
 
@@ -44,6 +44,11 @@ class PrisonStation(IdProvider):
         help_text="The founding date of the prison station",
         verbose_name="Gründungsdatum"
         )
+    start_date_acc = models.CharField(
+        max_length=50, choices=ACCURACY, default=ACCURACY[2][0],
+        help_text="Accuracy of start date field",
+        verbose_name="Accuracy of start date field"
+    )
     end_date = models.DateField(
         blank=True, null=True,
         help_text="Date of dissolution of the prison station",

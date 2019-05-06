@@ -40,7 +40,7 @@
                             <tr>
                                 <th>{% get_verbose_name prisonstation "located_in_place" %}</th>
                                 <td>
-                                  <a href="{{ object.located_in_place.get_absolute_url }}">{{ object.located_in_place }}</a>
+                                    <a href="{{ object.located_in_place.get_absolute_url }}">{{ object.located_in_place }}</a>
                                 </td>
                             </tr>
                             <tr>
@@ -52,7 +52,7 @@
                             <tr>
                                 <th>{% get_verbose_name prisonstation "start_date" %}</th>
                                 <td>
-                                  {{ object.start_date }}
+                                    <abbr title="precision: {{object.start_date_acc}}">{{ object.start_date }}</abbr>
                                 </td>
                             </tr>
                             <tr>
