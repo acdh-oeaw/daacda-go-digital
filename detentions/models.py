@@ -2,6 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 from idprovider.models import IdProvider
 from entities.models import Place, AlternativeName, Person
 from vocabs.models import SkosConcept
@@ -52,6 +55,11 @@ class PrisonStation(IdProvider):
         help_text="The type of prison station",
         related_name="has_prisonstation_type",
         on_delete=models.SET_NULL
+    )
+    description_long = RichTextUploadingField(
+        blank=True, null=True,
+        verbose_name="Abstract",
+        help_text="A description of the prison station",
     )
 
     def __str__(self):
