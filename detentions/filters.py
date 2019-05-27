@@ -60,7 +60,7 @@ class PersonPrisonListFilter(django_filters.FilterSet):
         help_text=PersonPrison._meta.get_field('related_location').help_text,
         label=PersonPrison._meta.get_field('related_location').verbose_name,
         widget=autocomplete.Select2Multiple(
-            url='entities-ac:place-autocomplete',
+            url='entities-ac:search-place-autocomplete',
             )
         )
 
