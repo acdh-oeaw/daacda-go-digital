@@ -99,6 +99,7 @@ class PersonPrisonFilterFormHelper(FormHelper):
                 'Basic search options',
                 'related_person',
                 'related_prisonstation',
+                'related_location',
                 css_id="basic_search_fields"
                 ),
             Accordion(

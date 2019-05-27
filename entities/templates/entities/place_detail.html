@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Info</h3>
+                        <h4 class="card-title">Info</h4>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-hover">
@@ -135,6 +135,9 @@
                     <a class="nav-link" id="crash_place-tab" data-toggle="tab" href="#crash_place" role="tab" aria-controls="crash_place" aria-selected="false">Crash Place</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" id="rel_person-tab" data-toggle="tab" href="#rel_person" role="tab" aria-controls="rel_person" aria-selected="false">Personen</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" id="detention_center-tab" data-toggle="tab" href="#detention_center" role="tab" aria-controls="detention_center" aria-selected="false">Prison Station</a>
                 </li>
                 <li class="nav-item">
@@ -197,6 +200,34 @@
                                 {{ x.date_of_crash }}
                             </td>
                         </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="rel_person" role="tabpanel" aria-labelledby="rel_person-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Person
+                            </th>
+                            <th>
+                                relation type
+                            </th>
+                            <th>
+                                Day of Arrival
+                            </th>
+                        </tr>
+                        {% for x in object.get_persons.all %}
+                            <tr>
+                                <td>
+                                    <a href="{{ x.get_absolute_url }}">{{ x.related_person }}</a>
+                                </td>
+                                <td>
+                                    {{ x.relation_type }}
+                                </td>
+                                <td>
+                                    {{ x.start_date }}
+                                </td>
+                            </tr>
                         {% endfor %}
                     </table>
                 </div>

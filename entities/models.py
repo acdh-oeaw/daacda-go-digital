@@ -179,6 +179,11 @@ class Place(IdProvider):
         choices=PLACE_TYPES, null=True, blank=True, max_length=50, help_text="The type of the place"
     )
 
+    def get_persons(self):
+        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        prisons = ct.objects.filter(related_location=self)
+        return prisons
+
     def get_geonames_url(self):
         if self.geonames_id.startswith('ht') and self.geonames_id.endswith('.html'):
             return self.geonames_id

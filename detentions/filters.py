@@ -54,7 +54,15 @@ class PersonPrisonListFilter(django_filters.FilterSet):
         widget=autocomplete.Select2Multiple(
             url='entities-ac:person-autocomplete',
             )
-    )
+        )
+    related_location = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=PersonPrison._meta.get_field('related_location').help_text,
+        label=PersonPrison._meta.get_field('related_location').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:place-autocomplete',
+            )
+        )
 
     class Meta:
         model = PersonPrison
