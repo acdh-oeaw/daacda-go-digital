@@ -31,6 +31,7 @@ class PersonFilterFormHelper(FormHelper):
                     'alt_names',
                     'authority_url',
                     'belongs_to_institution',
+                    'place_of_birth',
                     css_id="more"
                     ),
                 )

@@ -143,6 +143,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="airstrike_site-tab" data-toggle="tab" href="#airstrike_site" role="tab" aria-controls="airstrike_site" aria-selected="false">Airstrike Site</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="birthplace_site-tab" data-toggle="tab" href="#birthplace_site" role="tab" aria-controls="birthplace_site" aria-selected="false">Birthplace</a>
+                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -276,6 +279,28 @@
                             </td>
                             <td>
                                 {{ x.target }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="birthplace_site" role="tabpanel" aria-labelledby="birthplace_site-tab">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Person
+                            </th>
+                        </tr>
+                        {% for x in object.is_birthplace.all %}
+                        <tr>
+                            <td>
+                                {{ x.date_of_birth }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x.written_name }}
                             </td>
                         </tr>
                         {% endfor %}
