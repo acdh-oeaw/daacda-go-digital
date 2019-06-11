@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
-from idprovider.models import IdProvider
+from idprovider.models import IdProvider, ACCURACY
 from vocabs.models import SkosConcept
 
 DATE_ACCURACY = (
@@ -868,10 +868,20 @@ class PersonWarCrimeCase(IdProvider):
         verbose_name="Start date",
         help_text="The start date of this PersonWarCrimeCase relation"
     )
+    start_date_acc = models.CharField(
+        max_length=50, choices=ACCURACY, default=ACCURACY[2][0],
+        help_text="Accuracy of start date field",
+        verbose_name="Accuracy of start date field"
+    )
     end_date = models.DateField(
         blank=True, null=True,
         verbose_name="End date",
         help_text="The end date of this PersonWarCrimeCase relation"
+    )
+    end_date_acc = models.CharField(
+        max_length=50, choices=ACCURACY, default=ACCURACY[2][0],
+        help_text="Accuracy of end date field",
+        verbose_name="Accuracy of end date field"
     )
     comment = models.TextField(
         blank=True, verbose_name="Comment", help_text="A comment"

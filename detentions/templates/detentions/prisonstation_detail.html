@@ -58,7 +58,7 @@
                             <tr>
                                 <th>{% get_verbose_name prisonstation "end_date" %}</th>
                                 <td>
-                                  {{ object.end_date }}
+                                  <abbr title="precision: {{object.end_date_acc}}">{{ object.end_date }}</abbr>
                                 </td>
                             </tr>
                             <tr>
