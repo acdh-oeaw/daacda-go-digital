@@ -171,14 +171,4 @@ LEAFLET_CONFIG = {
             }
         )
     ],
-    'OVERLAYS': [
-        (
-            'World', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                'maxZoom': 25,
-                'attribution':
-                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }
-        ),
-    ]
 }

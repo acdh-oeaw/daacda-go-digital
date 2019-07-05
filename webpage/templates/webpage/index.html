@@ -58,45 +58,40 @@
 
         function map_init_basic (map, options) {
 
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            var baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
                 maxZoom: 18,
                 id: 'mapbox.light',
                 accessToken: 'pk.eyJ1IjoiY3NhZTgwOTIiLCJhIjoiY2lnM2FoZWpjMDJqZnY1a2gxdWl6a29kaiJ9.FQXlsKIu60WhiXLrfI59VA'
-            }).addTo(map);
+            });
 
-            // var SiteShapeLayer = L.geoJson({{shapes|safe }}, {
-            //     onEachFeature: onEachFeatureClosure('site')
-            // }).setStyle(SiteStyle);
-            // SiteShapeLayer.addTo(map);
-            // map.layerscontrol.addOverlay(SiteShapeLayer, 'Sites (Shapes)');
-            // map.fitBounds(SiteShapeLayer.getBounds());
-            var MyLayer = L.geoJson({{geojson|safe }}, {
+            var baseMaps = {
+                "Map": baseLayer
+            }
+
+
+            var AsLayer = L.geoJson({{geojson_airstrike|safe }}, {
                 onEachFeature: function (feature, layer) {
                     layer.bindPopup('<h3><a href="'+feature.properties.self_link+'">'+feature.properties.label+'</a></h3>');
                 }
             });
-            var markers = L.markerClusterGroup();
-            markers.addLayer(MyLayer);
-            map.layerscontrol.addOverlay(markers, 'All Places');
-            map.fitBounds(SitePointLayer.getBounds());
+            var AsMarkers = L.markerClusterGroup();
+            AsMarkers.addLayer(AsLayer);
 
-            // var ArchentShapeLayer = L.geoJson({{shapes_archent|safe }}, {
-            //     onEachFeature: onEachFeatureClosure('archent')
-            // }).setStyle(ArchEntStyle);
-            // ArchentShapeLayer.addTo(map);
-            // map.layerscontrol.addOverlay(ArchentShapeLayer, 'Archents (Shapes)');
-            //
-            // var ResearchEventShapeLayer = L.geoJson({{shapes_researchevent|safe }}, {
-            //     onEachFeature: onEachFeatureClosure('researchevent')
-            // }).setStyle(ResearchEventStyle);
-            // map.layerscontrol.addOverlay(ResearchEventShapeLayer, 'Research Activities (Shapes)');
-            //
-            // var MonumentProtectionShapeLayer = L.geoJson({{shapes_monumentprotection|safe }}, {
-            //     onEachFeature: onEachFeatureClosure('monumentprotection')
-            // }).setStyle(MonumentProtectionStyle);
-            // map.layerscontrol.addOverlay(MonumentProtectionShapeLayer, 'Monument Protection (Shapes)');
+            var CrashLayer = L.geoJson({{geojson_crash|safe }}, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup('<h3><a href="'+feature.properties.self_link+'">'+feature.properties.label+'</a></h3>');
+                }
+            });
+            var CrashMarkers = L.markerClusterGroup();
+            CrashMarkers.addLayer(CrashLayer);
 
+            var overlayMaps = {
+                "Airstrikes": AsMarkers,
+                "Crash Places": CrashMarkers
+            }
+
+            L.control.layers(baseMaps, overlayMaps).addTo(map);
         }
     </script>
 {% endblock %}

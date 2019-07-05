@@ -10,7 +10,7 @@ from django.template import RequestContext, loader
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 
-from entities.models import Place
+from entities.models import Airstrike, Bomber
 
 from . forms import form_user_login
 from . metadata import PROJECT_METADATA as PM
@@ -54,12 +54,23 @@ class GenericWebpageView(TemplateView):
         context['apps'] = settings.INSTALLED_APPS
         print(self.get_template_names()[0])
         if self.get_template_names()[0] == "webpage/index.html":
-            gj_dicts = [x.get_list_geojson() for x in Place.objects.filter(lat__isnull=False)]
+            gj_dicts = [
+                x.get_list_geojson() for x in Airstrike.objects.all().
+                filter(target__lat__isnull=False)
+            ]
             feature_collection = {
                 'type': 'FeatureCollection',
                 'features': gj_dicts
             }
-            context['geojson'] = json.dumps(feature_collection)
+            context['geojson_airstrike'] = json.dumps(feature_collection)
+            gj_dicts = [
+                x.get_list_geojson() for x in Bomber.objects.filter(crash_place__lat__isnull=False)
+            ]
+            feature_collection = {
+                'type': 'FeatureCollection',
+                'features': gj_dicts
+            }
+            context['geojson_crash'] = json.dumps(feature_collection)
         return context
 
     def get_template_names(self):
