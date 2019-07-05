@@ -1,6 +1,7 @@
 from copy import deepcopy
 
 import requests
+import json
 
 from django.conf import settings
 from django.shortcuts import render, render_to_response
@@ -8,6 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
+
+from entities.models import Place
 
 from . forms import form_user_login
 from . metadata import PROJECT_METADATA as PM
@@ -49,6 +52,14 @@ class GenericWebpageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(GenericWebpageView, self).get_context_data(**kwargs)
         context['apps'] = settings.INSTALLED_APPS
+        print(self.get_template_names()[0])
+        if self.get_template_names()[0] == "webpage/index.html":
+            gj_dicts = [x.get_list_geojson() for x in Place.objects.filter(lat__isnull=False)]
+            feature_collection = {
+                'type': 'FeatureCollection',
+                'features': gj_dicts
+            }
+            context['geojson'] = json.dumps(feature_collection)
         return context
 
     def get_template_names(self):

@@ -2,52 +2,101 @@
 {% load staticfiles %}
 {% load stats_extras %}
 {% load webpage_extras %}
+{% load leaflet_tags %}
 {% load news_extras %}
+{% block scriptHeader %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
+{% endblock scriptHeader %}
+
 {% block content %}
-    <div class="jumbotron" style="background-image: url({% static 'webpage/img/1_NARA_cropped.jpg' %}) ">
-        <div class="container">
-            <h1 style="text-align:center; color: #F1F1F1;">{% projects_metadata 'title' %}</h1>
-            <h3 style="text-align:center; color: #F1F1F1;">{% projects_metadata 'subtitle' %}</h3>
-            <h5 style="text-align:center; color: #F1F1F1;">{% projects_metadata 'description' %}</h5>
-        </div>
+    <div class="jumbotron" style="padding:0;">
+
+        {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+
     </div>
 
     <div class="container">
-        {% newsfeed_bootstrap_panel %}<br>
-        <div class="row">
-            <div class="col-md-12">
-                <h5 class="row-heading pb-2 mb-3 border-bottom"><i class="fas fa-paste"></i> Data-Count</h5>
+        <div class="card card-index">
+            <div class="card-body">
+                <h1 class="text-center title-index">
+                    {% projects_metadata 'subtitle' %}
+                </h1>
+                <p class="text-center text-muted paragraph-index">
+                    {% projects_metadata 'subtitle' %}
+                </p>
+                <hr class="hr-index"/>
+                <p class="text-justify">
+                        {% projects_metadata 'description' %}
+                </p>
+                <div class="text-right">
+                    <a href="{% url 'entities:browse_persons' %}" class="btn btn-lg btn-index pulse" class="pull-right">
+                    <b><i class="fa fa-angle-right"></i></b>&nbsp;&nbsp;explore
+                    </a>
+                </div>
+                <br>
+                <h2 class="h2-index">Statistics</h2>
             </div>
-
-            {% create_object_count app='entities' as models %}
-            {% for x in models %}
-                <div class="col-md-4  text-center">
-                    <div class="card flex-md-row mb-4 box-shadow">
-                        <div class="card-body">
-                            <h4 class="mb-0">{{x.name}}</h4>
-                            <h4 class="count">{{ x.count }}</h4>
-                            {% if x.link %}
-                                <a class="btn btn-main btn-outline-primary btn-sm" href="{{ x.link }}" role="button">View Details</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            <hr />
-            {% create_object_count app='detentions' as models %}
-            {% for x in models %}
-                <div class="col-md-6  text-center">
-                    <div class="card flex-md-row mb-4 box-shadow">
-                        <div class="card-body">
-                            <h4 class="mb-0">{{x.name}}</h4>
-                            <h4 class="count">{{ x.count }}</h4>
-                            {% if x.link %}
-                                <a class="btn btn-main btn-outline-primary btn-sm" href="{{ x.link }}" role="button">View Details</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
         </div>
     </div>
+    <script>
+        function createLink(propertyObject, objectType){
+            var url = "/archiv/"+objectType+"/detail/"+propertyObject.pk;
+            var link = '<a href="'+url+'">'+propertyObject.name+'</a>';
+            return link
+        }
+        function onEachFeatureClosure(objectType) {
+            return function onEachFeature(feature, layer) {
+                var popupContent = createLink(feature.properties, objectType);
+                layer.bindPopup(popupContent);
+            }
+        }
+
+
+        function map_init_basic (map, options) {
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox.light',
+                accessToken: 'pk.eyJ1IjoiY3NhZTgwOTIiLCJhIjoiY2lnM2FoZWpjMDJqZnY1a2gxdWl6a29kaiJ9.FQXlsKIu60WhiXLrfI59VA'
+            }).addTo(map);
+
+            // var SiteShapeLayer = L.geoJson({{shapes|safe }}, {
+            //     onEachFeature: onEachFeatureClosure('site')
+            // }).setStyle(SiteStyle);
+            // SiteShapeLayer.addTo(map);
+            // map.layerscontrol.addOverlay(SiteShapeLayer, 'Sites (Shapes)');
+            // map.fitBounds(SiteShapeLayer.getBounds());
+            var MyLayer = L.geoJson({{geojson|safe }}, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup('<h3><a href="'+feature.properties.self_link+'">'+feature.properties.label+'</a></h3>');
+                }
+            });
+            var markers = L.markerClusterGroup();
+            markers.addLayer(MyLayer);
+            map.layerscontrol.addOverlay(markers, 'All Places');
+            map.fitBounds(SitePointLayer.getBounds());
+
+            // var ArchentShapeLayer = L.geoJson({{shapes_archent|safe }}, {
+            //     onEachFeature: onEachFeatureClosure('archent')
+            // }).setStyle(ArchEntStyle);
+            // ArchentShapeLayer.addTo(map);
+            // map.layerscontrol.addOverlay(ArchentShapeLayer, 'Archents (Shapes)');
+            //
+            // var ResearchEventShapeLayer = L.geoJson({{shapes_researchevent|safe }}, {
+            //     onEachFeature: onEachFeatureClosure('researchevent')
+            // }).setStyle(ResearchEventStyle);
+            // map.layerscontrol.addOverlay(ResearchEventShapeLayer, 'Research Activities (Shapes)');
+            //
+            // var MonumentProtectionShapeLayer = L.geoJson({{shapes_monumentprotection|safe }}, {
+            //     onEachFeature: onEachFeatureClosure('monumentprotection')
+            // }).setStyle(MonumentProtectionStyle);
+            // map.layerscontrol.addOverlay(MonumentProtectionShapeLayer, 'Monument Protection (Shapes)');
+
+        }
+    </script>
 {% endblock %}

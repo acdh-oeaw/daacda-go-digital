@@ -154,6 +154,8 @@ VOCABS_SETTINGS = {
 
 LEAFLET_CONFIG = {
     'MAX_ZOOM': 18,
+    'DEFAULT_CENTER': (47, 16),
+    'DEFAULT_ZOOM': 4,
     'TILES': [
         (
             'BASIC',
@@ -168,5 +170,15 @@ LEAFLET_CONFIG = {
                 'accessToken': 'pk.eyJ1IjoiY3NhZTgwOTIiLCJhIjoiY2lnM2FoZWpjMDJqZnY1a2gxdWl6a29kaiJ9.FQXlsKIu60WhiXLrfI59VA'
             }
         )
+    ],
+    'OVERLAYS': [
+        (
+            'World', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                'maxZoom': 25,
+                'attribution':
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }
+        ),
     ]
 }
