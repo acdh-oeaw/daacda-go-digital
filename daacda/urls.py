@@ -22,7 +22,6 @@ urlpatterns = [
     url(r'^arche/', include('arche.urls', namespace='arche')),
     url(r'^browsing/', include('browsing.urls', namespace='browsing')),
     url(r'^charts/', include('charts.urls', namespace='charts')),
-    url(r'^sparql/', include('sparql.urls', namespace='sparql')),
     url(r'^vocabs/', include('vocabs.urls', namespace='vocabs')),
     url(r'^vocabs-ac/', include('vocabs.dal_urls', namespace='vocabs-ac')),
     url(r'^entities-ac/', include('entities.dal_urls', namespace='entities-ac')),
