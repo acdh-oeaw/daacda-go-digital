@@ -303,6 +303,13 @@ class Institution(IdProvider):
         help_text="URLs related to this institution",
         related_name="for_institution"
     )
+    inst_type = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        related_name='is_inst_type_of',
+        on_delete=models.SET_NULL,
+        verbose_name="The institution's type",
+        help_text="The institution's type",
+    )
 
     @classmethod
     def get_arche_dump(self):
