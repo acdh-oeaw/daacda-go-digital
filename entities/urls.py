@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^place/edit/(?P<pk>[0-9]+)$', views.edit_place, name='place_edit'),
     url(r'^place/delete/(?P<pk>[0-9]+)$', views.PlaceDelete.as_view(), name='place_delete'),
     url(r'^institutions/$', views.InstitutionListView.as_view(), name='browse_institutions'),
+    url(r'^bomb-group/$', views.BombGroupListView.as_view(), name='browse_bombgroups'),
     url(r'^institution/detail/(?P<pk>[0-9]+)$', views.InstitutionDetailView.as_view(),
         name='institution_detail'),
     url(r'^institution/delete/(?P<pk>[0-9]+)$', views.InstitutionDelete.as_view(),
