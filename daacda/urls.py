@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^detentions/', include('detentions.urls', namespace='detentions')),
     url(r'^detentions-ac/', include('detentions.dal_urls', namespace='detentions-ac')),
+    url(r'^materials-ac/', include('materials.dal_urls', namespace='materials-ac')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]
 
