@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from rest_framework import routers
-from entities.apis_views import PlaceViewSet, GeoJsonViewSet
+from entities.apis_views import PlaceViewSet, GeoJsonViewSet, AlternativNameViewSet
 
 from vocabs import api_views
 
@@ -13,6 +13,7 @@ router.register(r'skoslabels', api_views.SkosLabelViewSet)
 router.register(r'skosnamespaces', api_views.SkosNamespaceViewSet)
 router.register(r'skosconceptschemes', api_views.SkosConceptSchemeViewSet)
 router.register(r'skosconcepts', api_views.SkosConceptViewSet)
+router.register(r'alt-names', AlternativNameViewSet)
 router.register(r'places', PlaceViewSet)
 
 urlpatterns = [

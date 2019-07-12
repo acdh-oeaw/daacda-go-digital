@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^altnames/delete/(?P<pk>[0-9]+)$', views.AlternativeNameDelete.as_view(),
         name='alternativename_delete'),
     url(r'^places/$', views.PlaceListView.as_view(), name='browse_places'),
+    url(r'^crash-places/$', views.CrashPlaceListView.as_view(), name='browse_crash_places'),
     url(r'^place/create/$', views.create_place, name='place_create'),
     url(r'^place/detail/(?P<pk>[0-9]+)$', views.PlaceDetailView.as_view(), name='place_detail'),
     url(r'^place/edit/(?P<pk>[0-9]+)$', views.edit_place, name='place_edit'),

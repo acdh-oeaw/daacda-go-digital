@@ -1,6 +1,5 @@
 import json
 from rest_framework import renderers
-from django.template.loader import render_to_string
 
 
 class GeoJsonRenderer(renderers.BaseRenderer):

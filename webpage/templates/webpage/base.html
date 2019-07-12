@@ -102,6 +102,18 @@
                         </li>
                     </li>
                     <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Flugzeuge und Besatzungen
+                                <span class="caret"/>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'entities:browse_crash_places' %}">Absturzorte</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_persons' %}">Flieger</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_bombers' %}">Flugzeuge</a>
+                            </div>
+                        </li>
+                    </li>
+                    <li class="nav-item dropdown">
                         {% if user.is_authenticated %}
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curate and Browse the Data
                         <span class="caret"/>

@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 
 from entities.models import Airstrike, Bomber
-
+from entities.utils import crash_places, attack_places
 from . forms import form_user_login
 from . metadata import PROJECT_METADATA as PM
 
