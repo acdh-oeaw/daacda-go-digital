@@ -1,0 +1,99 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block scriptHeader %}
+{% leaflet_js %}
+{% leaflet_css %}
+<style>
+    #map {
+        height: 500px;
+    }
+</style>
+{% endblock %}
+
+{% block custom %}
+    <div class="card-body">
+      <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Info</h4>
+              </div>
+    <div class="card-body">
+            <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            {% get_verbose_name gedenkzeichen "name" %}
+                        </th>
+                        <td>
+                            {{ object.name|safe }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name gedenkzeichen "start_date" %}
+                        </th>
+                        <td>
+                            <abbr title="precision: {{object.date_accuracy_start}}">{{ object.start_date }}</abbr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name gedenkzeichen "end_date" %}
+                        </th>
+                        <td>
+                              <abbr title="precision: {{object.date_accuracy_end}}">{{ object.end_date }}</abbr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                           {% get_verbose_name gedenkzeichen "object_type" %}
+                        </th>
+                        <td>
+                            {{ object.object_type }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name gedenkzeichen "location" %}
+                        </th>
+                        <td>
+                            <a href="{{ object.location.get_absolute_url }}">{{ object.location }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name gedenkzeichen "related_person" %}
+                        </th>
+                        <td>
+                            <a href="{{ object.related_person.get_absolute_url }}">{{ object.related_person }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name gedenkzeichen "related_bomber" %}
+                        </th>
+                        <td>
+                            <a href="{{ object.related_bomber.get_absolute_url }}">{{ object.related_bomber }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {% get_verbose_name gedenkzeichen "description" %}
+                        </th>
+                        <td>
+                            {{ object.description|safe }}
+                        </td>
+                    </tr>
+                </table>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-danger" href="{{ object.get_delete_url }}">delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

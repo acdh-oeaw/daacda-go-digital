@@ -85,6 +85,42 @@ class Gedenkzeichen(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def get_absolute_url(self):
+        return reverse(
+            'materials:gedenkzeichen_detail', kwargs={'pk': self.id}
+        )
+
+    @classmethod
+    def get_class_name(self):
+        class_name = self._meta.model_name
+        return class_name
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('materials:browse_gedenkzeichen')
+
+    def get_edit_url(self):
+        return reverse('materials:gedenkzeichen_edit', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('materials:gedenkzeichen_delete', kwargs={'pk': self.id})
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('materials:gedenkzeichen_create')
+
+    def get_next(self):
+        next = Gedenkzeichen.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = Gedenkzeichen.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
 
 class UserContribution(models.Model):
     """ Exposes material sent in by database users """
