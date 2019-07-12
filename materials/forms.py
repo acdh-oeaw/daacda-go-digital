@@ -11,6 +11,10 @@ class UserContributionForm(forms.ModelForm):
     class Meta:
         model = UserContribution
         fields = "__all__"
+        widgets = {
+             'related_persons': autocomplete.ModelSelect2Multiple(url='materials-ac:usercontributionperson-autocomplete')
+        }
+
 
     def __init__(self, *args, **kwargs):
         super(UserContributionForm, self).__init__(*args, **kwargs)
