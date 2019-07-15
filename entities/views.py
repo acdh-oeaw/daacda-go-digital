@@ -62,6 +62,7 @@ class BombGroupListView(GenericListView):
     table_class = InstitutionTable
     filter_class = InstitutionListFilter
     formhelper_class = InstitutionFilterFormHelper
+    template_name = "entities/bomb_group.html"
     init_columns = [
         'id',
         'written_name',
