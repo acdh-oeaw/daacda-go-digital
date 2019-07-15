@@ -461,6 +461,7 @@ class CrashPlaceListView(GenericListView):
     table_class = PlaceTable
     filter_class = PlaceListFilter
     formhelper_class = PlaceFilterFormHelper
+    template_name = "entities/crash_place.html"
     init_columns = [
         'id',
         'name',

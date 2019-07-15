@@ -46,6 +46,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
+                        {% block custom_header %}
                         <h3 style="margin-bottom:15px;">
                              Browse {% class_definition %} {% block list_title %}{% endblock %}
                         </h3>
@@ -57,6 +58,7 @@
                                 <a class ="btn btn-outline-secondary"  href="{{ create_view_link }}">Create new {{class_name}}</a>
                             {% endif %}
                         {% endif %}
+                        {% endblock custom_header %}
                         {% block customView %}{% endblock %}
                         {% block create_button %}{% endblock %}
                         <!--Search mask-->
