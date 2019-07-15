@@ -10,7 +10,10 @@ from django_tables2 import RequestConfig
 from browsing.browsing_utils import BaseCreateView, BaseUpdateView, GenericListView
 
 from . filters import UserContributionListFilter, GedenkzeichenListFilter
-from . forms import UserContributionForm, UserContributionFilterFormHelper, GedenkzeichenForm, GedenkzeichenFilterFormHelper
+from . forms import (
+    UserContributionForm, UserContributionFilterFormHelper, GedenkzeichenForm,
+    GedenkzeichenFilterFormHelper
+)
 from . models import UserContribution, Gedenkzeichen
 from . tables import UserContributionTable, GedenkzeichenTable
 
@@ -24,6 +27,17 @@ class UserContributionListView(GenericListView):
         'id',
         'public',
     ]
+
+    def get_queryset(self, **kwargs):
+        user = self.request.user
+        qs = super(UserContributionListView, self).get_queryset()
+        if user.is_authenticated:
+            pass
+        else:
+            qs = qs.exclude(public=False)
+        self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.filter.form.helper = self.formhelper_class()
+        return self.filter.qs
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -52,6 +66,16 @@ class UserContributionListView(GenericListView):
 class UserContributionDetailView(DetailView):
     model = UserContribution
     template_name = 'materials/usercontribution_detail.html'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        context = super(UserContributionDetailView, self).get_context_data()
+        if (self.object.public) or user.is_authenticated:
+            pass
+        else:
+            context['not_logged_in'] = True
+            return context
+        return context
 
 
 class UserContributionCreate(BaseCreateView):

@@ -14,6 +14,9 @@
 {% endblock %}
 
 {% block custom %}
+{% if not_logged_in %}
+    <h4>Dieser Beitrag wird zurzeit noch geprüft und ist deshalb nicht öffentlich einsehbar</h4>
+{% else %}
     <div class="card-body">
       <div class="row">
           <div class="col-md-6">
@@ -68,4 +71,5 @@
     </div>
 </div>
 </div>
+{% endif %}
 {% endblock %}
