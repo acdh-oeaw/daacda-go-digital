@@ -49,12 +49,92 @@ from .filters import (
 )
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 
-from . utils import bomb_group, crash_places, attack_places
+from . utils import bomb_group, crash_places, attack_places, airforce, squad
 
 try:
     from browsing.models import BrowsConf
 except ImportError:
     BrowsConf = None
+
+
+class SquadListView(GenericListView):
+    model = Institution
+    table_class = InstitutionTable
+    filter_class = InstitutionListFilter
+    formhelper_class = InstitutionFilterFormHelper
+    template_name = "entities/squad.html"
+    init_columns = [
+        'id',
+        'written_name',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(SquadListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+    def get_queryset(self, **kwargs):
+        self.filter = self.filter_class(self.request.GET, queryset=squad)
+        self.filter.form.helper = self.formhelper_class()
+        return self.filter.qs
+
+
+class AirForceListView(GenericListView):
+    model = Institution
+    table_class = InstitutionTable
+    filter_class = InstitutionListFilter
+    formhelper_class = InstitutionFilterFormHelper
+    template_name = "entities/airforce.html"
+    init_columns = [
+        'id',
+        'written_name',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(AirForceListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+    def get_queryset(self, **kwargs):
+        self.filter = self.filter_class(self.request.GET, queryset=airforce)
+        self.filter.form.helper = self.formhelper_class()
+        return self.filter.qs
 
 
 class BombGroupListView(GenericListView):

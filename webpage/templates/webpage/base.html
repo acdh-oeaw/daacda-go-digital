@@ -96,19 +96,21 @@
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{% url 'entities:browse_airstrikes' %}">Luftangriffe</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_crash_places' %}">Absturzorte</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_airforces' %}">Luftwaffendivisionen</a>
                                 <a class="dropdown-item" href="{% url 'entities:browse_bombgroups' %}">Bomb Groups</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_squads' %}">Staffeln</a>
                                 <a class="dropdown-item" href="{% url 'entities:browse_bombers' %}">Flugzeuge</a>
                             </div>
                         </li>
                     </li>
                     <li class="nav-item dropdown">
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Flugzeuge und Besatzungen
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Besatzung
                                 <span class="caret"/>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'entities:browse_crash_places' %}">Absturzorte</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_persons' %}">Flieger</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_persons' %}">Besatzung</a>
                                 <a class="dropdown-item" href="{% url 'detentions:browse_prisonstations' %}">Stationen der Gefangenschaft</a>
                                 <a class="dropdown-item" href="{% url 'entities:browse_warcrimecases' %}">Verbrechen</a>
                             </div>

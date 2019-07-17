@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^place/delete/(?P<pk>[0-9]+)$', views.PlaceDelete.as_view(), name='place_delete'),
     url(r'^institutions/$', views.InstitutionListView.as_view(), name='browse_institutions'),
     url(r'^bomb-group/$', views.BombGroupListView.as_view(), name='browse_bombgroups'),
+    url(r'^airforces/$', views.AirForceListView.as_view(), name='browse_airforces'),
+    url(r'^squads/$', views.SquadListView.as_view(), name='browse_squads'),
     url(r'^institution/detail/(?P<pk>[0-9]+)$', views.InstitutionDetailView.as_view(),
         name='institution_detail'),
     url(r'^institution/delete/(?P<pk>[0-9]+)$', views.InstitutionDelete.as_view(),
@@ -60,7 +62,10 @@ urlpatterns = [
     url(r'persons-rdf/$', views.PersonRDFView.as_view(), name='rdf_persons'),
     url(r'institutions-rdf/$', views.InstitutionRDFView.as_view(), name='rdf_institutions'),
     url(r'^bombers/$', views.BomberListView.as_view(), name='browse_bombers'),
-    url(r'onlineressources/$', views.OnlineRessourceListView.as_view(), name='browse_onlineressources'),
+    url(
+        r'onlineressources/$',
+        views.OnlineRessourceListView.as_view(), name='browse_onlineressources'
+    ),
     url(r'^onlineressource/detail/(?P<pk>[0-9]+)$', views.OnlineRessourceDetailView.as_view(),
         name='onlineressource_detail'),
     url(r'^onlineressource/create/$', views.OnlineRessourceCreate.as_view(),
