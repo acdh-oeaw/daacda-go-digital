@@ -25,7 +25,7 @@
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>
-                            {% get_verbose_name institution "written_name" %}
+                            Name
                         </th>
                         <td>
                             {{ object.written_name }}
@@ -33,24 +33,38 @@
                     </tr>
                     <tr>
                         <th>
-                            {% get_verbose_name institution "authority_url" %}
+                            Typ
                         </th>
                         <td>
-                            <a href="{{ object.authority_url }}">{{ object.authority_url }}</a>
+                            {{ object.inst_type }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {% get_verbose_name institution "alt_names" %}
-                        </th>
-                        <td>
-                            {{ object.alt_names }}
-                        </td>
-                    </tr>
+                    {% if object.authority_url %}
+                        <tr>
+                            <th>
+                                {% get_verbose_name institution "authority_url" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.authority_url }}">{{ object.authority_url }}</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if object.alt_names.all %}
+                        <tr>
+                            <th>
+                                {% get_verbose_name institution "alt_names" %}
+                            </th>
+                            <td>
+                                {% for x in object.alt_names.all %}
+                                    {{ x }}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
                     {% if object.parent_institution %}
                         <tr>
                             <th>
-                                {% get_verbose_name institution "parent_institution" %}
+                                Übergeordnete Einheit
                             </th>
                             <td>
                                 <a href="{{ object.parent_institution.get_absolute_url }}">{{ object.parent_institution }}</a>
@@ -60,17 +74,40 @@
                     {% if object.children_institutions.all %}
                         <tr>
                             <th>
-                                {% get_verbose_name institution "children_institutions" %}
+                                Untergeordnete Einheiten
                             </th>
                             <td>
                                 <ul>
                                     {% for x in object.children_institutions.all %}
                                         <li>
                                             <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                            <ul>
+                                                {% for y in x.has_bomber.all %}
+                                                    <li>
+                                                        <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
                                         </li>
                                     {% endfor %}
                                 </ul>
 
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if object.has_bomber.all %}
+                        <tr>
+                            <th>
+                                Flugzeuge
+                            </th>
+                            <td>
+                                <ul>
+                                    {% for x in object.has_bomber.all %}
+                                        <li>
+                                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </td>
                         </tr>
                     {% endif %}
