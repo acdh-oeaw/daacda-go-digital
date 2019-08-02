@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from . import views
+from . import views, geojson_views
+
 
 app_name = 'entities'
 
@@ -15,6 +16,7 @@ urlpatterns = [
         name='alternativename_delete'),
     url(r'^places/$', views.PlaceListView.as_view(), name='browse_places'),
     url(r'^crash-places/$', views.CrashPlaceListView.as_view(), name='browse_crash_places'),
+    url(r'^crash-place-geojson/$', geojson_views.crash_places_json, name='crash_places_geojson'),
     url(r'^place/create/$', views.create_place, name='place_create'),
     url(r'^place/detail/(?P<pk>[0-9]+)$', views.PlaceDetailView.as_view(), name='place_detail'),
     url(r'^place/edit/(?P<pk>[0-9]+)$', views.edit_place, name='place_edit'),
@@ -83,6 +85,7 @@ urlpatterns = [
         name='personwarcrimecase_edit'),
     url(r'personwarcrimecase/delete/(?P<pk>[0-9]+)$', views.PersonWarCrimeCaseDelete.as_view(),
         name='personwarcrimecase_delete'),
+    url(r'^airstrikes-geojson/$', geojson_views.airstrikes_json, name='airstrikes_geojson'),
     url(r'airstrikes/$', views.AirstrikeListView.as_view(), name='browse_airstrikes'),
     url(r'airstrike/detail/(?P<pk>[0-9]+)$', views.AirstrikeDetailView.as_view(),
         name='airstrike_detail'),

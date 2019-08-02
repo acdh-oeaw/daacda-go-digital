@@ -19,17 +19,37 @@
 {% block content %}
     <script type="text/javascript">
      function map_init_basic (map, options) {
+
             map.spin(true);
-            var geojsonPointLayer = new L.GeoJSON.AJAX("http://127.0.0.1:8000/api/geojson/?format=geojson", {
+            var geojsonPointLayer = new L.GeoJSON.AJAX("{% url 'entities:crash_places_geojson' %}", {
                onEachFeature:function(feature, layer) {
-                    layer.bindPopup(feature.properties.name.toString());
+                    layer.bindPopup('<a href="'+feature.properties.self_link+'">'+feature.properties.label.toString()+'</a>');
                 }
             });
-            var markers = new L.MarkerClusterGroup()
+            var airstrikegj = new L.GeoJSON.AJAX("{% url 'entities:airstrikes_geojson' %}", {
+               onEachFeature:function(feature, layer) {
+                    layer.bindPopup('<a href="'+feature.properties.self_link+'">'+feature.properties.label.toString()+'</a>');
+                }
+            });
+            var crashPlaceMarkers = new L.MarkerClusterGroup()
+            var airStrikeMarkers = new L.MarkerClusterGroup()
             geojsonPointLayer.on('data:loaded', function () {
                 map.spin(false);
-                markers.addLayer(geojsonPointLayer);
-                map.addLayer(markers);
+                crashPlaceMarkers.addLayer(geojsonPointLayer);
+                airStrikeMarkers.addLayer(airstrikegj);
+                map.addLayer(crashPlaceMarkers);
+
+                var overlayMaps = {
+                    "Flugzeugabsturz": crashPlaceMarkers,
+                    "Luftangriffe": airStrikeMarkers
+                }
+
+                var ctrOptions = {
+                    position: 'topright',
+                    collapsed: false
+                }
+
+                L.control.layers(null, overlayMaps, ctrOptions).addTo(map);
             })
         };
     </script>
@@ -63,11 +83,10 @@
                 </p>
                 <div class="text-right">
                     <a href="{% url 'entities:browse_persons' %}" class="btn btn-lg btn-index pulse" class="pull-right">
-                    <b><i class="fa fa-angle-right"></i></b>&nbsp;&nbsp;explore
+                    <b><i class="fa fa-angle-right"></i></b>&nbsp;&nbsp;Besatzung
                     </a>
                 </div>
                 <br>
-                <h2 class="h2-index">Statistics</h2>
             </div>
         </div>
     </div>

@@ -39,4 +39,5 @@ urlpatterns = [
         name='resource_delete'),
     url(r'^resources-copy/$', views.copy_view, name='resource_copy'),
     url(r'resources-rdf/$', views.ResourceRDFView.as_view(), name='rdf_resources'),
+
 ]

@@ -27,6 +27,10 @@ body {
     /*box-shadow: 2px 2px 24px 0 rgba(0, 0, 0, .1);*/
 }
 
+.leaflet-right {
+    text-align: left;
+}
+
 .site-page {
     background-color: #003399;
     color: white;
