@@ -8,11 +8,31 @@
     {% leaflet_js %}
     {% leaflet_css %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <script src="http://makinacorpus.github.io/Leaflet.Spin/spin/dist/spin.min.js"></script>
+    <script src="{% static 'webpage/libraries/leaflet/spin/leaflet.spin.min.js'%}"></script>
+    <script src="{% static 'webpage/libraries/leaflet/spin/leaflet.spin.js' %}"></script>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" /> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
 {% endblock scriptHeader %}
 
 {% block content %}
+    <script type="text/javascript">
+     function map_init_basic (map, options) {
+            map.spin(true);
+            var geojsonPointLayer = new L.GeoJSON.AJAX("http://127.0.0.1:8000/api/geojson/?format=geojson", {
+               onEachFeature:function(feature, layer) {
+                    layer.bindPopup(feature.properties.name.toString());
+                }
+            });
+            var markers = new L.MarkerClusterGroup()
+            geojsonPointLayer.on('data:loaded', function () {
+                map.spin(false);
+                markers.addLayer(geojsonPointLayer);
+                map.addLayer(markers);
+            })
+        };
+    </script>
     <div class="jumbotron" style="padding:0;">
 
         {% leaflet_map "yourmap" callback="window.map_init_basic" %}
@@ -29,8 +49,17 @@
                     {% projects_metadata 'subtitle' %}
                 </p>
                 <hr class="hr-index"/>
-                <p class="text-justify">
-                        {% projects_metadata 'description' %}
+                <p>
+                    Das Projekt DAACDA umfasst die Sammlung, Auswertung und Darstellung von Daten und Informationen zum Schicksal amerikanischer und britischer Flugzeugbesatzungen, die zwischen 1939 und 1945 über dem heutigen Österreich zum Absturz kamen, in Gefangenschaft gerieten, Opfer von Verbrechen wurden und/oder zu Tode kamen.
+                </p>
+                <p>
+                    Mithilfe der Datenbank ist es damit erstmals möglich, die Kriegserfahrung einzelner Flieger nachzuzeichnen bzw. nachvollziehbar zu machen. Sie beinhaltet dabei Informationen zu Einsatz, Absturzort, dem Ort der Gefangennahme, den Stationen der Kriegsgefangenschaft bis hin zur Repatriierung bzw. zu NS-Verbrechen und Sterbeort.
+                </p>
+                <p>
+                    Ein Teil der in der Datenbank zur Verfügung gestellten Informationen konnte in Vorprojekten in unterschiedlichen US-amerikanischen, britischen, österreichischen und deutschen Archiveinrichtungen erhoben und einer Analyse zugeführt werden. Die Ergebnisse wurden in mehreren <a href="{% url 'webpage:staticpage' template='bibliography' %}">Publikationen</a> veröffentlicht. Die gewonnenen Erkenntnisse werden nun im Zuge des "go digital"-Projektes durch Informationen aus neu erschlossenen Quellenbeständen ergänzt, in Relation gesetzt, laufend erweitert, damit verdichtet und einer interessierten Öffentlichkeit zugänglich gemacht. Auch die Applikation wird ständig überarbeitet. Das Projekt versteht sich dabei als „work in progress“ und soll Ende 2019 abgeschlossen und präsentiert werden.
+                </p>
+                <p>
+                    Wir bitten BesucherInnen dieser Website, Informationen zu einzelnen Abstürzen oder Schicksalen, den Projektmitarbeitern mitzuteilen und damit einen Beitrag zum Wachsen und zur Verdichtung dieser Website zu leisten.
                 </p>
                 <div class="text-right">
                     <a href="{% url 'entities:browse_persons' %}" class="btn btn-lg btn-index pulse" class="pull-right">
@@ -42,56 +71,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function createLink(propertyObject, objectType){
-            var url = "/archiv/"+objectType+"/detail/"+propertyObject.pk;
-            var link = '<a href="'+url+'">'+propertyObject.name+'</a>';
-            return link
-        }
-        function onEachFeatureClosure(objectType) {
-            return function onEachFeature(feature, layer) {
-                var popupContent = createLink(feature.properties, objectType);
-                layer.bindPopup(popupContent);
-            }
-        }
 
-
-        function map_init_basic (map, options) {
-
-            var baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox.light',
-                accessToken: 'pk.eyJ1IjoiY3NhZTgwOTIiLCJhIjoiY2lnM2FoZWpjMDJqZnY1a2gxdWl6a29kaiJ9.FQXlsKIu60WhiXLrfI59VA'
-            });
-
-            var baseMaps = {
-                "Map": baseLayer
-            }
-
-
-            var AsLayer = L.geoJson({{geojson_airstrike|safe }}, {
-                onEachFeature: function (feature, layer) {
-                    layer.bindPopup('<h3><a href="'+feature.properties.self_link+'">'+feature.properties.label+'</a></h3>');
-                }
-            });
-            var AsMarkers = L.markerClusterGroup();
-            AsMarkers.addLayer(AsLayer);
-
-            var CrashLayer = L.geoJson({{geojson_crash|safe }}, {
-                onEachFeature: function (feature, layer) {
-                    layer.bindPopup('<h3><a href="'+feature.properties.self_link+'">'+feature.properties.label+'</a></h3>');
-                }
-            });
-            var CrashMarkers = L.markerClusterGroup();
-            CrashMarkers.addLayer(CrashLayer);
-
-            var overlayMaps = {
-                "Airstrikes": AsMarkers,
-                "Crash Places": CrashMarkers
-            }
-
-            L.control.layers(baseMaps, overlayMaps).addTo(map);
-        }
-    </script>
 {% endblock %}

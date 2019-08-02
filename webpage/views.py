@@ -49,29 +49,29 @@ class ImprintView(TemplateView):
 class GenericWebpageView(TemplateView):
     template_name = 'webpage/index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(GenericWebpageView, self).get_context_data(**kwargs)
-        context['apps'] = settings.INSTALLED_APPS
-        print(self.get_template_names()[0])
-        if self.get_template_names()[0] == "webpage/index.html":
-            gj_dicts = [
-                x.get_list_geojson() for x in Airstrike.objects.all().
-                filter(target__lat__isnull=False)
-            ]
-            feature_collection = {
-                'type': 'FeatureCollection',
-                'features': gj_dicts
-            }
-            context['geojson_airstrike'] = json.dumps(feature_collection)
-            gj_dicts = [
-                x.get_list_geojson() for x in Bomber.objects.filter(crash_place__lat__isnull=False)
-            ]
-            feature_collection = {
-                'type': 'FeatureCollection',
-                'features': gj_dicts
-            }
-            context['geojson_crash'] = json.dumps(feature_collection)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(GenericWebpageView, self).get_context_data(**kwargs)
+    #     context['apps'] = settings.INSTALLED_APPS
+    #     print(self.get_template_names()[0])
+    #     if self.get_template_names()[0] == "webpage/index.html":
+    #         gj_dicts = [
+    #             x.get_list_geojson() for x in Airstrike.objects.all().
+    #             filter(target__lat__isnull=False)
+    #         ]
+    #         feature_collection = {
+    #             'type': 'FeatureCollection',
+    #             'features': gj_dicts
+    #         }
+    #         context['geojson_airstrike'] = json.dumps(feature_collection)
+    #         gj_dicts = [
+    #             x.get_list_geojson() for x in Bomber.objects.filter(crash_place__lat__isnull=False)
+    #         ]
+    #         feature_collection = {
+    #             'type': 'FeatureCollection',
+    #             'features': gj_dicts
+    #         }
+    #         context['geojson_crash'] = json.dumps(feature_collection)
+    #     return context
 
     def get_template_names(self):
         template_name = "webpage/{}.html".format(self.kwargs.get("template", 'index'))
