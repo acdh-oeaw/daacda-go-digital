@@ -722,20 +722,36 @@ class Person(IdProvider):
         return len(self.get_stations())
 
     def netvis_data(self):
+        self_id = f"{self.id}"
+        self_bomb = self.part_of_bomber
+        self_crew = Person.objects.exclude(id=self.id).filter(part_of_bomber=self_bomb)
         rels = {
             'nodes': [
                 {
-                    'id': f"{self.id}",
+                    'id': self_id,
                     'label': f"{self}",
                     'type': 'Person',
+                },
+                {
+                    'id': f"{self_bomb.id}",
+                    'label': f"{self_bomb}",
+                    'type': 'Bomber',
                 }
             ],
-            'edges': [],
+            'edges': [
+                {
+                    'id': f"bomb_{self.part_of_bomber.id}",
+                    'source': self_id,
+                    'target': f"{self.part_of_bomber.id}",
+                    'label': "Besatzung von"
+                }
+            ],
             'types': {
                 'nodes': [
                     {'id': 'Person', 'label': 'Person', 'color': '#006699'},
                     {'id': 'Prisonstation', 'label': 'Prisonstation', 'color': '#669900'},
                     {'id': 'Location', 'label': 'Location', 'color': '#669900'},
+                    {'id': 'Bomber', 'label': 'Bomber', 'color': '#ffc107'},
                 ]
             }
         }
@@ -754,11 +770,25 @@ class Person(IdProvider):
                 }
             edge = {
                 'id': f"{x.id}",
-                'source': f"{self.id}",
+                'source': self_id,
                 'target': target['id'],
                 'label': x.relation_type.pref_label
             }
             rels['nodes'].append(target)
+            for y in self_crew:
+                crew_node = {
+                    'id': f"{y.id}",
+                    'label': f"{y}",
+                    'type': 'Person',
+                }
+                crew_edge = {
+                    'id': f"edge_{y.id}",
+                    'source': f"{self_bomb.id}",
+                    'target': f"{y.id}",
+                    'label': "hat Besatzung"
+                }
+                rels['nodes'].append(crew_node)
+                rels['edges'].append(crew_edge)
             rels['edges'].append(edge)
         return rels
 
