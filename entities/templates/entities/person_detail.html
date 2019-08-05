@@ -5,6 +5,10 @@
 {% block title %}{{ object }}{% endblock %}
 {% block scriptHeader %}
 {% leaflet_js %}
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/three@latest/build/three.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@acdh/network-visualization@latest/lib/network-visualization.umd.js"></script>
 {% leaflet_css %}
 <style>
     #map {
@@ -239,26 +243,43 @@
                         {% leaflet_map "yourmap" callback="window.map_init_basic" %}
                     </div>
                     <script type="text/javascript">
-                        function createLink(propertyObject){
-                            var link = '<a href="'+propertyObject.self_link+'">'+propertyObject.name+'</a>';
-                            return link
-                        }
-                        function onEachFeature(feature, layer) {
-                            if (feature.properties && feature.properties.name) {
-                                var popupContent = createLink(feature.properties);
-                                layer.bindPopup(popupContent);
-                            }
-                          }
-
-                        function map_init_basic (map, options) {
-
-                            var geojsonFeature = {{ object.get_geojson|safe }};
-                            var GeoJsonLayer = L.geoJson(geojsonFeature, {onEachFeature: onEachFeature});
-                            GeoJsonLayer.addTo(map);
-                            map.fitBounds(GeoJsonLayer.getBounds());
-
-                        }
+                        // function createLink(propertyObject){
+                        //     var link = '<a href="'+propertyObject.self_link+'">'+propertyObject.name+'</a>';
+                        //     return link
+                        // }
+                        // function onEachFeature(feature, layer) {
+                        //     if (feature.properties && feature.properties.name) {
+                        //         var popupContent = createLink(feature.properties);
+                        //         layer.bindPopup(popupContent);
+                        //     }
+                        //   }
+                        //
+                        // function map_init_basic (map, options) {
+                        //
+                        //     var geojsonFeature = {{ object.get_geojson|safe }};
+                        //     var GeoJsonLayer = L.geoJson(geojsonFeature, {onEachFeature: onEachFeature});
+                        //     GeoJsonLayer.addTo(map);
+                        //     map.fitBounds(GeoJsonLayer.getBounds());
+                        //
+                        // }
                     </script>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Netzwerk</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="visualization" style="position: relative; height: 400px; background: #fafafa;"></div>
+                        {{ object.netvis_data|json_script:"netviz-data" }}
+                        <script type="text/javascript">
+                            const graph = JSON.parse(document.getElementById('netviz-data').textContent);
+                            console.log(graph)
+                            ReactDOM.render(
+                            React.createElement(NetworkVisualization.Visualization, {graph}),
+                           document.getElementById('visualization')
+                         )
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>

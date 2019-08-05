@@ -713,6 +713,55 @@ class Person(IdProvider):
         prisons = ct.objects.filter(related_person=self)
         return prisons
 
+    def get_stations(self):
+        stations = self.get_prisonstations().exclude(relation_type=None)\
+            .exclude(related_prisonstation=None, related_location=None)
+        return stations
+
+    def get_station_count(self):
+        return len(self.get_stations())
+
+    def netvis_data(self):
+        rels = {
+            'nodes': [
+                {
+                    'id': f"{self.id}",
+                    'label': f"{self}",
+                    'type': 'Person',
+                }
+            ],
+            'edges': [],
+            'types': {
+                'nodes': [
+                    {'id': 'Person', 'label': 'Person', 'color': '#006699'},
+                    {'id': 'Prisonstation', 'label': 'Prisonstation', 'color': '#669900'},
+                    {'id': 'Location', 'label': 'Location', 'color': '#669900'},
+                ]
+            }
+        }
+        for x in self.get_stations():
+            try:
+                target = {
+                    'id': f"{x.related_prisonstation.id}",
+                    'label': f"{x.related_prisonstation.name}",
+                    'type': 'Prisonstation'
+                }
+            except AttributeError:
+                target = {
+                    'id': f"{x.related_location.id}",
+                    'label': f"{x.related_location.name}",
+                    'type': 'Location'
+                }
+            edge = {
+                'id': f"{x.id}",
+                'source': f"{self.id}",
+                'target': target['id'],
+                'label': x.relation_type.pref_label
+            }
+            rels['nodes'].append(target)
+            rels['edges'].append(edge)
+        return rels
+
     def get_warcrimecases(self):
         ct = ContentType.objects.get(model='PersonWarCrimeCase').model_class()
         warcrimecases = ct.objects.filter(related_person=self)
