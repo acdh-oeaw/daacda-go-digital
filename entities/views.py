@@ -50,6 +50,10 @@ from .filters import (
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 
 from . utils import bomb_group, crash_places, attack_places, airforce, squad
+from . network_utils import flatten_graphs
+
+from . models import NODE_TYPES
+
 
 try:
     from browsing.models import BrowsConf
@@ -232,6 +236,29 @@ class InstitutionRDFView(GenericListView):
 class InstitutionDetailView(DetailView):
     model = Institution
     template_name = 'entities/institution_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InstitutionDetailView, self).get_context_data()
+        bombers = self.object.has_bomber.all()
+        graphs = []
+        for x in bombers:
+            graphs.append(x.netvis_data())
+        graph = flatten_graphs(graphs)
+        graph['nodes'].append(self.object.as_node())
+        for x in bombers:
+            graph['edges'].append(
+                {
+                    'id': f"{self.object.as_node()['id']}__{x.as_node()['id']}",
+                    'source': self.object.as_node()['id'],
+                    'target': x.as_node()['id'],
+                    'label': 'hat Flugzeug'
+                }
+            )
+        graph['types'] = {
+            'nodes': NODE_TYPES
+        }
+        context['netvis_data'] = graph
+        return context
 
 
 class InstitutionCreate(BaseCreateView):
