@@ -533,8 +533,39 @@ class Bomber(models.Model):
             )
         return graph
 
+    def squad_as_graphs(self):
+        squad_node = self.squadron.as_node()
+        bg_node = self.squadron.parent_institution.as_node()
+        af_node = self.squadron.parent_institution.parent_institution.as_node()
+        graph = {
+            'nodes': [squad_node, bg_node, af_node],
+            'edges': [
+                {
+                    'id': f"{self.as_node()['id']}__{squad_node['id']}",
+                    'source': self.as_node()['id'],
+                    'target': squad_node['id'],
+                    'label': 'Teil von Squadroon'
+                },
+                {
+                    'id': f"{squad_node['id']}__{bg_node['id']}",
+                    'source': squad_node['id'],
+                    'target': bg_node['id'],
+                    'label': 'Teil von BombGroup'
+                },
+                {
+                    'id': f"{bg_node['id']}__{af_node['id']}",
+                    'source': bg_node['id'],
+                    'target': af_node['id'],
+                    'label': 'Teil von Airforce'
+                },
+            ]
+        }
+        return graph
+
     def netvis_data(self):
-        graph = self.crew_as_graph()
+        crew_graph = self.crew_as_graph()
+        squad_graph = self.squad_as_graphs()
+        graph = flatten_graphs([crew_graph, squad_graph])
         graph['types'] = {
             'nodes': NODE_TYPES
         }

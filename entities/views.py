@@ -3,6 +3,7 @@ import re
 import json
 import time
 import datetime
+import itertools
 from django.http import HttpResponse
 from django.shortcuts import (render, render_to_response, get_object_or_404, redirect)
 from django.views import generic
@@ -239,21 +240,23 @@ class InstitutionDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(InstitutionDetailView, self).get_context_data()
-        bombers = self.object.has_bomber.all()
+        current_object = self.object
         graphs = []
+        if current_object.children_institutions.all()\
+                .count() > 0 and current_object.parent_institution:
+            bombers = Bomber.objects.filter(
+                squadron__parent_institution=current_object
+            )
+        elif current_object.children_institutions.all().count():
+            bombers = Bomber.objects.filter(
+                squadron__parent_institution__parent_institution=current_object
+            )
+        else:
+            bombers = current_object.has_bomber.all()
         for x in bombers:
             graphs.append(x.netvis_data())
         graph = flatten_graphs(graphs)
-        graph['nodes'].append(self.object.as_node())
-        for x in bombers:
-            graph['edges'].append(
-                {
-                    'id': f"{self.object.as_node()['id']}__{x.as_node()['id']}",
-                    'source': self.object.as_node()['id'],
-                    'target': x.as_node()['id'],
-                    'label': 'hat Flugzeug'
-                }
-            )
+        graph['nodes'].append(current_object.as_node())
         graph['types'] = {
             'nodes': NODE_TYPES
         }
