@@ -1,5 +1,7 @@
 import re
 import json
+
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
@@ -9,11 +11,15 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from idprovider.models import IdProvider, ACCURACY
 from vocabs.models import SkosConcept
 
+from . network_utils import flatten_graphs
+
 DATE_ACCURACY = (
     ('Y', 'Year'),
     ('YM', 'Month'),
     ('DMY', 'Day')
 )
+
+NODE_TYPES = settings.NETVIS_TYPES['nodes']
 
 
 class OnlineRessource(IdProvider):
@@ -502,6 +508,38 @@ class Bomber(models.Model):
             return prev.first().id
         return False
 
+    def as_node(self):
+        node = {}
+        node["type"] = f"{self.__class__.__name__}"
+        node["label"] = f"{self.__str__()}"
+        node["id"] = f"{node['type'].lower()}__{self.id}"
+        return node
+
+    def crew_as_graph(self):
+        graphs = []
+        crew = self.has_crew.all()
+        for x in crew:
+            graphs.append(x.stations_as_graph())
+        graph = flatten_graphs(graphs)
+        graph['nodes'].append(self.as_node())
+        for x in crew:
+            graph['edges'].append(
+                {
+                    'id': f"{self.as_node()['id']}__{x.as_node()['id']}",
+                    'source': self.as_node()['id'],
+                    'target': x.as_node()['id'],
+                    'label': 'hat Crewmitglied'
+                }
+            )
+        return graph
+
+    def netvis_data(self):
+        graph = self.crew_as_graph()
+        graph['types'] = {
+            'nodes': NODE_TYPES
+        }
+        return graph
+
     def get_list_geojson(self):
         if self.crash_place.lng:
             geojson = {
@@ -721,6 +759,28 @@ class Person(IdProvider):
     def get_station_count(self):
         return len(self.get_stations())
 
+    def stations_as_graph(self):
+        nodes = [self.as_node()]
+        edges = []
+        for x in self.get_stations():
+            try:
+                x.related_prisonstation.id
+                target = x.related_prisonstation
+            except AttributeError:
+                target = x.related_location.id
+                target = x.related_location
+            nodes.append(target.as_node())
+            edges.append({
+                'id': f"edge_{x.id}",
+                'source': self.as_node()['id'],
+                'target': target.as_node()['id'],
+                'label': x.relation_type.pref_label
+            })
+        return {
+            'nodes': nodes,
+            'edges': edges
+        }
+
     def netvis_data(self):
         self_id = f"{self.id}"
         self_bomb = self.part_of_bomber
@@ -730,7 +790,7 @@ class Person(IdProvider):
                 {
                     'id': self_id,
                     'label': f"{self}",
-                    'type': 'Person',
+                    'type': 'CurrentPerson',
                 },
                 {
                     'id': f"{self_bomb.id}",
@@ -747,12 +807,7 @@ class Person(IdProvider):
                 }
             ],
             'types': {
-                'nodes': [
-                    {'id': 'Person', 'label': 'Person', 'color': '#006699'},
-                    {'id': 'Prisonstation', 'label': 'Prisonstation', 'color': '#669900'},
-                    {'id': 'Location', 'label': 'Location', 'color': '#669900'},
-                    {'id': 'Bomber', 'label': 'Bomber', 'color': '#ffc107'},
-                ]
+                'nodes': NODE_TYPES
             }
         }
         for x in self.get_stations():
@@ -760,13 +815,13 @@ class Person(IdProvider):
                 target = {
                     'id': f"{x.related_prisonstation.id}",
                     'label': f"{x.related_prisonstation.name}",
-                    'type': 'Prisonstation'
+                    'type': 'PrisonStation'
                 }
             except AttributeError:
                 target = {
                     'id': f"{x.related_location.id}",
                     'label': f"{x.related_location.name}",
-                    'type': 'Location'
+                    'type': 'Place'
                 }
             edge = {
                 'id': f"{x.id}",
@@ -775,21 +830,21 @@ class Person(IdProvider):
                 'label': x.relation_type.pref_label
             }
             rels['nodes'].append(target)
-            for y in self_crew:
-                crew_node = {
-                    'id': f"{y.id}",
-                    'label': f"{y}",
-                    'type': 'Person',
-                }
-                crew_edge = {
-                    'id': f"edge_{y.id}",
-                    'source': f"{self_bomb.id}",
-                    'target': f"{y.id}",
-                    'label': "hat Besatzung"
-                }
-                rels['nodes'].append(crew_node)
-                rels['edges'].append(crew_edge)
             rels['edges'].append(edge)
+        for y in self_crew:
+            crew_node = {
+                'id': f"{y.id}",
+                'label': f"{y}",
+                'type': 'Person',
+            }
+            crew_edge = {
+                'id': f"edge_{y.id}",
+                'source': f"{self_bomb.id}",
+                'target': f"{y.id}",
+                'label': "hat Besatzung"
+            }
+            rels['nodes'].append(crew_node)
+            rels['edges'].append(crew_edge)
         return rels
 
     def get_warcrimecases(self):

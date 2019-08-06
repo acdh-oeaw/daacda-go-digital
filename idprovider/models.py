@@ -21,6 +21,13 @@ class IdProvider(models.Model):
         default="legacy-data"
     )
 
+    def as_node(self):
+        node = {}
+        node["type"] = self.__class__.__name__
+        node["label"] = self.__str__()
+        node["id"] = f"{node['type'].lower()}__{self.id}"
+        return node
+
     def status_color(self):
         if self.data_status == "legacy-data":
             return 'danger'

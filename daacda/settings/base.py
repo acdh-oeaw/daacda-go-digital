@@ -174,3 +174,15 @@ LEAFLET_CONFIG = {
         )
     ],
 }
+
+
+NETVIS_TYPES = {
+    'nodes': [
+        {'id': 'CurrentPerson', 'label': 'Person', 'color': '#20c997'},
+        {'id': 'Person', 'label': 'Person', 'color': '#006699'},
+        {'id': 'PrisonStation', 'label': 'Prisonstation', 'color': '#28a745'},
+        {'id': 'Location', 'label': 'Location', 'color': '#669900'},
+        {'id': 'Place', 'label': 'Location', 'color': '#669900'},
+        {'id': 'Bomber', 'label': 'Bomber', 'color': '#ffc107'},
+    ]
+}

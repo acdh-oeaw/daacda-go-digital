@@ -4,12 +4,12 @@
 {% load webpage_extras %}
 {% block title %}{{ object }}{% endblock %}
 {% block scriptHeader %}
-{% leaflet_js %}
+    {% leaflet_js %}
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/three@latest/build/three.min.js"></script>
     <script crossorigin src="https://unpkg.com/@acdh/network-visualization@latest/lib/network-visualization.umd.js"></script>
-{% leaflet_css %}
+    {% leaflet_css %}
 <style>
     #map {
         height: 500px;
