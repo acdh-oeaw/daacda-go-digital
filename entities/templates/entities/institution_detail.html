@@ -5,6 +5,7 @@
 {% block title %}{{ object }}{% endblock %}
 {% block scriptHeader %}
     {% leaflet_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/three@latest/build/three.min.js"></script>
@@ -140,13 +141,25 @@
                     </div>
                     <div class="card-body">
                         <div id="visualization" style="position: relative; height: 400px; background: #fafafa;"></div>
-                        {{ netvis_data|json_script:"netviz-data" }}
                         <script type="text/javascript">
-                            const graph = JSON.parse(document.getElementById('netviz-data').textContent);
-                            ReactDOM.render(
-                                React.createElement(NetworkVisualization.SelectionControls, {graph}),
-                                document.getElementById('visualization')
-                            )
+                            const visCard = document.getElementById('visualization')
+                            var spinner = new Spinner().spin();
+                            visCard.appendChild(spinner.el);
+                            fetch("{% url 'entities:inst_planes_json' pk=object.id %}")
+                              .then(response => response.json())
+                              .then((graph) => {
+                                // jsonData is parsed json object received from url
+                                ReactDOM.render(
+                                    React.createElement(NetworkVisualization.SelectionControls, {graph}),
+                                    document.getElementById('visualization')
+                                )
+                              })
+                              .catch((error) => {
+                                // handle your errors here
+                                console.error(error)
+                              })
+                            // const graph = JSON.parse(document.getElementById('netviz-data').textContent);
+
                         </script>
                     </div>
                 </div>

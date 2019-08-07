@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views, geojson_views
+from . import views, geojson_views, netviz_views
 
 
 app_name = 'entities'
@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^squads/$', views.SquadListView.as_view(), name='browse_squads'),
     url(r'^institution/detail/(?P<pk>[0-9]+)$', views.InstitutionDetailView.as_view(),
         name='institution_detail'),
+    url(r'^institution/netviz/(?P<pk>[0-9]+)$', netviz_views.inst_planes_json,
+        name='inst_planes_json'),
     url(r'^institution/delete/(?P<pk>[0-9]+)$', views.InstitutionDelete.as_view(),
         name='institution_delete'),
     url(r'^institution/edit/(?P<pk>[0-9]+)$', views.InstitutionUpdate.as_view(),
