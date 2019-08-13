@@ -59,19 +59,17 @@ class Gedenkzeichen(models.Model):
         help_text="The location of the Gedenkzeichen",
         related_name='location_of_gedenkzeichen',
     )
-    related_person = models.ForeignKey(
-        Person, blank=True, null=True,
+    related_person = models.ManyToManyField(
+        Person, blank=True,
         verbose_name="Related person",
         help_text="Persons related to this Gedenkzeichen relation",
-        related_name="gd_has_related_persons",
-        on_delete=models.SET_NULL
+        related_name="gd_has_related_persons"
     )
-    related_bomber = models.ForeignKey(
-        Bomber, blank=True, null=True,
+    related_bomber = models.ManyToManyField(
+        Bomber, blank=True,
         verbose_name="Related bomber",
         help_text="Persons related to this Gedenkzeichen relation",
-        related_name="gd_has_related_bombers",
-        on_delete=models.SET_NULL
+        related_name="gd_has_related_bombers"
     )
     description = RichTextUploadingField(
         blank=True, null=True,

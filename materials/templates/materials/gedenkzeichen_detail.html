@@ -68,7 +68,11 @@
                             {% get_verbose_name gedenkzeichen "related_person" %}
                         </th>
                         <td>
-                            <a href="{{ object.related_person.get_absolute_url }}">{{ object.related_person }}</a>
+                            {% for x in object.related_person.all %}
+                                <li>
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                </li>
+                            {% endfor %}
                         </td>
                     </tr>
                     <tr>
@@ -76,7 +80,11 @@
                             {% get_verbose_name gedenkzeichen "related_bomber" %}
                         </th>
                         <td>
-                            <a href="{{ object.related_bomber.get_absolute_url }}">{{ object.related_bomber }}</a>
+                            {% for x in object.related_bomber.all %}
+                                <li>
+                                    <a href="{{ x.get_absolute_url }}">{{ object.related_bomber }}</a>
+                                </li>
+                            {% endfor %}
                         </td>
                     </tr>
                     <tr>

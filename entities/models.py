@@ -471,12 +471,16 @@ class Bomber(models.Model):
     )
 
     def __str__(self):
-        if self.name:
-            return "{}".format(self.name)
-        elif self.plane_id:
-            return "{}".format(self.plane_id)
+        if self.macr_nr:
+            marc = self.macr_nr
         else:
-            return "{}".format(self.id)
+            marc = "no MARC Nr."
+        if self.name:
+            return "{} (MARC: {})".format(self.name, marc)
+        elif self.plane_id:
+            return "{} (MARC: {}".format(self.plane_id, marc)
+        else:
+            return "{} (MARC: {}".format(self.id, marc)
 
     @classmethod
     def get_class_name(self):
