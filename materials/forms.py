@@ -50,10 +50,10 @@ class GedenkzeichenForm(forms.ModelForm):
         model = Gedenkzeichen
         fields = "__all__"
         widgets = {
-            'related_person': autocomplete.ModelSelect2(
+            'related_person': autocomplete.ModelSelect2Multiple(
                 url='materials-ac:gedenkzeichenperson-autocomplete'
             ),
-            'related_bomber': autocomplete.ModelSelect2(
+            'related_bomber': autocomplete.ModelSelect2Multiple(
                 url='materials-ac:gedenkzeichenbomber-autocomplete'
             ),
             'location': autocomplete.ModelSelect2(
