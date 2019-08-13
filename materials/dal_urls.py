@@ -8,22 +8,22 @@ app_name = 'vocabs'
 urlpatterns = [
     url(
         r'^usercontributionperson-autocomplete/$',
-        dal_views.UsercontributionPersonAC.as_view(model=Person, create_field='written_name',),
+        dal_views.UsercontributionPersonAC.as_view(),
         name='usercontributionperson-autocomplete',
     ),
     url(
         r'^gedenkzeichenperson-autocomplete/$',
-        dal_views.GedenkzeichenPersonAC.as_view(model=Person, create_field='written_name',),
+        dal_views.GedenkzeichenPersonAC.as_view(),
         name='gedenkzeichenperson-autocomplete',
     ),
     url(
         r'^gedenkzeichenbomber-autocomplete/$',
-        dal_views.GedenkzeichenBomberAC.as_view(model=Bomber, create_field='name',),
+        dal_views.GedenkzeichenBomberAC.as_view(),
         name='gedenkzeichenbomber-autocomplete',
     ),
     url(
         r'^gedenkzeichenplace-autocomplete/$',
-        dal_views.GedenkzeichenPlaceAC.as_view(model=Place, create_field='name',),
+        dal_views.GedenkzeichenPlaceAC.as_view(),
         name='gedenkzeichenplace-autocomplete',
     ),
 ]
