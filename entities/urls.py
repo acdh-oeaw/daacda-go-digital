@@ -88,6 +88,7 @@ urlpatterns = [
     url(r'personwarcrimecase/delete/(?P<pk>[0-9]+)$', views.PersonWarCrimeCaseDelete.as_view(),
         name='personwarcrimecase_delete'),
     url(r'^airstrikes-geojson/$', geojson_views.airstrikes_json, name='airstrikes_geojson'),
+    url(r'^airstrikes-timestamps/$', netviz_views.airstrike_time_json, name='airstrike_time_json'),
     url(r'airstrikes/$', views.AirstrikeListView.as_view(), name='browse_airstrikes'),
     url(r'airstrike/detail/(?P<pk>[0-9]+)$', views.AirstrikeDetailView.as_view(),
         name='airstrike_detail'),

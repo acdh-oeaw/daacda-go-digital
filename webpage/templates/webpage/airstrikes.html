@@ -1,0 +1,54 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+
+{% block scriptHeader %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+{% endblock scriptHeader %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+             <h1 class="card-title">Luftangriffe</h1>
+        </div>
+        <div class="card-body">
+            <h3>Zeitliche Verteilung</h3>
+            <div id="cal-heatmap"></div>
+            <script type="text/javascript">
+                const visCard = document.getElementById('cal-heatmap')
+                var spinner = new Spinner().spin();
+                var cal = new CalHeatMap();
+                visCard.appendChild(spinner.el);
+                fetch("{% url 'entities:airstrike_time_json' %}")
+                  .then(response => response.json())
+                  .then((graph) => {
+                    console.log(graph);
+                    spinner.stop();
+                    cal.init({
+                        data: graph,
+                        start: new Date(1943, 6), // January, 1st 2000
+                    	range: 3,
+                    	domain: "year",
+                    	subDomain: "day",
+                        rowLimit: 12,
+                        tooltip: true,
+                        verticalOrientation:  true,
+                        legend: [2, 4, 8, 10]
+                    });
+                  })
+                  .catch((error) => {
+                    // handle your errors here
+                    console.error(error)
+                  })
+
+            </script>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

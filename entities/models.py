@@ -8,7 +8,9 @@ from django.contrib.contenttypes.models import ContentType
 
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+
 from idprovider.models import IdProvider, ACCURACY
+from idprovider.utils import date_to_utc
 from vocabs.models import SkosConcept
 
 from . network_utils import flatten_graphs
@@ -511,6 +513,15 @@ class Bomber(models.Model):
         if prev:
             return prev.first().id
         return False
+
+    def crash_date_data(self):
+        if self.date_of_crash is not None:
+            try:
+                crash_date_data = date_to_utc(self.date_of_crash)
+            except Exception as e:
+                print(e)
+                crash_date_data = None
+        return crash_date_data
 
     def as_node(self):
         node = {}
@@ -1194,6 +1205,15 @@ class Airstrike(IdProvider):
         if prev:
             return prev.first().id
         return False
+
+    def crash_date_data(self):
+        if self.date is not None:
+            try:
+                crash_date_data = date_to_utc(self.date)
+            except Exception as e:
+                print(e)
+                crash_date_data = None
+        return crash_date_data
 
     def get_list_geojson(self):
         if self.target.lng:
