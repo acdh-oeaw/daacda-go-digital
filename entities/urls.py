@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^person/delete/(?P<pk>[0-9]+)$', views.PersonDelete.as_view(),
         name='person_delete'),
     url(r'^bombers/$', views.BomberListView.as_view(), name='browse_bombers'),
+    url(r'^bomber-timestamps/$', netviz_views.bomber_time_json, name='bomber_time_json'),
     url(r'^bombers/detail/(?P<pk>[0-9]+)$', views.BomberDetailView.as_view(),
         name='bomber_detail'),
     url(r'^bomber/create/$', views.BomberCreate.as_view(),

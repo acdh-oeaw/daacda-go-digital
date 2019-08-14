@@ -34,3 +34,8 @@ def inst_planes_json(request, pk):
 def airstrike_time_json(request):
     my_data = collections.Counter([x.crash_date_data() for x in Airstrike.objects.all()])
     return JsonResponse(my_data)
+
+
+def bomber_time_json(request):
+    my_data = collections.Counter([x.crash_date_data() for x in Bomber.objects.all()])
+    return JsonResponse(my_data)
