@@ -831,31 +831,38 @@ class Person(IdProvider):
         self_id = f"{self.id}"
         self_bomb = self.part_of_bomber
         self_crew = Person.objects.exclude(id=self.id).filter(part_of_bomber=self_bomb)
-        rels = {
-            'nodes': [
-                {
-                    'id': self_id,
-                    'label': f"{self}",
-                    'type': 'CurrentPerson',
-                },
-                {
-                    'id': f"{self_bomb.id}",
-                    'label': f"{self_bomb}",
-                    'type': 'Bomber',
+        try:
+            rels = {
+                'nodes': [
+                    {
+                        'id': self_id,
+                        'label': f"{self}",
+                        'type': 'CurrentPerson',
+                    },
+                    {
+                        'id': f"{self_bomb.id}",
+                        'label': f"{self_bomb}",
+                        'type': 'Bomber',
+                    }
+                ],
+                'edges': [
+                    {
+                        'id': f"bomb_{self.part_of_bomber.id}",
+                        'source': self_id,
+                        'target': f"{self.part_of_bomber.id}",
+                        'label': "Besatzung von"
+                    }
+                ],
+                'types': {
+                    'nodes': NODE_TYPES
                 }
-            ],
-            'edges': [
-                {
-                    'id': f"bomb_{self.part_of_bomber.id}",
-                    'source': self_id,
-                    'target': f"{self.part_of_bomber.id}",
-                    'label': "Besatzung von"
-                }
-            ],
-            'types': {
-                'nodes': NODE_TYPES
             }
-        }
+        except Exception as e:
+            print(e)
+            rels = {
+                'nodes': [],
+                'edges': []
+            }
         for x in self.get_stations():
             try:
                 target = {
@@ -883,12 +890,15 @@ class Person(IdProvider):
                 'label': f"{y}",
                 'type': 'Person',
             }
-            crew_edge = {
-                'id': f"edge_{y.id}",
-                'source': f"{self_bomb.id}",
-                'target': f"{y.id}",
-                'label': "hat Besatzung"
-            }
+            try:
+                crew_edge = {
+                    'id': f"edge_{y.id}",
+                    'source': f"{self_bomb.id}",
+                    'target': f"{y.id}",
+                    'label': "hat Besatzung"
+                }
+            except Exception as e:
+                crew_edge = {}
             rels['nodes'].append(crew_node)
             rels['edges'].append(crew_edge)
         return rels
