@@ -13,17 +13,20 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header" style="text-align:center;">
              <h1 class="card-title">Luftangriffe und Abstürze</h1>
         </div>
         <div class="card-body">
+            <p style="text-align:center;">
+                Die beiden Grafiken unten visualisieren die zeitliche Verteilung von Luftangriffen und Flugzeugabstürzen in Form einer <a href="https://cal-heatmap.com/">Calender-Heatmap</a>.
+            </p>
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Luftangriffe</h3>
+                    <h2><a href="{% url 'entities:browse_airstrikes' %}">Luftangriffe</a></h3>
                     <div id="cal-heatmap1"></div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Abstürze</h3>
+                    <h2><a href="{% url 'entities:browse_bombers' %}">Abstürze</a></h3>
                     <div id="cal-heatmap2"></div>
                 </div>
             </div>
