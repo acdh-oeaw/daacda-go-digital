@@ -230,13 +230,18 @@
                 <div class="footer-sep">
                     <i class="far fa-comment"></i> <a href="{% url 'webpage:staticpage' template='contact' %}">Kontakt</a>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 pl-0">
-                        <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH">
-                            <img src="{% static 'webpage/img/acdh_logo.png' %}" alt="ACDH" title="Austrian Centre for Digital Humanities" style="height:60%; padding-top:20px;"/>
+                <div class="row align-items-center">
+                    <div class="col-sm" align="left">
+                        <a href="https://www.oeaw.ac.at" target="_blank" rel="noopener" aria-label="ÖAW">
+                            <img src="{% static 'webpage/img/ÖAW_Logo_cmyk.png' %}" alt="ACDH" title="Österreichische Akademie der Wissenschaften"/>
                         </a>
                     </div>
-                    <div class="col-md-2 ml-auto">
+                    <div class="col-sm" align="center">
+                        <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH">
+                            <img src="{% static 'webpage/img/acdh_logo.png' %}" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
+                        </a>
+                    </div>
+                    <div class="col-sm" align="right">
                         <a href="https://www.hdgoe.at/" target="_blank" rel="noopener" aria-label="hdgö">
                             <img src="{% static 'webpage/img/hdgoe_logo.png' %}" alt="Logo Haus der Geschichte Österreich" title="Logo Haus der Geschichte Österreich"/>
                         </a>
