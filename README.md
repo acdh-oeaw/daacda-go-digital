@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/132461159.svg)](https://zenodo.org/badge/latestdoi/132461159)
+
 # DAACDA
 Downed Allied Air Crew Database Austria. A web application.
 
