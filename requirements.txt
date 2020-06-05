@@ -3,7 +3,7 @@ backports-abc==0.4
 beautifulsoup4==4.4.1
 certifi==2019.6.16
 decorator==4.0.6
-Django==2.1.7
+Django==2.2.13
 django-audit-log==0.7.0
 django-autocomplete-light==3.3.0rc3
 django-bootstrap3==10.0.1
