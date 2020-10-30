@@ -165,17 +165,17 @@ class OnlineRessourceListFilter(django_filters.FilterSet):
 
 
 class PersonWarCrimeCaseListFilter(django_filters.FilterSet):
-    id = django_filters.CharFilter(
-        lookup_expr='icontains',
-        help_text=OnlineRessource._meta.get_field('id').help_text,
-        label=OnlineRessource._meta.get_field('id').verbose_name
+    related_person = django_filters.ModelMultipleChoiceFilter(
+        queryset=Person.objects.all(),
+        help_text=PersonWarCrimeCase._meta.get_field('related_person').help_text,
+        label=PersonWarCrimeCase._meta.get_field('related_person').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:person-autocomplete',
+            )
         )
-
     class Meta:
         model = PersonWarCrimeCase
-        fields = [
-            'id'
-        ]
+        fields = '__all__'
 
 
 class AirstrikeListFilter(django_filters.FilterSet):

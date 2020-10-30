@@ -408,6 +408,7 @@ class PersonWarCrimeCaseForm(forms.ModelForm):
 
 
 class PersonWarCrimeCaseFilterFormHelper(FormHelper):
+
     def __init__(self, *args, **kwargs):
         super(PersonWarCrimeCaseFilterFormHelper, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -418,28 +419,10 @@ class PersonWarCrimeCaseFilterFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
-                'name',
+                'related_person',
                 css_id="basic_search_fields"
                 ),
-            Accordion(
-                AccordionGroup(
-                    'Advanced search',
-                    'name',
-                    css_id="more"
-                    ),
-                )
             )
-
-
-class PersonWarCrimeCaseFilterFormCreate(forms.ModelForm):
-    class Meta:
-        model = PersonWarCrimeCase
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super(PersonWarCrimeCaseFilterFormCreate, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = False
 
 
 class AirstrikeForm(forms.ModelForm):
