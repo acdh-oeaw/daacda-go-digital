@@ -1182,6 +1182,9 @@ class Airstrike(IdProvider):
         related_name="run_airstrike",
     )
 
+    class Meta:
+        ordering = ['date']
+
     @classmethod
     def get_createview_url(self):
         return reverse('entities:airstrike_create')

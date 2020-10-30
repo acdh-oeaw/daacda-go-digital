@@ -188,5 +188,8 @@ class AirstrikeListFilter(django_filters.FilterSet):
     class Meta:
         model = Airstrike
         fields = [
-            'date'
+            'date',
+            'target',
+            'plane_type',
+            'airforce',
         ]

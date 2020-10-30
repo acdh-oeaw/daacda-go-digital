@@ -521,16 +521,8 @@ class AirstrikeFilterFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
-                'name',
-                'alternative_name',
+                'date',
+                'target',
                 css_id="basic_search_fields"
                 ),
-            Accordion(
-                AccordionGroup(
-                    'Advanced search',
-                    'geonames_id',
-                    'part_of',
-                    css_id="more"
-                    ),
-                )
             )
