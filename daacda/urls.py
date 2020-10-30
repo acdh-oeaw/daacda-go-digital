@@ -8,7 +8,7 @@ from entities.apis_views import PlaceViewSet, GeoJsonViewSet, AlternativNameView
 from vocabs import api_views
 
 router = routers.DefaultRouter()
-router.register(r'geojson', GeoJsonViewSet, base_name='places')
+router.register(r'geojson', GeoJsonViewSet, basename='places')
 router.register(r'skoslabels', api_views.SkosLabelViewSet)
 router.register(r'skosnamespaces', api_views.SkosNamespaceViewSet)
 router.register(r'skosconceptschemes', api_views.SkosConceptSchemeViewSet)
