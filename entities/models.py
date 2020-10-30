@@ -187,6 +187,9 @@ class Place(IdProvider):
         choices=PLACE_TYPES, null=True, blank=True, max_length=50, help_text="The type of the place"
     )
 
+    class Meta:
+        ordering = ['name', ]
+
     def get_persons(self):
         ct = ContentType.objects.get(model='PersonPrison').model_class()
         prisons = ct.objects.filter(related_location=self)
@@ -472,6 +475,9 @@ class Bomber(models.Model):
         help_text="A comment"
     )
 
+    class Meta:
+        ordering = ['macr_nr', ]
+
     def __str__(self):
         if self.macr_nr:
             marc = self.macr_nr
@@ -549,7 +555,13 @@ class Bomber(models.Model):
         return graph
 
     def squad_as_graphs(self):
-        squad_node = self.squadron.as_node()
+        try:
+            squad_node = self.squadron.as_node()
+        except AttributeError:
+            return {
+                'nodes': [],
+                'edges': []
+            }
         bg_node = self.squadron.parent_institution.as_node()
         af_node = self.squadron.parent_institution.parent_institution.as_node()
         graph = {
