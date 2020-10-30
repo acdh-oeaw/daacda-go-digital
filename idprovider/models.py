@@ -21,6 +21,9 @@ class IdProvider(models.Model):
         default="legacy-data"
     )
 
+    class Meta:
+        ordering = ['legacy_id']
+
     def as_node(self):
         node = {}
         node["type"] = self.__class__.__name__
