@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.urls import reverse
@@ -35,6 +35,7 @@ def res_as_arche_graph(request, app_label, model_name, pk):
 
 
 def top_col_md(request):
+    format = request.GET.get('format', 'xml')
     g = get_root_col()
     if format == 'turtle':
         return HttpResponse(
@@ -46,18 +47,26 @@ def top_col_md(request):
         )
 
 
-def get_ids(request):
-    base_uri = request.build_absolute_uri().split('/aschach')[0]
+def get_ids(request, app_label, model_name):
+    start = request.GET.get('start', 0)
+    limit = request.GET.get('start', 10)
+    try:
+        ct = ContentType.objects.get(app_label=app_label, model=model_name)
+    except ObjectDoesNotExist:
+        raise Http404(f"No model: {model_name} in app: {app_label} defined")
+    curr_class = ct.model_class()
+    base_uri = request.build_absolute_uri().split('/archeutils')[0]
+    # base_uri = "https://hansi4ever/"
     data = {
-        "arche_constants": f"{base_uri}{reverse('aschach:project_as_arche')}",
+        "arche_constants": f"{base_uri}{reverse('archeutils:top_col_md')}",
         "id_prefix": f"{ARCHE_BASE_URL}",
         "ids": [
             {
                 "id": f"{get_arche_id(x)}",
                 "filename": f"{slugify(x)}.xml",
-                "md": f"{base_uri}{x.get_arche_url()}",
+                "md": f"{base_uri}/archeutils/md-resource/{app_label}/{model_name}/{x.id}",
                 "html": f"{base_uri}{x.get_absolute_url()}",
-                "payload": f"{base_uri}{x.get_tei_url()}"
-            } for x in Angabe.objects.all()[40000:40010]],
+                # "payload": f"{base_uri}{x.get_tei_url()}"
+            } for x in curr_class.objects.all()[start:limit]],
     }
     return JsonResponse(data)

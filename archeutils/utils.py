@@ -4,6 +4,7 @@ import re
 
 
 from django.conf import settings
+
 from django.core.exceptions import ObjectDoesNotExist, FieldDoesNotExist
 from django.db.models.query import QuerySet
 
@@ -82,64 +83,65 @@ def as_arche_graph(res):
     sub = URIRef(get_arche_id(res))
     g.add(
         (sub, acdh_ns.hasTitle, Literal(
-            f"Angabe vom {res.date_german()}  ({res})",
+            f"{res}",
             lang=ARCHE_LANG)
         )
     )
-    g.add((sub, RDF.type, acdh_ns.Resource))
-    g.add(
-        (
-            sub,
-            acdh_ns.hasNonLinkedIdentifier,
-            Literal(
-                f"Oberösterreichisches Landesarchiv (OÖLA), Depot Harrach, {res}",
-                lang=ARCHE_LANG)
-            )
-    )
-    col = Graph()
-    col_sub = URIRef(f"{ARCHE_BASE_URL}/aschach/{res.get_idno}")
-    g.add((col_sub, RDF.type, acdh_ns.Collection))
-    col.add(
-        (col_sub, acdh_ns.isPartOf, URIRef(f"{ARCHE_BASE_URL}/aschach"))
-    )
-    col.add(
-        (
-            col_sub,
-            acdh_ns.hasNonLinkedIdentifier,
-            Literal(
-                f"Oberösterreichisches Landesarchiv (OÖLA), Depot Harrach, {res.get_idno}",
-                lang=ARCHE_LANG)
-            )
-    )
-    col.add(
-        (
-            col_sub,
-            acdh_ns.hasTitle,
-            Literal(
-                f"Oberösterreichisches Landesarchiv (OÖLA), Depot Harrach, {res.get_idno}",
-                lang=ARCHE_LANG)
-            )
-    )
-    g.add(
-        (sub, acdh_ns.isPartOf, col_sub)
-    )
-    if res.datum is not None:
-        g.add(
-            (sub, acdh_ns.hasCoverageStartDate, Literal(res.datum, datatype=XSD.date))
-        )
-        g.add(
-            (sub, acdh_ns.hasCoverageEndDate, Literal(res.datum, datatype=XSD.date))
-        )
-    for x in res.get_waren_einheiten['waren']:
-        g.add(
-            (sub, acdh_ns.hasSubject, Literal(x.name, lang=ARCHE_LANG))
-        )
     g.add(
         (
             sub,
             acdh_ns.hasCategory,
             URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/dataset/xml"))
     )
+    for x in ['target_place', 'crash_place']:
+        pl = getattr(res, x)
+        pl_g = Graph()
+        pl_uri = URIRef(f"{ARCHE_BASE_URL}/places/{pl.id}")
+        pl_g.add(
+            (
+                pl_uri, acdh_ns.hasTitle,
+                Literal(f"{pl}", lang='und')
+            )
+        )
+        if pl.geonames_id:
+            pl_g.add(
+                (
+                    pl_uri, acdh_ns.hasIdentifier,
+                    URIRef(f"{pl.geonames_id}")
+                )
+            )
+        if pl.geonames_id:
+            pl_g.add(
+                (
+                    pl_uri, acdh_ns.hasIdentifier,
+                    URIRef(f"{pl.geonames_id}")
+                )
+            )
+        g.add(
+            (
+                sub,
+                RDF.type,
+                acdh_ns.Place
+            )
+        )
+        g = g + pl_g
+    g.add((sub, RDF.type, acdh_ns.Resource))
+    col = Graph()
+    col_sub = URIRef(f"{ARCHE_BASE_URL}/squads/{res.squadron.id}")
+    g.add((col_sub, RDF.type, acdh_ns.Collection))
+    col.add(
+        (col_sub, acdh_ns.isPartOf, URIRef(f"{ARCHE_BASE_URL}"))
+    )
+    col.add(
+        (
+            col_sub,
+            acdh_ns.hasTitle,
+            Literal(
+                f"{res.squadron}",
+                lang=ARCHE_LANG)
+            )
+    )
+
     for const in ARCHE_CONST_MAPPINGS:
         arche_prop_domain = ARCHE_PROPS_LOOKUP.get(const[0], 'No Match')
         if arche_prop_domain == 'date':
