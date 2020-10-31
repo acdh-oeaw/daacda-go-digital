@@ -25,7 +25,6 @@ from .models import (
     Airstrike
 )
 from .forms import *
-from .serializer_arche import *
 from .tables import (
     PersonTable,
     InstitutionTable,

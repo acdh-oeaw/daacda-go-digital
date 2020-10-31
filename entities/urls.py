@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views, geojson_views, netviz_views
+from archeutils import views as arche_rdf_views
 
 
 app_name = 'entities'
