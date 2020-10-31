@@ -80,13 +80,41 @@ def get_arche_id(res, id_prop="pk", arche_uri=ARCHE_BASE_URL):
 
 def as_arche_graph(res):
     g = Graph()
-    sub = URIRef(get_arche_id(res))
+    sub = URIRef(f"{ARCHE_BASE_URL}/bomber__{res.id}.xml")
     g.add(
-        (sub, acdh_ns.hasTitle, Literal(
-            f"{res}",
-            lang=ARCHE_LANG)
+        (
+            sub, acdh_ns.hasTitle, Literal(
+                f"{res}",
+                lang=ARCHE_LANG
+            )
         )
     )
+    g.add(
+        (
+            sub, acdh_ns.hasNoneLinkedIdentifier, Literal(
+                f"Missing Air Crew Reports No.: {res.macr_nr}",
+                lang=ARCHE_LANG
+            )
+        )
+    )
+    if res.name:
+        g.add(
+            (
+                sub, acdh_ns.hasAlternativeTitle, Literal(
+                    f"{res.name}",
+                    lang=ARCHE_LANG
+                )
+            )
+        )
+    if res.comment:
+        g.add(
+            (
+                sub, acdh_ns.hasNote, Literal(
+                    f"{res.comment}",
+                    lang='de'
+                )
+            )
+        )
     g.add(
         (
             sub,
@@ -120,40 +148,43 @@ def as_arche_graph(res):
         crew_g.add((crew_g, RDF.type, acdh_ns.Person))
         g = g + crew_g
     for x in ['target_place', 'crash_place']:
-        pl = getattr(res, x)
-        pl_g = Graph()
-        pl_uri = URIRef(f"{ARCHE_BASE_URL}/places/{pl.id}")
-        g.add(
-            (sub, acdh_ns.hasSpatialCoverage, pl_uri)
-        )
-        pl_g.add(
-            (
-                pl_uri, acdh_ns.hasTitle,
-                Literal(f"{pl}", lang='und')
+        try:
+            pl = getattr(res, x)
+            pl_g = Graph()
+            pl_uri = URIRef(pl.get_arche_id())
+            g.add(
+                (sub, acdh_ns.hasSpatialCoverage, pl_uri)
             )
-        )
-        if pl.geonames_id:
             pl_g.add(
                 (
-                    pl_uri, acdh_ns.hasIdentifier,
-                    URIRef(f"{pl.geonames_id}")
+                    pl_uri, acdh_ns.hasTitle,
+                    Literal(f"{pl}", lang='und')
                 )
             )
-        if pl.geonames_id:
-            pl_g.add(
+            if pl.geonames_id:
+                pl_g.add(
+                    (
+                        pl_uri, acdh_ns.hasIdentifier,
+                        URIRef(f"{pl.geonames_id}")
+                    )
+                )
+            if pl.geonames_id:
+                pl_g.add(
+                    (
+                        pl_uri, acdh_ns.hasIdentifier,
+                        URIRef(f"{pl.geonames_id}")
+                    )
+                )
+            g.add(
                 (
-                    pl_uri, acdh_ns.hasIdentifier,
-                    URIRef(f"{pl.geonames_id}")
+                    pl_uri,
+                    RDF.type,
+                    acdh_ns.Place
                 )
             )
-        g.add(
-            (
-                pl_uri,
-                RDF.type,
-                acdh_ns.Place
-            )
-        )
-        g = g + pl_g
+            g = g + pl_g
+        except:
+            pass
     g.add((sub, RDF.type, acdh_ns.Resource))
     col = Graph()
     col_sub = URIRef(f"{ARCHE_BASE_URL}/squads/{res.squadron.id}")

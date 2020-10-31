@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
     url(r'^archeutils/', include('archeutils.urls', namespace='archeutils')),
+    url(r'^tei/', include('tei.urls', namespace='tei')),
     url(r'^browsing/', include('browsing.urls', namespace='browsing')),
     url(r'^charts/', include('charts.urls', namespace='charts')),
     url(r'^vocabs/', include('vocabs.urls', namespace='vocabs')),

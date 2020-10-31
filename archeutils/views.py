@@ -49,12 +49,21 @@ def top_col_md(request):
 
 def get_ids(request, app_label, model_name):
     start = request.GET.get('start', 0)
-    limit = request.GET.get('start', 10)
+    limit = request.GET.get('limit', False)
+    print(limit)
     try:
         ct = ContentType.objects.get(app_label=app_label, model=model_name)
     except ObjectDoesNotExist:
         raise Http404(f"No model: {model_name} in app: {app_label} defined")
     curr_class = ct.model_class()
+    if limit:
+        try:
+            final_limit = int(limit)
+        except ValueError:
+            final_limit = 10
+    else:
+        final_limit = curr_class.objects.all().count()
+    print(limit)
     base_uri = request.build_absolute_uri().split('/archeutils')[0]
     # base_uri = "https://hansi4ever/"
     data = {
@@ -62,11 +71,12 @@ def get_ids(request, app_label, model_name):
         "id_prefix": f"{ARCHE_BASE_URL}",
         "ids": [
             {
-                "id": f"{get_arche_id(x)}",
-                "filename": f"{slugify(x)}.xml",
+                "id": f"{ARCHE_BASE_URL}/bomber__{x.id}.xml",
+                "filename": f"bomber__{x.id}.xml",
                 "md": f"{base_uri}/archeutils/md-resource/{app_label}/{model_name}/{x.id}",
                 "html": f"{base_uri}{x.get_absolute_url()}",
-                # "payload": f"{base_uri}{x.get_tei_url()}"
-            } for x in curr_class.objects.all()[start:limit]],
+                "payload": f"{base_uri}/tei/resource-as-tei/{app_label}/{model_name}/{x.id}",
+                "mimetype": "application/xml"
+            } for x in curr_class.objects.all()[0:final_limit]],
     }
     return JsonResponse(data)

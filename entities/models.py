@@ -251,6 +251,12 @@ class Place(IdProvider):
             return prev.first().id
         return False
 
+    def get_arche_id(self):
+        if self.geonames_id:
+            return f"{self.geonames_id}"
+        else:
+            return f"https://id.acdh.oeaw.ac.at/daacda/places/{self.id}"
+
     def get_absolute_url(self):
         return reverse('entities:place_detail', kwargs={'pk': self.id})
 
@@ -476,7 +482,7 @@ class Bomber(models.Model):
     )
 
     class Meta:
-        ordering = ['macr_nr', ]
+        ordering = ['id', ]
 
     def __str__(self):
         if self.macr_nr:
@@ -489,6 +495,9 @@ class Bomber(models.Model):
             return "{} (MARC: {}".format(self.plane_id, marc)
         else:
             return "{} (MARC: {}".format(self.id, marc)
+
+    def get_places(self):
+        return [self.target_place, self.crash_place]
 
     @classmethod
     def get_class_name(self):

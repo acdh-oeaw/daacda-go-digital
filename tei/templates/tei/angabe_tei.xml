@@ -1,0 +1,79 @@
+<div xmlns="http://www.tei-c.org/ns/1.0">
+  <head type="ladung">Ladung (Waren, Personen)</head>
+  <table>
+      <row>
+        <cell>LadungsId</cell>
+        <cell>LWId</cell>
+        <cell>Name/Bezeichnung</cell>
+        <cell>Herkunft</cell>
+        <cell>Menge</cell>
+        <cell>Gebinde</cell>
+        <cell>Anzahl</cell>
+        <cell>Einheit</cell>
+        <cell>Güter</cell>
+        <cell>fl</cell>
+        <cell>ß</cell>
+        <cell>d</cell>
+        <cell>Zielort</cell>
+      </row>
+    {% for x in object.get_wl %}
+      <row>
+        <cell>
+          <idno>{{ x.ladung.legacy_pk }}</idno>
+        </cell>
+        <cell>
+          <idno>{{ x.warenladung.legacy_pk }}</idno>
+        </cell>
+        <cell>
+          {% for y in x.personenLadung.all %}
+            <rs type="person" ref="#person__{{ y.person.id }}">{{ y.person }}</rs>
+          {% endfor %}
+        </cell>
+        <cell>
+          {% for y in x.personenLadung.all %}
+            {% if y.person.herkunft %}
+              <rs type="place" ref="#place__{{ y.person.herkunft.id }}">{{ y.person.herkunft }}</rs>
+            {% endif %}
+          {% endfor %}
+        </cell>
+        <cell>
+          {% for y in x.ladung.menge_gebinde.all %}
+            <num>{{ y.menge }}</num><lb />
+          {% endfor %}
+        </cell>
+        <cell>
+          {% for y in x.ladung.menge_gebinde.all %}
+            <rs type="gebinde" ref="#gebinde__{{ y.gebinde.id }}">{{ y.gebinde }}</rs><lb />
+          {% endfor %}
+        </cell>
+        <cell>
+          {% if x.warenladung.anzahl_original %}
+            <num>{{ x.warenladung.anzahl }}</num>
+          {% else %}
+            <num>{{ x.warenladung.anzahl }}</num>
+          {% endif %}
+        </cell>
+        <cell>
+          <rs type="wareneinheit" ref="#wareneinheit__{{ x.warenladung.einheit.id }}">{{ x.warenladung.einheit }}</rs>
+        </cell>
+        <cell>
+          <rs type="ware" ref="#ware__{{ x.warenladung.ware.id }}">{{ x.warenladung.ware }}</rs>
+        </cell>
+        <cell>
+          <measure quantity="{{ x.warenladung.maut_fl }}" unit="gulden">{{ x.warenladung.maut_fl }}</measure>
+        </cell>
+        <cell>
+          <measure quantity="{{ x.warenladung.maut_s }}" unit="schilling">{{ x.warenladung.maut_s }}</measure>
+        </cell>
+        <cell>
+          <measure quantity="{{ x.warenladung.maut_d }}" unit="pfennig">{{ x.warenladung.maut_d }}</measure>
+        </cell>
+        <cell>
+          {% for y in  x.ladung.zielort.all %}
+            <rs type="place" ref="#place__{{ y.id }}">{{ y }}</rs>
+          {% endfor %}
+        </cell>
+      </row>
+    {% endfor %}
+  </table>
+</div>
