@@ -246,6 +246,7 @@ TOP_COL_RDF = """
         <acdh:hasSubject>aerial warfare</acdh:hasSubject>
     </acdh:Project>
     <acdh:Image rdf:about="https://id.acdh.oeaw.ac.at/daacda/title-image.jpg">
+        <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Image"/>
         <acdh:hasTitle xml:lang="de">DAACDA Title Image</acdh:hasTitle>
         <acdh:hasCreator rdf:resource="https://d-nb.info/gnd/143373765"/>
         <acdh:hasRightsHolder rdf:resource="https://id.acdh.oeaw.ac.at/none"/>

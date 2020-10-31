@@ -93,10 +93,39 @@ def as_arche_graph(res):
             acdh_ns.hasCategory,
             URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/dataset/xml"))
     )
+    for x in res.has_crew.all():
+        crew_g = Graph()
+        crew_uri = URIRef(f"{ARCHE_BASE_URL}/persons/{x.id}")
+        g.add(
+            (sub, acdh_ns.hasActor, crew_uri)
+        )
+        crew_g.add(
+            (
+                crew_uri, acdh_ns.hasTitle,
+                Literal(f"{x}", lang='und')
+            )
+        )
+        crew_g.add(
+            (
+                crew_uri, acdh_ns.hasLastName,
+                Literal(f"{x.name}", lang='und')
+            )
+        )
+        crew_g.add(
+            (
+                crew_uri, acdh_ns.hasFirstName,
+                Literal(f"{x.forename} {x.middle_name}", lang='und')
+            )
+        )
+        crew_g.add((crew_g, RDF.type, acdh_ns.Person))
+        g = g + crew_g
     for x in ['target_place', 'crash_place']:
         pl = getattr(res, x)
         pl_g = Graph()
         pl_uri = URIRef(f"{ARCHE_BASE_URL}/places/{pl.id}")
+        g.add(
+            (sub, acdh_ns.hasSpatialCoverage, pl_uri)
+        )
         pl_g.add(
             (
                 pl_uri, acdh_ns.hasTitle,
@@ -119,7 +148,7 @@ def as_arche_graph(res):
             )
         g.add(
             (
-                sub,
+                pl_uri,
                 RDF.type,
                 acdh_ns.Place
             )
@@ -128,7 +157,10 @@ def as_arche_graph(res):
     g.add((sub, RDF.type, acdh_ns.Resource))
     col = Graph()
     col_sub = URIRef(f"{ARCHE_BASE_URL}/squads/{res.squadron.id}")
-    g.add((col_sub, RDF.type, acdh_ns.Collection))
+    g.add(
+        (sub, acdh_ns.isPartOf, col_sub)
+    )
+    col.add((col_sub, RDF.type, acdh_ns.Collection))
     col.add(
         (col_sub, acdh_ns.isPartOf, URIRef(f"{ARCHE_BASE_URL}"))
     )
