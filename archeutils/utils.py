@@ -145,7 +145,7 @@ def as_arche_graph(res):
                 Literal(f"{x.forename} {x.middle_name}", lang='und')
             )
         )
-        crew_g.add((crew_g, RDF.type, acdh_ns.Person))
+        crew_g.add((crew_uri, RDF.type, acdh_ns.Person))
         g = g + crew_g
     for x in ['target_place', 'crash_place']:
         try:
