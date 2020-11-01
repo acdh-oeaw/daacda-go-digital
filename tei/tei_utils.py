@@ -80,8 +80,9 @@ class MakeTeiDoc():
         div_head_el = ET.Element("{http://www.tei-c.org/ns/1.0}head")
         div_head_el.text = self.title
         div_el.append(div_head_el)
-        div_el.append(self.get_node_from_template('tei/fahrzeuge_tei.xml'))
-        div_el.append(self.get_node_from_template('tei/angabe_tei.xml'))
+        div_el.append(self.get_node_from_template('tei/bomber_tei.xml'))
+        div_el.append(self.get_node_from_template('tei/crew_tei.xml'))
+        # div_el.append(self.get_node_from_template('tei/angabe_tei.xml'))
         body_el.append(div_el)
         return doc
 

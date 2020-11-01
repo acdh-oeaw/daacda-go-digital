@@ -12,7 +12,7 @@ TEI_STUMP = """
       <fileDesc>
          <titleStmt>
             <title type="main"></title>
-            <title type="sub"></title>
+            <title type="sub">Downed Allied Air Crew Database Austria</title>
             <respStmt>
                <resp>Projektleitung, Datenerhebung</resp>
                <persName key="https://d-nb.info/gnd/143373765">
@@ -53,12 +53,14 @@ TEI_STUMP = """
                <licence target="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0/">CC-BY 4.0</licence>
             </availability>
          </publicationStmt>
+         <sourceDesc>
+            <ab>born digital</ab>
+         </sourceDesc>
       </fileDesc>
      <encodingDesc>
         <ab>Der vorliegende Datensatz wurde von Georg Hoffmann, Nicole-Melanie Goll sowie Martin Kirnbauer erhoben und mittels einer von Peter Andorfer entwickelten Python/Django Web-Applikation in das vorliegende TEI Dokument transformiert</ab>
      </encodingDesc>
   </teiHeader>
-   <facsimile/>
   <text>
       <body/>
       <back/>

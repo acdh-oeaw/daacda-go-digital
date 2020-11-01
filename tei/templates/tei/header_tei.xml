@@ -1,65 +1,57 @@
 <teiHeader>
-      <fileDesc>
-         <titleStmt>
-            <title type="main">{{ object.date_german }}</title>
-            <title type="sub">Donauhandel</title>
+    <fileDesc>
+        <titleStmt>
+            <title type="main">{{ object }}</title>
+            <title type="sub">Downed Allied Air Crew Database Austria</title>
             <respStmt>
-               <resp>Projektleitung, Datenerhebung</resp>
-               <persName key="https://d-nb.info/gnd/13140007X">
-                  <forename>Peter</forename>
-                  <surname>Rauscher</surname>
-               </persName>
+                <resp>Projektleitung, Datenerhebung</resp>
+                <persName key="https://d-nb.info/gnd/143373765">
+                    <forename>Georg</forename>
+                    <surname>Hoffmann</surname>
+                </persName>
             </respStmt>
             <respStmt>
-               <resp>Datenerhebung</resp>
-               <persName key="https://d-nb.info/gnd/1031446176">
-                  <forename>Andrea</forename>
-                  <surname>Serles</surname>
-               </persName>
+                <resp>Datenerhebung</resp>
+                <persName key="https://d-nb.info/gnd/143174754">
+                    <forename>Nicole-Melanie</forename>
+                    <surname>Goll</surname>
+                </persName>
             </respStmt>
             <respStmt>
-               <resp>Datenmodellierung und Aufsetzen einer Datenbankapplikation zur Datenerhebung</resp>
-               <persName key="https://d-nb.info/gnd/103048337X">
-                  <forename>Beate</forename>
-                  <surname>Pamperl</surname>
-               </persName>
+                <resp>Datenkuratierung</resp>
+                <persName key="https://orcid.org/0000-0001-7081-2280">
+                    <forename>Martin</forename>
+                    <surname>Kirnbauer</surname>
+                </persName>
             </respStmt>
             <respStmt>
-               <resp>Datenmodellierung und Datenkonvertierung nach TEI</resp>
-               <persName key="https://d-nb.info/gnd/1043833846">
-                  <forename>Peter</forename>
-                  <surname>Andorfer</surname>
-               </persName>
+                <resp>Datenmodellierung, Aufsetzen einer Datenbankapplikation zur Datenerhebung und
+                    Datenkonvertierung nach TEI</resp>
+                <persName key="https://d-nb.info/gnd/1043833846">
+                    <forename>Peter</forename>
+                    <surname>Andorfer</surname>
+                </persName>
             </respStmt>
-         </titleStmt>
-         <publicationStmt>
+        </titleStmt>
+        <publicationStmt>
             <authority>
-               <persName key="https://d-nb.info/gnd/13140007X">
-                  <forename>Peter</forename>
-                  <surname>Rauscher</surname>
-               </persName>
+                <persName key="https://d-nb.info/gnd/143373765">
+                    <forename>Georg</forename>
+                    <surname>Hoffmann</surname>
+                </persName>
             </authority>
             <availability>
-               <licence target="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</licence>
+                <licence target="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0/">CC-BY
+                    4.0</licence>
             </availability>
-         </publicationStmt>
-         <sourceDesc>
-            <msDesc>
-               <msIdentifier>
-                  <institution key="https://d-nb.info/gnd/2020619-7">Oberösterreichisches Landesarchiv (OÖLA)</institution>
-                  <repository>Depot Harrach</repository>
-                  <idno>Donnerstag, 1. Januar 1728</idno>
-               </msIdentifier>
-               <msContents>
-                  <msItem><locus from="2" to="3"/><p>2-3</p></msItem>
-               </msContents>
-               <history>
-                  <origin><date when-iso="{{ object.datum }}">{{ object.date_german }}</date></origin>
-               </history>
-            </msDesc>
-         </sourceDesc>
-      </fileDesc>
-     <encodingDesc>
-        <ab>Der vorliegende Datensatz wurde von Peter Rauscher und seinen Projektmitarbeiter*Innen anhand der im tei:msDesc Element beschriebener Quelle mit Hilfe einer von Beate Pamperl erstellten Datenbankapplikation erhoben und als Datensatz in eine MySQL gespeichert. Dieser Datensatz wurde mittels einer von Peter Andorfer entwickelten Python/Django Web-Applikation in das vorliegende TEI Dokument transformiert</ab>
-     </encodingDesc>
-  </teiHeader>
+        </publicationStmt>
+        <sourceDesc>
+            <ab>born digital</ab>
+        </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+        <ab>Der vorliegende Datensatz wurde von Georg Hoffmann, Nicole-Melanie Goll sowie Martin
+            Kirnbauer erhoben und mittels einer von Peter Andorfer entwickelten Python/Django
+            Web-Applikation in das vorliegende TEI Dokument transformiert</ab>
+    </encodingDesc>
+</teiHeader>

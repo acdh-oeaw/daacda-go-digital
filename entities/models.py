@@ -492,9 +492,9 @@ class Bomber(models.Model):
         if self.name:
             return "{} (MARC: {})".format(self.name, marc)
         elif self.plane_id:
-            return "{} (MARC: {}".format(self.plane_id, marc)
+            return "{} (MARC: {})".format(self.plane_id, marc)
         else:
-            return "{} (MARC: {}".format(self.id, marc)
+            return "{} (MARC: {})".format(self.id, marc)
 
     def get_places(self):
         return [self.target_place, self.crash_place]
