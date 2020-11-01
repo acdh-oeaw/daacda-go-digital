@@ -1,29 +1,81 @@
 <div xml:id="crew">
-            <table>
-               <head xml:id="crew_table">Die Crew des Flugzeugs {{ object }}</head>
-               <row>
-                  <cell role="label">Kennnummer</cell>
-                  <cell role="label">Nachname</cell>
-                  <cell role="label">Vorname</cell>
-                  <cell role="label">Mittelname</cell>
-                  <cell role="label">Funktion im Flugzeug</cell>
-                  <cell role="label">Dienstgrad</cell>
-                  <cell role="label">Eintrag MACR</cell>
-                  <cell role="label">Schicksal</cell>
-                  <cell role="label">Schicksal genau</cell>
-               </row>
-              {% for x in object.has_crew.all %}
-               <row>
-                  <cell role="data"><idno>{{ x.dog_tag }}</idno></cell>
-                  <cell role="data"><surname><rs type="person" ref="#person__{{ x.id }}">{{ x.name }}</rs></surname></cell>
-                  <cell role="data"><forename type="first">{{ x.forename }}</forename></cell>
-                  <cell role="data"><forename type="middle">{{ x.middle_name }}</forename></cell>
-                  <cell role="data">{{ x.function_in_plane }}</cell>
-                  <cell role="data">{{ x.rank }}</cell>
-                  <cell role="data">{{ x.destiny_stated }}</cell>
-                  <cell role="data">{{ x.is_dest_checked }}</cell>
-                  <cell role="data">{{ x.is_mia }}</cell>
-               </row>
-              {% endfor %}
+  <table xml:id="crew_table">
+    <head>Die Crew des Flugzeugs
+      {{ object }}</head>
+    <row>
+      <cell role="label">Kennnummer</cell>
+      <cell role="label">Nachname</cell>
+      <cell role="label">Vorname</cell>
+      <cell role="label">Mittelname</cell>
+      <cell role="label">Funktion im Flugzeug</cell>
+      <cell role="label">Dienstgrad</cell>
+      <cell role="label">Eintrag MACR</cell>
+      <cell role="label">Schicksal</cell>
+      <cell role="label">Schicksal genau</cell>
+      <cell role="label">Stationen der Gefangenschaft</cell>
+    </row>
+    {% for x in object.has_crew.all %}
+      <row>
+        <cell role="data">
+          <idno>{{ x.dog_tag }}</idno>
+        </cell>
+        <cell role="data">
+          <surname>
+            <rs type="person" ref="#person__{{ x.id }}">{{ x.name }}</rs>
+          </surname>
+        </cell>
+        <cell role="data">
+          <forename type="first">{{ x.forename }}</forename>
+        </cell>
+        <cell role="data">
+          <forename type="middle">{{ x.middle_name }}</forename>
+        </cell>
+        <cell role="data">{{ x.function_in_plane }}</cell>
+        <cell role="data">{{ x.rank }}</cell>
+        <cell role="data">{{ x.destiny_stated }}</cell>
+        <cell role="data">{{ x.is_dest_checked }}</cell>
+        <cell role="data">{{ x.is_mia }}</cell>
+        <cell role="data">
+          {% for y in x.has_related_persons.all %}
+            <table xml:id="crew_member_table__{{y.id}}">
+              <row>
+                <cell role="label">Relation Type</cell>
+                <cell role="label">Institution</cell>
+                <cell role="label">Ort</cell>
+                <cell role="label">von</cell>
+                <cell role="label">bis</cell>
+              </row>
+              <row>
+                <cell role="data">{{ y.relation_type }}</cell>
+                <cell role="data">
+                  {% if y.related_prisonstation %}
+                      <rs type="org" ref="#org__{{ y.related_prisonstation.id }}">{{ y.related_prisonstation.name }}</rs>
+                  {% endif %}
+                </cell>
+                <cell role="data">
+                  {% if y.related_location %}
+                      <rs type="place" ref="#place__{{ y.related_location.id }}">{{ y.related_location }}</rs>
+                  {% elif y.related_prisonstation.located_in_place%}
+                      <rs type="place" ref="#place__{{ y.related_prisonstation.located_in_place.id }}">
+                          {{ y.related_prisonstation.located_in_place }}
+                      </rs>
+                  {% endif %}
+                </cell>
+                <cell role="label">
+                  {% if y.start_date %}
+                    <date when="{{ y.start_date|date:'Y-m-d' }}">{{ y.start_date|date:"Y-m-d" }}</date>
+                  {% endif %}
+                </cell>
+                <cell role="data">
+                  {% if y.end_date %}
+                    <date when="{{ y.end_date|date:'Y-m-d' }}">{{ y.end_date|date:"Y-m-d" }}</date>
+                  {% endif %}
+                </cell>
+              </row>
             </table>
-         </div>
+          {% endfor %}
+        </cell>
+      </row>
+    {% endfor %}
+  </table>
+</div>
