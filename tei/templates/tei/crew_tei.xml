@@ -61,7 +61,7 @@
                       </rs>
                   {% endif %}
                 </cell>
-                <cell role="label">
+                <cell role="data">
                   {% if y.start_date %}
                     <date when="{{ y.start_date|date:'Y-m-d' }}">{{ y.start_date|date:"Y-m-d" }}</date>
                   {% endif %}
