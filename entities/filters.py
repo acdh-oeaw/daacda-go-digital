@@ -173,6 +173,7 @@ class PersonWarCrimeCaseListFilter(django_filters.FilterSet):
             url='entities-ac:person-autocomplete',
             )
         )
+
     class Meta:
         model = PersonWarCrimeCase
         fields = '__all__'
@@ -183,6 +184,14 @@ class AirstrikeListFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         help_text=Airstrike._meta.get_field('date').help_text,
         label=Airstrike._meta.get_field('date').verbose_name
+        )
+    target = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Airstrike._meta.get_field('target').help_text,
+        label=Airstrike._meta.get_field('target').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:place-autocomplete',
+            )
         )
 
     class Meta:
