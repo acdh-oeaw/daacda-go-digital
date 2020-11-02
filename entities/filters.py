@@ -115,7 +115,10 @@ class PlaceListFilter(django_filters.FilterSet):
     part_of = django_filters.ModelMultipleChoiceFilter(
         queryset=Place.objects.all(),
         help_text=Place._meta.get_field('part_of').help_text,
-        label=Place._meta.get_field('part_of').verbose_name
+        label=Place._meta.get_field('part_of').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:search-region-autocomplete',
+            )
         )
 
     class Meta:
