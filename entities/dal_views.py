@@ -26,6 +26,18 @@ class PlaceAC(autocomplete.Select2QuerySetView):
         return qs
 
 
+class TargetPlaceAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Place.objects.ex()
+
+        if self.q:
+            qs = qs.filter(
+                Q(name__icontains=self.q) |
+                Q(alt_names__name__icontains=self.q)
+            )
+        return qs
+
+
 class PlaceAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Place.objects.filter(is_target=True)
@@ -292,7 +304,7 @@ class WarCrimeCaseCrimeTypeAC(autocomplete.Select2QuerySetView):
 
 class AirstrikeTargetAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = Place.objects.all()
+        qs = Place.objects.filter(is_target__isnull=False).distinct()
 
         if self.q:
             qs = qs.filter(name__icontains=self.q)

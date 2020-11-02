@@ -190,7 +190,7 @@ class AirstrikeListFilter(django_filters.FilterSet):
         help_text=Airstrike._meta.get_field('target').help_text,
         label=Airstrike._meta.get_field('target').verbose_name,
         widget=autocomplete.Select2Multiple(
-            url='entities-ac:place-autocomplete',
+            url='entities-ac:airstriketarget-autocomplete',
             )
         )
 
