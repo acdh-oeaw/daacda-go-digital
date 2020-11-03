@@ -4,6 +4,8 @@ from entities.models import (
     Place, AlternativeName, Institution, Person, Bomber, WarCrimeCase,
     OnlineRessource, PersonWarCrimeCase, Airstrike
 )
+from vocabs.filters import generous_concept_filter
+from vocabs.models import SkosConcept
 
 
 django_filters.filters.LOOKUP_TYPES = [
@@ -58,6 +60,35 @@ class BomberListFilter(django_filters.FilterSet):
         help_text=Bomber._meta.get_field('name').help_text,
         label=Bomber._meta.get_field('name').verbose_name
         )
+    target_place = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Bomber._meta.get_field('target_place').help_text,
+        label=Bomber._meta.get_field('target_place').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='/entities-ac/specific-place-ac/is_target_place',
+            )
+        )
+    crash_place = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Bomber._meta.get_field('crash_place').help_text,
+        label=Bomber._meta.get_field('crash_place').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='/entities-ac/specific-place-ac/is_crashplace',
+            )
+        )
+    reason_of_crash = django_filters.ModelMultipleChoiceFilter(
+        queryset=SkosConcept.objects.all(),
+        help_text=Bomber._meta.get_field('reason_of_crash').help_text,
+        label=Bomber._meta.get_field('reason_of_crash').verbose_name,
+        method=generous_concept_filter,
+        widget=autocomplete.Select2Multiple(
+            url="/vocabs-ac/specific-concept-ac/reason_of_crash",
+            attrs={
+                'data-placeholder': 'Start typing to get suggestions ...',
+                'data-minimum-input-length': 1,
+                },
+        )
+    )
 
     class Meta:
         model = Bomber
@@ -132,7 +163,7 @@ class CrashPlaceListFilter(django_filters.FilterSet):
         help_text=Place._meta.get_field('name').help_text,
         label=Place._meta.get_field('name').verbose_name,
         widget=autocomplete.Select2Multiple(
-            url='entities-ac:crash-place-autocomplete',
+            url='/entities-ac/specific-place-ac/is_crashplace',
             )
         )
     geonames_id = django_filters.CharFilter(
@@ -150,7 +181,7 @@ class CrashPlaceListFilter(django_filters.FilterSet):
         help_text=Place._meta.get_field('part_of').help_text,
         label=Place._meta.get_field('part_of').verbose_name,
         widget=autocomplete.Select2Multiple(
-            url='entities-ac:search-region-autocomplete',
+            url='/entities-ac/specific-place-ac/part_of',
             )
         )
 
@@ -226,7 +257,7 @@ class AirstrikeListFilter(django_filters.FilterSet):
         help_text=Airstrike._meta.get_field('target').help_text,
         label=Airstrike._meta.get_field('target').verbose_name,
         widget=autocomplete.Select2Multiple(
-            url='entities-ac:airstriketarget-autocomplete',
+            url='/entities-ac/specific-place-ac/is_target',
             )
         )
 

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import path
 from . import views
 from . import dal_views
 from .models import *
@@ -144,4 +145,9 @@ urlpatterns = [
             model=Institution,),
         name='airstrikeairforce-autocomplete',
     ),
+    path(
+        r'specific-place-ac/<str:lookup>', dal_views.PlaceConstraintAC.as_view(
+            model=Place),
+        name='specific-place-ac',
+    )
 ]
