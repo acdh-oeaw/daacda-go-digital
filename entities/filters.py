@@ -43,6 +43,24 @@ class PersonListFilter(django_filters.FilterSet):
         help_text=Person._meta.get_field('name').help_text,
         label=Person._meta.get_field('name').verbose_name
         )
+    forename = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Person._meta.get_field('forename').help_text,
+        label=Person._meta.get_field('forename').verbose_name
+        )
+    written_name = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text="Search in the Person's full name",
+        label="Firstname, Middlename, Lastname"
+        )
+    place_of_birth = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Person._meta.get_field('place_of_birth').help_text,
+        label=Person._meta.get_field('place_of_birth').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='/entities-ac/specific-place-ac/is_birthplace',
+            )
+        )
     belongs_to_institution = django_filters.ModelMultipleChoiceFilter(
         queryset=Institution.objects.all(),
         help_text=Person._meta.get_field('belongs_to_institution').help_text,

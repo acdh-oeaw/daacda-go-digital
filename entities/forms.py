@@ -28,9 +28,7 @@ class PersonFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'alt_names',
-                    'authority_url',
-                    'belongs_to_institution',
+                    'part_of_bomber',
                     'place_of_birth',
                     css_id="more"
                     ),
