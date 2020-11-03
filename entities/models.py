@@ -3,6 +3,7 @@ import json
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 
@@ -498,6 +499,21 @@ class Bomber(models.Model):
 
     def get_places(self):
         return [self.target_place, self.crash_place]
+
+    def get_crew(self):
+        return self.has_crew.all().distinct()
+
+    def get_concepts(self):
+        crew = self.get_crew()
+        related_concepts = SkosConcept.objects.filter(
+            Q(is_rank__in=crew) |
+            Q(is_dest_stated__in=crew) |
+            Q(is_dest_checked__in=crew) |
+            Q(is_mia__in=crew) |
+            Q(is_plane_type=self) |
+            Q(is_crash_reason=self)
+        ).distinct()
+        return related_concepts
 
     @classmethod
     def get_class_name(self):
