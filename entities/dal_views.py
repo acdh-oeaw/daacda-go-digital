@@ -2,6 +2,7 @@ from dal import autocomplete
 from .models import *
 from django.db.models import Q
 from vocabs.models import SkosConceptScheme
+from .utils import crash_places
 
 
 class AlternativeNameAC(autocomplete.Select2QuerySetView):
@@ -11,18 +12,6 @@ class AlternativeNameAC(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(name__icontains=self.q)
 
-        return qs
-
-
-class TargetPlaceAC(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        qs = Place.objects.ex()
-
-        if self.q:
-            qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(alt_names__name__icontains=self.q)
-            )
         return qs
 
 
@@ -309,6 +298,18 @@ class AirstrikeTargetAC(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(name__icontains=self.q)
 
+        return qs
+
+
+class CrashPlaceAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = crash_places
+
+        if self.q:
+            qs = qs.filter(
+                Q(name__icontains=self.q) |
+                Q(alt_names__name__icontains=self.q)
+            )
         return qs
 
 

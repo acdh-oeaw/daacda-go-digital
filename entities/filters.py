@@ -80,16 +80,11 @@ class InstitutionListFilter(django_filters.FilterSet):
         help_text=Institution._meta.get_field('authority_url').help_text,
         label=Institution._meta.get_field('authority_url').verbose_name
         )
-    location = django_filters.ModelMultipleChoiceFilter(
-        queryset=Place.objects.all(),
-        help_text=Institution._meta.get_field('location').help_text,
-        label=Institution._meta.get_field('location').verbose_name
-        )
 
     class Meta:
         model = Institution
         fields = [
-            'id', 'written_name', 'authority_url', 'location'
+            'id', 'written_name', 'authority_url'
         ]
 
 
@@ -100,6 +95,44 @@ class PlaceListFilter(django_filters.FilterSet):
         label=Place._meta.get_field('name').verbose_name,
         widget=autocomplete.Select2Multiple(
             url='entities-ac:place-autocomplete',
+            )
+        )
+    geonames_id = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Place._meta.get_field('geonames_id').help_text,
+        label=Place._meta.get_field('geonames_id').verbose_name
+        )
+    alt_names = django_filters.ModelMultipleChoiceFilter(
+        queryset=AlternativeName.objects.all(),
+        help_text=Place._meta.get_field('alt_names').help_text,
+        label=Place._meta.get_field('alt_names').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:altname-autocomplete',
+            )
+        )
+    part_of = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Place._meta.get_field('part_of').help_text,
+        label=Place._meta.get_field('part_of').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:search-region-autocomplete',
+            )
+        )
+
+    class Meta:
+        model = Place
+        fields = [
+            'id', 'name'
+        ]
+
+
+class CrashPlaceListFilter(django_filters.FilterSet):
+    name = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=Place._meta.get_field('name').help_text,
+        label=Place._meta.get_field('name').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='entities-ac:crash-place-autocomplete',
             )
         )
     geonames_id = django_filters.CharFilter(
@@ -124,7 +157,7 @@ class PlaceListFilter(django_filters.FilterSet):
     class Meta:
         model = Place
         fields = [
-            'id', 'name'
+            'id', 'name', 'geonames_id', 'alt_names', 'part_of'
         ]
 
 

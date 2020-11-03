@@ -17,6 +17,11 @@ urlpatterns = [
         name='place-autocomplete',
     ),
     url(
+        r'^crash-place-autocomplete/$', dal_views.CrashPlaceAC.as_view(
+            model=Place,),
+        name='crash-place-autocomplete',
+    ),
+    url(
         r'^search-place-autocomplete/$', dal_views.PlaceAC.as_view(),
         name='search-place-autocomplete',
     ),

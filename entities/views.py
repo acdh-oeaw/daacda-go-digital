@@ -36,17 +36,7 @@ from .tables import (
     PersonWarCrimeCaseTable,
     AirstrikeTable
 )
-from .filters import (
-    PersonListFilter,
-    InstitutionListFilter,
-    PlaceListFilter,
-    AlternativeNameListFilter,
-    BomberListFilter,
-    WarCrimeCaseListFilter,
-    OnlineRessourceListFilter,
-    PersonWarCrimeCaseListFilter,
-    AirstrikeListFilter
-)
+from .filters import *
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 
 from . utils import bomb_group, crash_places, attack_places, airforce, squad
@@ -544,7 +534,7 @@ class PlaceListView(GenericListView):
 class CrashPlaceListView(GenericListView):
     model = Place
     table_class = PlaceTable
-    filter_class = PlaceListFilter
+    filter_class = CrashPlaceListFilter
     formhelper_class = PlaceFilterFormHelper
     template_name = "entities/crash_place.html"
     init_columns = [
