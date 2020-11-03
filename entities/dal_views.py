@@ -356,3 +356,23 @@ class PlaceConstraintAC(autocomplete.Select2QuerySetView):
                 Q(alt_names__name__icontains=self.q)
             )
         return qs
+
+
+class PersonConstraintAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        lookup = self.kwargs.get('lookup', None)
+        if lookup is not None:
+            filter_expression = f"{lookup}__isnull"
+            cur_filter = {
+                filter_expression: False
+            }
+        else:
+            cur_filter = {}
+        qs = Person.objects.filter(**cur_filter).distinct()
+        if self.q:
+            qs = qs.filter(
+                Q(name__icontains=self.q) |
+                Q(written_name__icontains=self.q) |
+                Q(middle_name__icontains=self.q)
+            )
+        return qs

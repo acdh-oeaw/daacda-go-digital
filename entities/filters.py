@@ -31,6 +31,14 @@ class WarCrimeCaseListFilter(django_filters.FilterSet):
         help_text=WarCrimeCase._meta.get_field('signatur').help_text,
         label=WarCrimeCase._meta.get_field('signatur').verbose_name
         )
+    related_persons = django_filters.ModelMultipleChoiceFilter(
+        queryset=Person.objects.all(),
+        help_text=WarCrimeCase._meta.get_field('related_persons').help_text,
+        label=WarCrimeCase._meta.get_field('related_persons').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='/entities-ac/specific-person-ac/mentioned_in_abstract',
+            )
+        )
 
     class Meta:
         model = WarCrimeCase

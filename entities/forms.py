@@ -214,6 +214,7 @@ class WarCrimeCaseFilterFormHelper(FormHelper):
             Fieldset(
                 'Basic search options',
                 'signatur',
+                'related_persons',
                 css_id="basic_search_fields"
                 ),
             Accordion(

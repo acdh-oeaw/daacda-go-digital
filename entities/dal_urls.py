@@ -149,5 +149,10 @@ urlpatterns = [
         r'specific-place-ac/<str:lookup>', dal_views.PlaceConstraintAC.as_view(
             model=Place),
         name='specific-place-ac',
+    ),
+    path(
+        r'specific-person-ac/<str:lookup>', dal_views.PersonConstraintAC.as_view(
+            model=Place),
+        name='specific-person-ac',
     )
 ]

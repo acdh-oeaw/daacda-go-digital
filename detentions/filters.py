@@ -35,6 +35,14 @@ class PrisonStationListFilter(django_filters.FilterSet):
         help_text=PrisonStation._meta.get_field('name').help_text,
         label="Exact Name"
         )
+    located_in_place = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.all(),
+        help_text=PrisonStation._meta.get_field('located_in_place').help_text,
+        label=PrisonStation._meta.get_field('located_in_place').verbose_name,
+        widget=autocomplete.Select2Multiple(
+            url='/entities-ac/specific-place-ac/place_located',
+            )
+        )
 
     class Meta:
         model = PrisonStation

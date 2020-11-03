@@ -670,7 +670,7 @@ class WarCrimeCaseListView(GenericListView):
     init_columns = [
         'id',
         'signatur',
-        'warcrimespersons', 'warcrimesurls',
+        'warcrimespersons',
     ]
 
     def get_all_cols(self):
