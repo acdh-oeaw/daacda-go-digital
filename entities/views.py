@@ -631,7 +631,7 @@ def edit_place(request, pk):
             responseJSON = json.loads(response)
             responseJSON = responseJSON['geonames']
             form = PlaceForm(instance=instance)
-            print(url)
+            # print(url)
             return render(
                 request, 'entities/edit_places.html',
                 {'object': instance, 'form': form, 'responseJSON': responseJSON}

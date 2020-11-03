@@ -152,7 +152,6 @@ class GenericListView(django_tables2.SingleTableView):
         if 'charts' in settings.INSTALLED_APPS:
             model = self.model
             app_label = model._meta.app_label
-            print(app_label)
             filtered_objs = ChartConfig.objects.filter(
                 model_name=model.__name__.lower(),
                 app_name=app_label
@@ -255,7 +254,7 @@ def model_to_dict(instance):
                 try:
                     data[f.name] = list(f.value_from_object(instance).values_list('pk', flat=True))
                 except Exception as e:
-                    print(e)
+                    # print(e)
                     data[f.name] = []
         else:
             data[f.name] = f.value_from_object(instance)
