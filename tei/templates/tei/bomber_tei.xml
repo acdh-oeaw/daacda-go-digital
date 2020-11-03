@@ -21,12 +21,12 @@
       </row>
       <row>
          <cell role="data"><idno>{{ object.macr_nr }}</idno></cell>
-         <cell role="data"><rs type="concept" ref="#concept__{{ object.plane_type.id }}">{{ object.plane_type }}</rs></cell>
+         <cell role="data"><rs type="concept" ref="#{{ object.plane_type.xml_id }}">{{ object.plane_type }}</rs></cell>
          <cell role="data"><idno>{{ object.plane_id }}</idno></cell>
          <cell role="data"><name>{{ object.name }}</name></cell>
          <cell role="data"><orgName>{{ object.squadron }}</orgName></cell>
         <cell role="data"><date {% if object.date_of_crash %} when-iso="{{object.date_of_crash|date:'Y-m-d'}}" {% endif %}>{{ object.date_of_crash|date:"Y-m-d" }}</date></cell>
-         <cell role="data"><rs type="concept" ref="#concept__{{ object.reason_of_crash.id }}">{{ object.reason_of_crash }}</rs></cell>
+         <cell role="data"><rs type="concept" ref="#{{ object.reason_of_crash.xml_id }}">{{ object.reason_of_crash }}</rs></cell>
          <cell role="data">{% if object.target_place %}<rs type="place" ref="#place__{{ object.target_place.id }}"><orgName>{{ object.target_place }}</orgName></rs> {% endif %}</cell>
          <cell role="data">{% if object.crash_place %}<rs type="place" ref="#place__{{ object.crash_place.id }}"><orgName>{{ object.crash_place }}</orgName></rs> {% endif %}</cell>
          <cell role="data"><geo>{{ object.sicht_koord }}</geo></cell>

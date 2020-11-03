@@ -30,11 +30,19 @@
         <cell role="data">
           <forename type="middle">{{ x.middle_name }}</forename>
         </cell>
-        <cell role="data">{{ x.function_in_plane }}</cell>
-        <cell role="data">{{ x.rank }}</cell>
-        <cell role="data">{{ x.destiny_stated }}</cell>
-        <cell role="data">{{ x.is_dest_checked }}</cell>
-        <cell role="data">{{ x.is_mia }}</cell>
+        <cell role="data"><rs type="concept" ref="#{{ x.function_in_plane.xml_id}}">{{ x.function_in_plane }}</rs></cell>
+        <cell role="data"><rs type="concept" ref="#{{ x.rank.xml_id}}">{{ x.rank }}</rs></cell>
+        <cell role="data"><rs type="concept" ref="#{{ x.destiny_stated.xml_id}}">{{ x.destiny_stated }}</rs></cell>
+        <cell role="data">
+          {% if x.is_dest_checked %}
+            <rs type="concept" ref="#{{ x.is_dest_checked.xml_id }}">{{ x.is_dest_checked }}</rs>
+          {% endif %}
+        </cell>
+        <cell role="data">
+            {% if x.is_mia %}
+              <rs type="concept" ref="#{{ x.is_mia.xml_id}}">{{ x.is_mia }}</rs>
+            {% endif %}
+          </cell>
         <cell role="data">
           {% for y in x.has_related_persons.all %}
             <table xml:id="crew_member_table__{{y.id}}">

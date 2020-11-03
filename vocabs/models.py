@@ -229,6 +229,14 @@ class SkosConcept(models.Model):
     def get_createview_url(self):
         return reverse('vocabs:skosconcept_create')
 
+    def xml_id(self):
+        col_pref_label = [x.dc_title for x in self.scheme.all()][0]
+        return f"{col_pref_label}__{self.id}"
+
+    def pseudo_scheme(self):
+        col_pref_label = [x.dc_title for x in self.scheme.all()][0]
+        return f"{col_pref_label}"
+
     def get_absolute_url(self):
         return reverse('vocabs:skosconcept_detail', kwargs={'pk': self.id})
 

@@ -19,9 +19,12 @@ class MakeTeiDoc():
         self.title = f"{self.res}"
         self.tree = self.populate_header()
 
-    def get_node_from_template(self, template_path):
+    def get_node_from_template(self, template_path, other_object=False):
         template = get_template(template_path)
-        context = {'object': self.res}
+        if other_object:
+            context = {'object': other_object}
+        else:
+            context = {'object': self.res}
         temp_str = f"{template.render(context=context)}"
         node = ET.fromstring(temp_str)
         return node
@@ -64,11 +67,9 @@ class MakeTeiDoc():
                 continue
             listplace_el.append(p_el)
 
-        # xeno = doc.xpath('.//tei:teiHeader', namespaces=self.nsmap)[0]
-        # for x in self.res.get_waren_einheiten['waren']:
-        #     xeno.append(x.as_skos())
-        # for x in self.res.get_waren_einheiten['einheiten']:
-        #     xeno.append(x.as_skos())
+        xeno = doc.xpath('.//tei:teiHeader', namespaces=self.nsmap)[0]
+        for x in self.res.get_concepts():
+            xeno.append(self.get_node_from_template('tei/skosify_concepts.xml', x))
 
         return doc
 
@@ -82,7 +83,6 @@ class MakeTeiDoc():
         div_el.append(div_head_el)
         div_el.append(self.get_node_from_template('tei/bomber_tei.xml'))
         div_el.append(self.get_node_from_template('tei/crew_tei.xml'))
-        # div_el.append(self.get_node_from_template('tei/angabe_tei.xml'))
         body_el.append(div_el)
         return doc
 
