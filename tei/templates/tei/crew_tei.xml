@@ -3,6 +3,7 @@
     <head>Die Crew des Flugzeugs
       {{ object }}</head>
     <row>
+      <cell role="label">Interne ID</cell>
       <cell role="label">Kennnummer</cell>
       <cell role="label">Nachname</cell>
       <cell role="label">Vorname</cell>
@@ -15,7 +16,10 @@
       <cell role="label">Stationen der Gefangenschaft</cell>
     </row>
     {% for x in object.has_crew.all %}
-      <row>
+      <row xml:id="crew_table_row__{{ x.id }}">
+        <cell role="data">
+          <idno>{{ x.id }}</idno>
+        </cell>
         <cell role="data">
           <idno>{{ x.dog_tag }}</idno>
         </cell>
