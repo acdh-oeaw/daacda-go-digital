@@ -63,7 +63,6 @@ class MakeTeiDoc():
             listperson_el.append(p_el)
 
         for x in self.res.get_prisons.all():
-            print('hansi')
             item_node = self.get_node_from_template('tei/institution_tei.xml', x)
             listorg_el.append(item_node)
 

@@ -545,7 +545,6 @@ class Bomber(models.Model):
         related_items = ct.objects.filter(
             related_to_prisonstation__in=person_prison
         ).distinct()
-        print(related_items.count())
         return related_items
 
     @classmethod
