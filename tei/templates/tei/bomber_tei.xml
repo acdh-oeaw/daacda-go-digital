@@ -1,25 +1,24 @@
 <div xml:id="bomber">
    <table>
       <head xml:id="bomber_table">Informationen zum Flugzeug: {{ object }}</head>
-      <row>
-         <cell role="label">MACR-Nr<note>The Missing Air Crew Reports No.</note></cell>
-         <cell role="label">Flugzeugtyp<note>The type of the plane.</note></cell>
-         <cell role="label">Flugzeugnr<note>The plane ID.</note></cell>
-         <cell role="label">Flugzeugname<note>The name of the plane.</note></cell>
-         <cell role="label">Staffel<note>The squadron the bomber belongs to.</note></cell>
-         <cell role="label">Datum Absturz<note>The date of the bomber's crash.</note></cell>
-         <cell role="label">Absturzursache<note>The reason for the bomber's crash.</note></cell>
-         <cell role="label">Zielort<note>The place the bomber targeted.</note></cell>
-         <cell role="label">Absturzort<note>The place where the bomber crashed.</note></cell>
-         <cell role="label">Koordinaten der letzten Sichtung<note>Coordinates of the site the bomber was last seen at.</note></cell>
-         <cell role="label">Sichtung-Ort<note>The city or village the bomber was last seen at.</note></cell>
-         <cell role="label">Sichtung-Land<note>The country or county the bomber was last seen at.</note></cell>
-         <cell role="label">Sichtung-Uhrzeit<note>Time of the day the bomber was last seen at.</note></cell>
-         <cell role="label">Uhrzeit Absturz<note>Time of the crash.</note></cell>
-         <cell role="label">Kommentar<note>Comments.</note></cell>
-
+      <row role="header">
+         <cell role="label"><choice><abbr>MACR-Nr</abbr><expan>The Missing Air Crew Reports No.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Flugzeugtyp</abbr><expan>The type of the plane.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Flugzeugnr</abbr><expan>The plane ID.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Flugzeugname</abbr><expan>The name of the plane.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Staffel</abbr><expan>The squadron the bomber belongs to.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Datum Absturz</abbr><expan>The date of the bomber's crash.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Absturzursache</abbr><expan>The reason for the bomber's crash.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Zielort</abbr><expan>The place the bomber targeted.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Absturzort</abbr><expan>The place where the bomber crashed.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Koordinaten der letzten Sichtung</abbr><expan>Coordinates of the site the bomber was last seen at.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Sichtung-Ort</abbr><expan>The city or village the bomber was last seen at.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Sichtung-Land</abbr><expan>The country or county the bomber was last seen at.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Sichtung-Uhrzeit</abbr><expan>Time of the day the bomber was last seen at.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Uhrzeit Absturz</abbr><expan>Time of the crash.</expan></choice></cell>
+         <cell role="label"><choice><abbr>Kommentar</abbr><expan>Comments.</expan></choice></cell>
       </row>
-      <row>
+      <row role="data">
          <cell role="data"><idno>{{ object.macr_nr }}</idno></cell>
          <cell role="data"><rs type="concept" ref="#{{ object.plane_type.xml_id }}">{{ object.plane_type }}</rs></cell>
          <cell role="data"><idno>{{ object.plane_id }}</idno></cell>

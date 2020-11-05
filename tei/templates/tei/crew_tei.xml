@@ -2,21 +2,21 @@
   <table xml:id="crew_table">
     <head>Die Crew des Flugzeugs
       {{ object }}</head>
-    <row>
-      <cell role="label">Interne ID</cell>
-      <cell role="label">Kennnummer</cell>
-      <cell role="label">Nachname</cell>
-      <cell role="label">Vorname</cell>
-      <cell role="label">Mittelname</cell>
-      <cell role="label">Funktion im Flugzeug</cell>
-      <cell role="label">Dienstgrad</cell>
-      <cell role="label">Eintrag MACR</cell>
-      <cell role="label">Schicksal</cell>
-      <cell role="label">Schicksal genau</cell>
-      <cell role="label">Stationen der Gefangenschaft</cell>
+    <row role="label">
+      <cell role="label"><choice><abbr>Interne ID</abbr><expan>Identifier of the legacy database</expan></choice></cell>
+      <cell role="label"><choice><abbr>Kennnummer</abbr><expan>The number identifying the person</expan></choice></cell>
+      <cell role="label"><choice><abbr>Nachname</abbr><expan>The person's second name</expan></choice></cell>
+      <cell role="label"><choice><abbr>Vorname</abbr><expan>The person's first name</expan></choice></cell>
+      <cell role="label"><choice><abbr>Mittelname</abbr><expan>The person's middle name</expan></choice></cell>
+      <cell role="label"><choice><abbr>Funktion im Flugzeug</abbr><expan>The person's function inside the bomber</expan></choice></cell>
+      <cell role="label"><choice><abbr>Dienstgrad</abbr><expan>The person's rank</expan></choice></cell>
+      <cell role="label"><choice><abbr>Eintrag MACR</abbr><expan>The person's stated destiny according to MACR</expan></choice></cell>
+      <cell role="label"><choice><abbr>Schicksal</abbr><expan>The person's checked destiny</expan></choice></cell>
+      <cell role="label"><choice><abbr>Schicksal genau</abbr><expan>The person's MIA status</expan></choice></cell>
+      <cell role="label"><choice><abbr>Stationen der Gefangenschaft</abbr><expan>Institutions and Locations the Person was kept</expan></choice></cell>
     </row>
     {% for x in object.has_crew.all %}
-      <row xml:id="crew_table_row__{{ x.id }}">
+      <row xml:id="crew_table_row__{{ x.id }}" role="data">
         <cell role="data">
           <idno>{{ x.id }}</idno>
         </cell>
@@ -50,15 +50,19 @@
         <cell role="data">
           {% for y in x.has_related_persons.all %}
             <table xml:id="crew_member_table__{{y.id}}">
-              <row>
-                <cell role="label">Relation Type</cell>
-                <cell role="label">Institution</cell>
-                <cell role="label">Ort</cell>
-                <cell role="label">von</cell>
-                <cell role="label">bis</cell>
+              <row role="label">
+                <cell role="label"><choice><abbr>Art der Verbindung</abbr><expan>The type of the relation between Place/Institution and the Person</expan></choice></cell>
+                <cell role="label"><choice><abbr>Institution</abbr><expan>The Institution the Person was kept</expan></choice></cell>
+                <cell role="label"><choice><abbr>Ort</abbr><expan>The Location the Person was kept</expan></choice></cell>
+                <cell role="label"><choice><abbr>von</abbr><expan>start date</expan></choice></cell>
+                <cell role="label"><choice><abbr>bis</abbr><expan>end date</expan></choice></cell>
               </row>
-              <row>
-                <cell role="data">{{ y.relation_type }}</cell>
+              <row role="data">
+                <cell role="data">
+                  {% if y.relation_type %}
+                    <rs type="concept" ref="#{{ y.relation_type.xml_id }}">{{ y.relation_type }}</rs>
+                  {% endif %}
+                </cell>
                 <cell role="data">
                   {% if y.related_prisonstation %}
                       <rs type="org" ref="#org__{{ y.related_prisonstation.id }}">{{ y.related_prisonstation.name }}</rs>
