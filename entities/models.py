@@ -507,8 +507,10 @@ class Bomber(models.Model):
 
     def get_places(self):
         crew = self.get_crew()
-        ids = [getattr(x, 'id') for x in [self.target_place, self.crash_place]]
-        bomber_places = Place.objects.filter(id__in=ids)
+        bomber_places = Place.objects.filter(
+            Q(is_target_place=self) |
+            Q(is_crashplace=self)
+        )
         person_prisons_places = Place.objects.filter(
             related_to_personprison__in=self.get_person_prison()
         )
