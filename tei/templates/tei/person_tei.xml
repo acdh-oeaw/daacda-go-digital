@@ -1,0 +1,17 @@
+<person xml:id="person__{{ object.id }}">
+  <persName>
+    {% if object.forename %}<forename>{{ object.forename }}</forename>{% endif %}
+    {% if object.middle_name %}<forename type="middle">{{ object.middle_name }}</forename>{% endif %}
+    {% if object.name %}<surname>{{ object.name }}</surname>{% endif %}
+  </persName>
+  {% if object.place_of_birth or object.date_of_birth %}
+  <birth>
+    {% if object.date_of_birth %}
+      <date when-iso="{{ object.date_of_birth }}">{{ object.date_of_birth }}</date>
+    {% endif %}
+    {% if object.place_of_birth %}
+      <placeName ref="#place__{{ object.place_of_birth.id}}">{{ object.place_of_birth }}</placeName>
+    {% endif %}
+  </birth>
+  {% endif %}
+</person>

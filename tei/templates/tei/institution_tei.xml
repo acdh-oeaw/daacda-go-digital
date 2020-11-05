@@ -1,0 +1,3 @@
+<org xml:id="org__{{ object.id }}">
+  <orgName>{{ object.name }}</orgName>
+</org>

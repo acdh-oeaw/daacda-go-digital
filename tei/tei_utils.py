@@ -53,13 +53,20 @@ class MakeTeiDoc():
         back_el = doc.xpath('.//tei:back', namespaces=self.nsmap)[0]
         listperson_el = ET.Element("{http://www.tei-c.org/ns/1.0}listPerson")
         listplace_el = ET.Element("{http://www.tei-c.org/ns/1.0}listPlace")
+        listorg_el = ET.Element("{http://www.tei-c.org/ns/1.0}listOrg")
         back_el.append(listperson_el)
         back_el.append(listplace_el)
+        back_el.append(listorg_el)
 
         for x in self.res.has_crew.all():
-            p_el = TeiPerson(x).get_el()
+            p_el = self.get_node_from_template('tei/person_tei.xml', x)
             listperson_el.append(p_el)
-        #
+
+        for x in self.res.get_prisons.all():
+            print('hansi')
+            item_node = self.get_node_from_template('tei/institution_tei.xml', x)
+            listorg_el.append(item_node)
+
         for x in self.res.get_places:
             try:
                 p_el = TeiPlace(x).get_el()

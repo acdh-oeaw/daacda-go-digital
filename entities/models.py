@@ -537,6 +537,17 @@ class Bomber(models.Model):
         ).distinct()
         return related_concepts
 
+    @cached_property
+    def get_prisons(self):
+        crew = self.get_crew
+        person_prison = self.get_person_prison
+        ct = ContentType.objects.get(model='PrisonStation').model_class()
+        related_items = ct.objects.filter(
+            related_to_prisonstation__in=person_prison
+        ).distinct()
+        print(related_items.count())
+        return related_items
+
     @classmethod
     def get_class_name(self):
         class_name = self._meta.model_name
