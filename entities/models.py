@@ -497,11 +497,22 @@ class Bomber(models.Model):
         else:
             return "{} (MARC: {})".format(self.id, marc)
 
-    def get_places(self):
-        return [self.target_place, self.crash_place]
-
     def get_crew(self):
         return self.has_crew.all().distinct()
+
+    def get_person_prison(self):
+        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        person_prisons = ct.objects.filter(related_person__in=self.get_crew()).distinct()
+        return person_prisons
+
+    def get_places(self):
+        crew = self.get_crew()
+        ids = [getattr(self, 'id') for x in [self.target_place, self.crash_place]]
+        bomber_places = Place.objects.filter(id__in=ids)
+        person_prisons_places = Place.objects.filter(related_to_personprison__in=self.get_person_prison())
+        person_places = Place.objects.filter(is_birthplace__in=crew)
+        full = bomber_places.union(person_prisons_places, person_places).distinct()
+        return full
 
     def get_concepts(self):
         crew = self.get_crew()
