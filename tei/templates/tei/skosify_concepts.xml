@@ -5,7 +5,7 @@
     xmlns:dc="http://purl.org/dc/terms/"
     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
     rdf:about="https://vocabs.acdh.oeaw.ac.at/daacda/vocabs/{{ object.xml_id }}">
-    <dc:source>Donauhandel Aschach</dc:source>
+    <dc:source>Downed Allied Air Crew Database Austria</dc:source>
     {% if not object.broader_concept %}
       <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/daacda/vocabs/{{ object.pseudo_scheme }}/Schema"/>
     {% endif %}

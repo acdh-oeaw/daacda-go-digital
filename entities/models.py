@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.contrib.contenttypes.models import ContentType
 
 from ckeditor.fields import RichTextField
@@ -497,36 +498,42 @@ class Bomber(models.Model):
         else:
             return "{} (MARC: {})".format(self.id, marc)
 
+    @cached_property
     def get_crew(self):
         return self.has_crew.all().distinct()
 
+    @cached_property
     def get_person_prison(self):
         ct = ContentType.objects.get(model='PersonPrison').model_class()
-        person_prisons = ct.objects.filter(related_person__in=self.get_crew()).distinct()
+        person_prisons = ct.objects.filter(related_person__in=self.get_crew).distinct()
         return person_prisons
 
+    @cached_property
     def get_places(self):
-        crew = self.get_crew()
+        crew = self.get_crew
         bomber_places = Place.objects.filter(
             Q(is_target_place=self) |
             Q(is_crashplace=self)
         )
         person_prisons_places = Place.objects.filter(
-            related_to_personprison__in=self.get_person_prison()
+            related_to_personprison__in=self.get_person_prison
         )
         person_places = Place.objects.filter(is_birthplace__in=crew)
         full = bomber_places.union(person_prisons_places, person_places).distinct()
         return full
 
+    @cached_property
     def get_concepts(self):
-        crew = self.get_crew()
+        crew = self.get_crew
+        person_prison = self.get_person_prison
         related_concepts = SkosConcept.objects.filter(
             Q(is_rank__in=crew) |
             Q(is_dest_stated__in=crew) |
             Q(is_dest_checked__in=crew) |
             Q(is_mia__in=crew) |
             Q(is_plane_type=self) |
-            Q(is_crash_reason=self)
+            Q(is_crash_reason=self) |
+            Q(person_prisonstation_relation__in=person_prison)
         ).distinct()
         return related_concepts
 

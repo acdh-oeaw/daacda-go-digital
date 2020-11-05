@@ -60,7 +60,7 @@ class MakeTeiDoc():
             p_el = TeiPerson(x).get_el()
             listperson_el.append(p_el)
         #
-        for x in self.res.get_places():
+        for x in self.res.get_places:
             try:
                 p_el = TeiPlace(x).get_el()
             except:
@@ -68,7 +68,7 @@ class MakeTeiDoc():
             listplace_el.append(p_el)
 
         xeno = doc.xpath('.//tei:teiHeader', namespaces=self.nsmap)[0]
-        for x in self.res.get_concepts():
+        for x in self.res.get_concepts:
             xeno.append(self.get_node_from_template('tei/skosify_concepts.xml', x))
 
         return doc
