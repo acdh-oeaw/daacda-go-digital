@@ -545,6 +545,12 @@ class Bomber(models.Model):
         return rel_items
 
     @cached_property
+    def get_squad_group_airforce(self):
+        group = self.squadron.parent_institution
+        airforce = group.parent_institution
+        return [self.squadron, group, airforce]
+
+    @cached_property
     def get_prisons(self):
         crew = self.get_crew
         person_prison = self.get_person_prison

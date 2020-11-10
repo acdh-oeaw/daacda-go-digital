@@ -121,7 +121,7 @@ def as_arche_graph(res):
             acdh_ns.hasCategory,
             URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/dataset/xml"))
     )
-    for x in res.get_orgs.all():
+    for x in res.get_squad_group_airforce:
         cur_g = Graph()
         cur_uri = URIRef(f"{ARCHE_BASE_URL}/organisations/{x.id}")
         g.add(
@@ -179,9 +179,13 @@ def as_arche_graph(res):
         )
         crew_g.add((crew_uri, RDF.type, acdh_ns.Person))
         g = g + crew_g
-    for x in ['target_place', 'crash_place']:
+    # for x in res.get_concepts.all():
+    #     g.add(
+    #         (sub, acdh_ns.hasSubject, Literal(f"{x.pref_label}", lang="und"))
+    #     )
+    for x in res.get_places.all():
         try:
-            pl = getattr(res, x)
+            pl = x
             pl_g = Graph()
             pl_uri = URIRef(pl.get_arche_id())
             g.add(
