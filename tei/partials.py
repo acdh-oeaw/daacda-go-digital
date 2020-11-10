@@ -54,7 +54,15 @@ TEI_STUMP = """
             </availability>
          </publicationStmt>
          <sourceDesc>
-            <ab>born digital</ab>
+            <msDesc>
+              <msIdentifier>
+                <institution>
+                  <orgName>National Archives and Records Administration</orgName>
+                  <idno type="VIAF">162565459</idno>
+                </institution>
+                <collection>Record Group 92</collection>
+              </msIdentifier>
+            </msDesc>
          </sourceDesc>
       </fileDesc>
      <encodingDesc>
