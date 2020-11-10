@@ -121,6 +121,38 @@ def as_arche_graph(res):
             acdh_ns.hasCategory,
             URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/dataset/xml"))
     )
+    for x in res.get_orgs.all():
+        cur_g = Graph()
+        cur_uri = URIRef(f"{ARCHE_BASE_URL}/organisations/{x.id}")
+        g.add(
+            (sub, acdh_ns.hasActor, cur_uri)
+        )
+        cur_g.add(
+            (cur_uri, RDF.type, acdh_ns.Organisation)
+        )
+        cur_g.add(
+            (cur_uri, acdh_ns.hasTitle, Literal(
+                f"{x.written_name}", lang="en"
+            ))
+        )
+        g = g + cur_g
+
+    for x in res.get_prisons.all():
+        cur_g = Graph()
+        cur_uri = URIRef(f"{ARCHE_BASE_URL}/organisations/{x.id}")
+        g.add(
+            (sub, acdh_ns.hasActor, cur_uri)
+        )
+        cur_g.add(
+            (cur_uri, RDF.type, acdh_ns.Organisation)
+        )
+        cur_g.add(
+            (cur_uri, acdh_ns.hasTitle, Literal(
+                f"{x.name}", lang="de"
+            ))
+        )
+        g = g + cur_g
+
     for x in res.has_crew.all():
         crew_g = Graph()
         crew_uri = URIRef(f"{ARCHE_BASE_URL}/persons/{x.id}")
