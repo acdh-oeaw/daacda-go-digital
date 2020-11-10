@@ -538,6 +538,13 @@ class Bomber(models.Model):
         return related_concepts
 
     @cached_property
+    def get_orgs(self):
+        rel_items = Institution.objects.filter(
+            Q(has_bomber=self)
+        )
+        return rel_items
+
+    @cached_property
     def get_prisons(self):
         crew = self.get_crew
         person_prison = self.get_person_prison

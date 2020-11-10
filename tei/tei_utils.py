@@ -5,7 +5,6 @@ from django.conf import settings
 from django.template.loader import get_template
 
 from tei.partials import TEI_NSMAP, TEI_STUMP, custom_escape
-from tei.persons import TeiPerson
 from tei.places import TeiPlace
 
 ARCHE_BASE_URL = settings.ARCHE_BASE_URL
@@ -63,6 +62,10 @@ class MakeTeiDoc():
             listperson_el.append(p_el)
 
         for x in self.res.get_prisons.all():
+            item_node = self.get_node_from_template('tei/institution_tei.xml', x)
+            listorg_el.append(item_node)
+
+        for x in self.res.get_orgs.all():
             item_node = self.get_node_from_template('tei/institution_tei.xml', x)
             listorg_el.append(item_node)
 

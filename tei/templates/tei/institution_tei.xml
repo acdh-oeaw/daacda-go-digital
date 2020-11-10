@@ -1,3 +1,9 @@
 <org xml:id="org__{{ object.id }}">
-  <orgName>{{ object.name }}</orgName>
+  <orgName>{{ object.name }}{{ object.written_name }}</orgName>
+    {% if object.parent_institution %}
+   <orgName type="bomb_group">{{object.parent_institution}}</orgName>
+   {% endif %}
+   {% if object.parent_institution.parent_institution %}
+  <orgName type="airforce">{{object.parent_institution.parent_institution}}</orgName>
+  {% endif %}
 </org>
