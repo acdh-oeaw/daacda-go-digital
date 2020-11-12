@@ -1,6 +1,6 @@
 <div xml:id="crew">
   <table xml:id="crew_table">
-    <head>Die Crew des Flugzeugs
+    <head xml:id="crew_table_head">Die Crew des Flugzeugs
       {{ object }}</head>
     <row role="label">
       <cell role="label"><choice><abbr>Interne ID</abbr><expan>Identifier of the legacy database</expan></choice></cell>

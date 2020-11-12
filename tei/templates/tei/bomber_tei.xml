@@ -1,6 +1,6 @@
 <div xml:id="bomber">
-   <table>
-      <head xml:id="bomber_table">Informationen zum Flugzeug: {{ object }}</head>
+   <table xml:id="bomber_table">
+      <head xml:id="bomber_table_head">Informationen zum Flugzeug: {{ object }}</head>
       <row role="header">
          <cell role="label"><choice><abbr>MACR-Nr</abbr><expan>The Missing Air Crew Reports No.</expan></choice></cell>
          <cell role="label"><choice><abbr>Flugzeugtyp</abbr><expan>The type of the plane.</expan></choice></cell>

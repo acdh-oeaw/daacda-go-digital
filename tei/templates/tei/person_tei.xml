@@ -7,7 +7,7 @@
   {% if object.place_of_birth or object.date_of_birth %}
   <birth>
     {% if object.date_of_birth %}
-      <date when-iso="{{ object.date_of_birth }}">{{ object.date_of_birth }}</date>
+      <date when-iso="{{ object.date_of_birth|date:'Y-m-d' }}">{{ object.date_of_birth|date:'Y-m-d' }}</date>
     {% endif %}
     {% if object.place_of_birth %}
       <placeName ref="#place__{{ object.place_of_birth.id}}">{{ object.place_of_birth }}</placeName>
