@@ -45,6 +45,11 @@ class MakeTeiDoc():
 
         title_el = doc.xpath('.//tei:title[@type="main"]', namespaces=self.nsmap)[0]
         title_el.text = f"{self.res}"
+        if '[internal-id]' not in self.res.macr_nr:
+            ms_identifier_el = doc.xpath('.//tei:msIdentifier', namespaces=self.nsmap)[0]
+            ms_idno_el = listperson_el = ET.Element("{http://www.tei-c.org/ns/1.0}idno")
+            ms_idno_el.text = f"Missing Air Crew Reports No.: {self.res.macr_nr}"
+            ms_identifier_el.append(ms_idno_el)
 
         # idno_el = doc.xpath('.//tei:msIdentifier/tei:idno', namespaces=self.nsmap)[0]
         # idno_el.text = self.res.get_idno
