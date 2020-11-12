@@ -207,6 +207,7 @@ ARCHE_CONST_MAPPINGS = [
     ('hasContributor', 'https://d-nb.info/gnd/1043833846',),  # Andorfer
     ('hasLicense', 'https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0',),
     ('hasLanguage', 'https://vocabs.acdh.oeaw.ac.at/iso6393/eng',),
+    ('hasLanguage', 'https://vocabs.acdh.oeaw.ac.at/iso6393/deu',),
     ('hasRelatedDiscipline', 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601',),
     ('hasSubject', 'Second world war',),
     ('hasSubject', 'aerial warfare',),
@@ -216,61 +217,65 @@ ARCHE_CONST_MAPPINGS = [
 
 
 TOP_COL_RDF = """
-<rdf:RDF xmlns:acdh="https://vocabs.acdh.oeaw.ac.at/schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <rdf:Description rdf:about="https://id.acdh.oeaw.ac.at/daacda">
-        <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
-        <acdh:hasTitle xml:lang="en">Downed Allied Air Crew Database Austria</acdh:hasTitle>
-        <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Collection"/>
-        <acdh:hasOaiSet rdf:resource="https://vocabs.acdh.oeaw.ac.at/archeoaisets/kulturpool"/>
-        <acdh:hasDescription xml:lang="en">DAACDA (short for Downed Allied Air Crew Database Austria) is a project conducted by the ACDH-CH in cooperation with the University of Graz (Institute for History, department Contemporary History). The project is carried out in the context of research dedicated to violence against downed Allied air crews ("plane lynchings") and the so-called "missing-in-action" cases (MIA).The project is concerned with the collection, evaluation and visualization of data and information on Western Allied plane crashes and American and British air crews who were downed, arrested, became victims of crime and/or died in the area of present day Austria between 1939 and 1945. A networked approach to different sources - among them archives in the USA, the UK, Germany and Austria - allows, for the first time, a complete overview of a so far scarcely investigated aspect of the Allied bomb war.The web application developed in the course of the project captures and visualizes all Western Allied plane crashes in the area of present day Austria during World War II and traces and depicts the fate of more than 10.000 American and British aircraft crew members. The collected data is thereby connected and provided to the public as well as to researchers, ultimately allowing - in the context of a cooperation with the US Department of Defense - for further investigation into the fate of planes which are considered missing to this date.</acdh:hasDescription>
-        <acdh:hasDigitisingAgent rdf:resource="https://d-nb.info/gnd/1145358152"/>
-        <acdh:hasLicensor rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
-        <acdh:hasCoverageStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1943-08-13</acdh:hasCoverageStartDate>
-        <acdh:hasCoverageEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1945-05-01</acdh:hasCoverageEndDate>
-        <acdh:hasCreatedStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasCreatedStartDate>
-        <acdh:hasCreatedEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-12-31</acdh:hasCreatedEndDate>
-    </rdf:Description>
-    <acdh:Project rdf:about="https://id.acdh.oeaw.ac.at/daacda/project">
-        <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda/project"/>
-        <acdh:hasTitle xml:lang="en">Downed Allied Air Crew Database Austria</acdh:hasTitle>
-        <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Project"/>
-        <acdh:hasPrincipalInvestigator rdf:resource="https://d-nb.info/gnd/143373765"/>
-        <acdh:hasStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasStartDate>
-        <acdh:hasEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasEndDate>
-        <acdh:hasLifeCycleStatus rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/completed"/>
-        <acdh:hasRelatedCollection rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
-        <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/>
-        <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
-        <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
-        <acdh:hasContact rdf:resource="https://d-nb.info/gnd/143373765"/>
-        <acdh:hasDescription xml:lang="en">DAACDA (short for Downed Allied Air Crew Database Austria) is a project conducted by the ACDH-CH in cooperation with the University of Graz (Institute for History, department Contemporary History). The project is carried out in the context of research dedicated to violence against downed Allied air crews ("plane lynchings") and the so-called "missing-in-action" cases (MIA).The project is concerned with the collection, evaluation and visualization of data and information on Western Allied plane crashes and American and British air crews who were downed, arrested, became victims of crime and/or died in the area of present day Austria between 1939 and 1945. A networked approach to different sources - among them archives in the USA, the UK, Germany and Austria - allows, for the first time, a complete overview of a so far scarcely investigated aspect of the Allied bomb war.The web application developed in the course of the project captures and visualizes all Western Allied plane crashes in the area of present day Austria during World War II and traces and depicts the fate of more than 10.000 American and British aircraft crew members. The collected data is thereby connected and provided to the public as well as to researchers, ultimately allowing - in the context of a cooperation with the US Department of Defense - for further investigation into the fate of planes which are considered missing to this date.</acdh:hasDescription>
-        <acdh:hasSubject>Second world war</acdh:hasSubject>
-        <acdh:hasSubject>aerial warfare</acdh:hasSubject>
-    </acdh:Project>
-    <acdh:Image rdf:about="https://id.acdh.oeaw.ac.at/daacda/title-image.jpg">
-        <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Image"/>
-        <acdh:hasTitle xml:lang="de">DAACDA Title Image</acdh:hasTitle>
-        <acdh:hasCreator rdf:resource="https://d-nb.info/gnd/143373765"/>
-        <acdh:hasRightsHolder rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
-        <acdh:hasOwner rdf:resource="https://d-nb.info/gnd/143373765"/>
-        <acdh:hasLicensor rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
-        <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc0-1-0"/>
-        <acdh:hasCategory rdf:resource="https://vocabs.acdh.oeaw.ac.at/archecategory/image"/>
-        <acdh:isTitleImageOf rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
-        <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
-        <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
-    </acdh:Image>
-    <acdh:Person rdf:about="https://d-nb.info/gnd/143373765">
-        <acdh:hasLastName xml:lang="de">Hoffmann</acdh:hasLastName>
-        <acdh:hasFirstName xml:lang="de">Georg</acdh:hasFirstName>
-    </acdh:Person>
-    <acdh:Person rdf:about="https://d-nb.info/gnd/143174754">
-        <acdh:hasLastName xml:lang="de">Goll</acdh:hasLastName>
-        <acdh:hasFirstName xml:lang="de">Nicole-Melanie</acdh:hasFirstName>
-    </acdh:Person>
-    <acdh:Person rdf:about="https://orcid.org/0000-0001-7081-2280">
-        <acdh:hasLastName xml:lang="de">Kirnbauer</acdh:hasLastName>
-        <acdh:hasFirstName xml:lang="de">Martin</acdh:hasFirstName>
-    </acdh:Person>
-</rdf:RDF>
+    <rdf:RDF xmlns:acdh="https://vocabs.acdh.oeaw.ac.at/schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description rdf:about="https://id.acdh.oeaw.ac.at/daacda">
+            <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
+            <acdh:hasTitle xml:lang="en">Downed Allied Air Crew Database Austria</acdh:hasTitle>
+            <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Collection"/>
+            <acdh:hasOaiSet rdf:resource="https://vocabs.acdh.oeaw.ac.at/archeoaisets/kulturpool"/>
+            <acdh:hasLifeCycleStatus rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/active"/>
+            <acdh:hasAppliedMethodDescription xml:lang="de">Die hier archivierten Datensätze wurden von Georg Hoffmann, Nicole-Melanie Goll sowie Martin Kirnbauer erhoben und mittels einer von Peter Andorfer entwickelten Python/Django Web-Applikation in das TEI Dokumente transformiert. Die in diesen Dokumenten präsentierten Daten basieren vornehmlich aus dem Archivbestand National Archives and Records Administration College Park NARA, Record Group 92 und wurden ergänzt mit Quellen aus dem Bestand NARA, Record Groups 18, 153, 242, 498, 549 sowie The National Archives Kew TNA, AIR 10, 20, 23, 49 sowie WO 204, 219</acdh:hasAppliedMethodDescription>
+            <acdh:hasDescription xml:lang="de">Die Sammlung DAACDA umfass Daten zu im Zweiten Weltkrieg über Österreich abgestürzten allierten Flugzeugen und ihrer Crew. Informationen zu jedem abgestürzten Flugzeug sowie ihrer Crew werden in XML/TEI Dokumenten archiviert. Die Datensätze zu den einzelnen Flugzeugen und ihrer Crew sind nach den jeweiligen militärischen Einheiten, so genannten "Squadrons", gruppiert.</acdh:hasDescription>
+            <acdh:hasDigitisingAgent rdf:resource="https://d-nb.info/gnd/1145358152"/>
+            <acdh:hasSpatialCoverage rdf:resource="https://www.geonames.org/2782113"/>
+            <acdh:hasCoverageStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1943-08-13</acdh:hasCoverageStartDate>
+            <acdh:hasCoverageEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1945-05-01</acdh:hasCoverageEndDate>
+            <acdh:hasCreatedStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasCreatedStartDate>
+            <acdh:hasCreatedEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-12-31</acdh:hasCreatedEndDate>
+        </rdf:Description>
+        <acdh:Project rdf:about="https://id.acdh.oeaw.ac.at/daacda/project">
+            <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda/project"/>
+            <acdh:hasTitle xml:lang="en">Downed Allied Air Crew Database Austria</acdh:hasTitle>
+            <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Project"/>
+            <acdh:hasPrincipalInvestigator rdf:resource="https://d-nb.info/gnd/143373765"/>
+            <acdh:hasStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasStartDate>
+            <acdh:hasEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasEndDate>
+            <acdh:hasLifeCycleStatus rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/completed"/>
+            <acdh:hasRelatedCollection rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
+            <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/>
+            <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
+            <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
+            <acdh:hasContact rdf:resource="https://d-nb.info/gnd/143373765"/>
+            <acdh:hasDescription xml:lang="en">DAACDA (short for Downed Allied Air Crew Database Austria) is a project conducted by the ACDH-CH in cooperation with the University of Graz (Institute for History, department Contemporary History). The project is carried out in the context of research dedicated to violence against downed Allied air crews ("plane lynchings") and the so-called "missing-in-action" cases (MIA).The project is concerned with the collection, evaluation and visualization of data and information on Western Allied plane crashes and American and British air crews who were downed, arrested, became victims of crime and/or died in the area of present day Austria between 1939 and 1945. A networked approach to different sources - among them archives in the USA, the UK, Germany and Austria - allows, for the first time, a complete overview of a so far scarcely investigated aspect of the Allied bomb war.The web application developed in the course of the project captures and visualizes all Western Allied plane crashes in the area of present day Austria during World War II and traces and depicts the fate of more than 10.000 American and British aircraft crew members. The collected data is thereby connected and provided to the public as well as to researchers, ultimately allowing - in the context of a cooperation with the US Department of Defense - for further investigation into the fate of planes which are considered missing to this date.</acdh:hasDescription>
+            <acdh:hasSubject>Second world war</acdh:hasSubject>
+            <acdh:hasSubject>aerial warfare</acdh:hasSubject>
+        </acdh:Project>
+        <acdh:Image rdf:about="https://id.acdh.oeaw.ac.at/daacda/title-image.jpg">
+            <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Image"/>
+            <acdh:hasTitle xml:lang="en">DAACDA Title Image</acdh:hasTitle>
+            <acdh:hasRightsHolder rdf:resource="https://viaf.org/viaf/162565459"/>
+            <acdh:hasOwner rdf:resource="https://viaf.org/viaf/162565459"/>
+            <acdh:hasLicensor rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
+            <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc0-1-0"/>
+            <acdh:hasCategory rdf:resource="https://vocabs.acdh.oeaw.ac.at/archecategory/image"/>
+            <acdh:isTitleImageOf rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
+            <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
+            <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
+        </acdh:Image>
+        <acdh:Person rdf:about="https://d-nb.info/gnd/143373765">
+            <acdh:hasLastName xml:lang="de">Hoffmann</acdh:hasLastName>
+            <acdh:hasFirstName xml:lang="de">Georg</acdh:hasFirstName>
+        </acdh:Person>
+        <acdh:Person rdf:about="https://d-nb.info/gnd/143174754">
+            <acdh:hasLastName xml:lang="de">Goll</acdh:hasLastName>
+            <acdh:hasFirstName xml:lang="de">Nicole-Melanie</acdh:hasFirstName>
+        </acdh:Person>
+        <acdh:Person rdf:about="https://orcid.org/0000-0001-7081-2280">
+            <acdh:hasLastName xml:lang="de">Kirnbauer</acdh:hasLastName>
+            <acdh:hasFirstName xml:lang="de">Martin</acdh:hasFirstName>
+        </acdh:Person>
+        <acdh:Organisation rdf:about="https://viaf.org/viaf/162565459">
+            <acdh:hasTitle xml:lang="en">United States. National Archives and Records Administration</acdh:hasTitle>
+        </acdh:Organisation>
+    </rdf:RDF>
 """

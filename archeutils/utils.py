@@ -14,6 +14,8 @@ from rdflib.namespace import RDF
 from browsing.browsing_utils import model_to_dict
 from webpage.metadata import PROJECT_METADATA
 
+ARCHIV_NAME = f"National Archives and Records Administration College Park (NARA) Record Group 92"
+
 ARCHE_CONST_MAPPINGS = getattr(settings, 'ARCHE_CONST_MAPPINGS', False)
 
 ARCHE_LANG = getattr(settings, 'ARCHE_LANG', 'en')
@@ -89,11 +91,23 @@ def as_arche_graph(res):
             )
         )
     )
+    if '[internal-id]' not in res.macr_nr:
+        signatur = f"{ARCHIV_NAME}, Missing Air Crew Reports No.: {res.macr_nr}"
+    else:
+        signatur = f"{ARCHIV_NAME}"
     g.add(
         (
             sub, acdh_ns.hasNoneLinkedIdentifier, Literal(
-                f"Missing Air Crew Reports No.: {res.macr_nr}",
-                lang=ARCHE_LANG
+                f"{signatur}",
+                lang="en"
+            )
+        )
+    )
+    g.add(
+        (
+            sub, acdh_ns.hasNoneLinkedIdentifier, Literal(
+                f"Legacy Database ID: bomber/{res.id}",
+                lang="en"
             )
         )
     )
@@ -187,14 +201,14 @@ def as_arche_graph(res):
         try:
             pl = x
             pl_g = Graph()
-            pl_uri = URIRef(pl.get_arche_id())
+            pl_uri = URIRef(URIRef(f"{ARCHE_BASE_URL}/places/{pl.id}"))
             g.add(
                 (sub, acdh_ns.hasSpatialCoverage, pl_uri)
             )
             pl_g.add(
                 (
                     pl_uri, acdh_ns.hasTitle,
-                    Literal(f"{pl}", lang='und')
+                    Literal(f"{pl}", lang='de')
                 )
             )
             if pl.geonames_id:
@@ -204,14 +218,7 @@ def as_arche_graph(res):
                         URIRef(f"{pl.geonames_id}")
                     )
                 )
-            if pl.geonames_id:
-                pl_g.add(
-                    (
-                        pl_uri, acdh_ns.hasIdentifier,
-                        URIRef(f"{pl.geonames_id}")
-                    )
-                )
-            g.add(
+            pl_g.add(
                 (
                     pl_uri,
                     RDF.type,
@@ -220,6 +227,7 @@ def as_arche_graph(res):
             )
             g = g + pl_g
         except:
+            print('OJE')
             pass
     g.add((sub, RDF.type, acdh_ns.Resource))
     col = Graph()
