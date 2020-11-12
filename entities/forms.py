@@ -247,7 +247,6 @@ class InstitutionFilterFormHelper(FormHelper):
                 AccordionGroup(
                     'Advanced search',
                     'authority_url',
-                    'location',
                     css_id="more"
                     ),
                 )
