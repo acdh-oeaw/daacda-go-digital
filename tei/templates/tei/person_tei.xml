@@ -14,4 +14,7 @@
     {% endif %}
   </birth>
   {% endif %}
+  {% for x in object.URLperson.all %}
+  <idno type="URL">{{ x }}</idno>
+  {% endfor %}
 </person>
