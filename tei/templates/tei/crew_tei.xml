@@ -48,16 +48,18 @@
             {% endif %}
           </cell>
         <cell role="data">
+          <table xml:id="crew_table_stations__{{ x.id }}">
+            <row role="label">
+              <cell role="label"><choice><abbr>Art der Verbindung</abbr><expan>The type of the relation between Place/Institution and the Person</expan></choice></cell>
+              <cell role="label"><choice><abbr>Institution</abbr><expan>The Institution the Person was kept</expan></choice></cell>
+              <cell role="label"><choice><abbr>Ort</abbr><expan>The Location the Person was kept</expan></choice></cell>
+              <cell role="label"><choice><abbr>von</abbr><expan>start date</expan></choice></cell>
+              <cell role="label"><choice><abbr>bis</abbr><expan>end date</expan></choice></cell>
+            </row>
           {% for y in x.has_related_persons.all %}
-            <table xml:id="crew_member_table__{{y.id}}">
-              <row role="label">
-                <cell role="label"><choice><abbr>Art der Verbindung</abbr><expan>The type of the relation between Place/Institution and the Person</expan></choice></cell>
-                <cell role="label"><choice><abbr>Institution</abbr><expan>The Institution the Person was kept</expan></choice></cell>
-                <cell role="label"><choice><abbr>Ort</abbr><expan>The Location the Person was kept</expan></choice></cell>
-                <cell role="label"><choice><abbr>von</abbr><expan>start date</expan></choice></cell>
-                <cell role="label"><choice><abbr>bis</abbr><expan>end date</expan></choice></cell>
-              </row>
-              <row role="data">
+
+
+              <row role="data" xml:id="crew_table_stations_row__{{ y.id }}">
                 <cell role="data">
                   {% if y.relation_type %}
                     <rs type="concept" ref="#{{ y.relation_type.xml_id }}">{{ y.relation_type }}</rs>
@@ -88,8 +90,9 @@
                   {% endif %}
                 </cell>
               </row>
+              {% endfor %}
+
             </table>
-          {% endfor %}
         </cell>
       </row>
     {% endfor %}
