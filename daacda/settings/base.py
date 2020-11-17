@@ -226,6 +226,8 @@ TOP_COL_RDF = """
             <acdh:hasLifeCycleStatus rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/active"/>
             <acdh:hasAppliedMethodDescription xml:lang="de">Die hier archivierten Datensätze wurden von Georg Hoffmann, Nicole-Melanie Goll sowie Martin Kirnbauer erhoben und mittels einer von Peter Andorfer entwickelten Python/Django Web-Applikation in das TEI Dokumente transformiert. Die in diesen Dokumenten präsentierten Daten basieren vornehmlich aus dem Archivbestand National Archives and Records Administration College Park NARA, Record Group 92 und wurden ergänzt mit Quellen aus dem Bestand NARA, Record Groups 18, 153, 242, 498, 549 sowie The National Archives Kew TNA, AIR 10, 20, 23, 49 sowie WO 204, 219</acdh:hasAppliedMethodDescription>
             <acdh:hasDescription xml:lang="de">Die Sammlung DAACDA umfass Daten zu im Zweiten Weltkrieg über Österreich abgestürzten allierten Flugzeugen und ihrer Crew. Informationen zu jedem abgestürzten Flugzeug sowie ihrer Crew werden in XML/TEI Dokumenten archiviert. Die Datensätze zu den einzelnen Flugzeugen und ihrer Crew sind nach den jeweiligen militärischen Einheiten, so genannten "Squadrons", gruppiert.</acdh:hasDescription>
+            <acdh:hasPid>http://hdl.handle.net/21.11115/0000-000D-CA69-A</acdh:hasPid>
+            <acdh:hasDigitisingAgent rdf:resource="https://d-nb.info/gnd/1145358152"/>
             <acdh:hasDigitisingAgent rdf:resource="https://d-nb.info/gnd/1145358152"/>
             <acdh:hasSpatialCoverage rdf:resource="https://www.geonames.org/2782113"/>
             <acdh:hasCoverageStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1943-08-13</acdh:hasCoverageStartDate>
