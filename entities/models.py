@@ -506,18 +506,23 @@ class Bomber(models.Model):
     def get_person_prison(self):
         ct = ContentType.objects.get(model='PersonPrison').model_class()
         person_prisons = ct.objects.filter(related_person__in=self.get_crew).distinct()
+        # print(person_prisons)
         return person_prisons
 
     @cached_property
     def get_places(self):
         crew = self.get_crew
+        ct = ContentType.objects.get(model='PrisonStation').model_class()
+        prisons = ct.objects.filter(related_to_prisonstation__in=self.get_person_prison)
         bomber_places = Place.objects.filter(
             Q(is_target_place=self) |
-            Q(is_crashplace=self)
+            Q(is_crashplace=self) |
+            Q(place_located__in=prisons)
         )
         person_prisons_places = Place.objects.filter(
             related_to_personprison__in=self.get_person_prison
         )
+        print(f"person_prisons_places: {person_prisons_places}")
         person_places = Place.objects.filter(is_birthplace__in=crew)
         full = bomber_places.union(person_prisons_places, person_places).distinct()
         return full

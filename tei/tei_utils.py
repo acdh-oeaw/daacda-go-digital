@@ -75,11 +75,8 @@ class MakeTeiDoc():
             listorg_el.append(item_node)
 
         for x in self.res.get_places:
-            try:
-                p_el = TeiPlace(x).get_el()
-            except:
-                continue
-            listplace_el.append(p_el)
+            item_node = self.get_node_from_template('tei/place_tei.xml', x)
+            listplace_el.append(item_node)
 
         xeno = doc.xpath('.//tei:teiHeader', namespaces=self.nsmap)[0]
         for x in self.res.get_concepts:

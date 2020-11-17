@@ -24,9 +24,7 @@
           <idno>{{ x.dog_tag }}</idno>
         </cell>
         <cell role="data">
-          <surname>
-            <rs type="person" ref="#person__{{ x.id }}">{{ x.name }}</rs>
-          </surname>
+          <surname><rs type="person" ref="#person__{{ x.id }}">{{ x.name }}</rs></surname>
         </cell>
         <cell role="data">
           <forename type="first">{{ x.forename }}</forename>
@@ -74,9 +72,7 @@
                   {% if y.related_location %}
                       <rs type="place" ref="#place__{{ y.related_location.id }}">{{ y.related_location }}</rs>
                   {% elif y.related_prisonstation.located_in_place%}
-                      <rs type="place" ref="#place__{{ y.related_prisonstation.located_in_place.id }}">
-                          {{ y.related_prisonstation.located_in_place }}
-                      </rs>
+                      <rs type="place" ref="#place__{{ y.related_prisonstation.located_in_place.id }}">{{ y.related_prisonstation.located_in_place }}</rs>
                   {% endif %}
                 </cell>
                 <cell role="data">

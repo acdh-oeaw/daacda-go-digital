@@ -1,0 +1,9 @@
+<place xml:id="place__{{ object.id }}">
+  <placeName>{{ object.name }}</placeName>
+  {% for x in object.alt_names.all %}
+  <placeName type="alt">{{ xml }}</placeName>
+  {% endfor %}
+  {% if object.geonames_id %}
+  <idno subtype="geonames" type="URL">{{ object.get_geonames_url }}</idno>
+  {% endif %}
+</place>
