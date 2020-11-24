@@ -6,4 +6,9 @@
   {% if object.geonames_id %}
   <idno subtype="geonames" type="URL">{{ object.get_geonames_url }}</idno>
   {% endif %}
+  {% if object.lat %}
+  <location>
+    <geo>{{ object.lat }} {{ object.lng}}</geo>
+ </location>
+  {% endif %}
 </place>
