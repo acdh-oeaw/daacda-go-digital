@@ -233,6 +233,7 @@ TOP_COL_RDF = """
             <acdh:hasCoverageEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1945-05-01</acdh:hasCoverageEndDate>
             <acdh:hasCreatedStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2017-01-01</acdh:hasCreatedStartDate>
             <acdh:hasCreatedEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2020-12-31</acdh:hasCreatedEndDate>
+            <acdh:hasRelatedProject rdf:resource="https://id.acdh.oeaw.ac.at/daacda/project"/>
         </rdf:Description>
         <acdh:Project rdf:about="https://id.acdh.oeaw.ac.at/daacda/project">
             <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda/project"/>
@@ -247,6 +248,7 @@ TOP_COL_RDF = """
             <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
             <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
             <acdh:hasContact rdf:resource="https://d-nb.info/gnd/143373765"/>
+            <acdh:hasFunder rdf:resource="https://viaf.org/viaf/141440509"/>
             <acdh:hasDescription xml:lang="en">DAACDA (short for Downed Allied Air Crew Database Austria) is a project conducted by the ACDH-CH in cooperation with the University of Graz (Institute for History, department Contemporary History). The project is carried out in the context of research dedicated to violence against downed Allied air crews ("plane lynchings") and the so-called "missing-in-action" cases (MIA).The project is concerned with the collection, evaluation and visualization of data and information on Western Allied plane crashes and American and British air crews who were downed, arrested, became victims of crime and/or died in the area of present day Austria between 1939 and 1945. A networked approach to different sources - among them archives in the USA, the UK, Germany and Austria - allows, for the first time, a complete overview of a so far scarcely investigated aspect of the Allied bomb war.The web application developed in the course of the project captures and visualizes all Western Allied plane crashes in the area of present day Austria during World War II and traces and depicts the fate of more than 10.000 American and British aircraft crew members. The collected data is thereby connected and provided to the public as well as to researchers, ultimately allowing - in the context of a cooperation with the US Department of Defense - for further investigation into the fate of planes which are considered missing to this date.</acdh:hasDescription>
             <acdh:hasSubject>Second world war</acdh:hasSubject>
             <acdh:hasSubject>aerial warfare</acdh:hasSubject>

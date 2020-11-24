@@ -97,7 +97,7 @@ def as_arche_graph(res):
         signatur = f"{ARCHIV_NAME}"
     g.add(
         (
-            sub, acdh_ns.hasNoneLinkedIdentifier, Literal(
+            sub, acdh_ns.hasNonLinkedIdentifier, Literal(
                 f"{signatur}",
                 lang="en"
             )
@@ -105,7 +105,7 @@ def as_arche_graph(res):
     )
     g.add(
         (
-            sub, acdh_ns.hasNoneLinkedIdentifier, Literal(
+            sub, acdh_ns.hasNonLinkedIdentifier, Literal(
                 f"Legacy Database ID: bomber/{res.id}",
                 lang="en"
             )
@@ -133,7 +133,7 @@ def as_arche_graph(res):
         (
             sub,
             acdh_ns.hasCategory,
-            URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/dataset/xml"))
+            URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/text/tei"))
     )
     for x in res.get_squad_group_airforce:
         cur_g = Graph()
