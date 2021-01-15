@@ -98,16 +98,14 @@ def as_arche_graph(res):
     g.add(
         (
             sub, acdh_ns.hasNonLinkedIdentifier, Literal(
-                f"{signatur}",
-                lang="en"
+                f"{signatur}"
             )
         )
     )
     g.add(
         (
             sub, acdh_ns.hasNonLinkedIdentifier, Literal(
-                f"Legacy Database ID: bomber/{res.id}",
-                lang="en"
+                f"Legacy Database ID: bomber/{res.id}"
             )
         )
     )
