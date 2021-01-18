@@ -133,6 +133,13 @@ def as_arche_graph(res):
             acdh_ns.hasCategory,
             URIRef("https://vocabs.acdh.oeaw.ac.at/archecategory/text/tei"))
     )
+    g.add(
+        (
+            sub,
+            acdh_ns.hasCustomXSL,
+            URIRef("https://tei4arche.acdh-dev.oeaw.ac.at/xsl/daacda_tei2html.xsl")
+        )
+    )
     for x in res.get_squad_group_airforce:
         cur_g = Graph()
         cur_uri = URIRef(f"{ARCHE_BASE_URL}/organisations/{x.id}")
