@@ -137,7 +137,7 @@ def as_arche_graph(res):
         (
             sub,
             acdh_ns.hasCustomXSL,
-            URIRef("https://tei4arche.acdh-dev.oeaw.ac.at/xsl/daacda_tei2html.xsl")
+            Literal("https://tei4arche.acdh-dev.oeaw.ac.at/xsl/daacda_tei2html.xsl")
         )
     )
     for x in res.get_squad_group_airforce:
