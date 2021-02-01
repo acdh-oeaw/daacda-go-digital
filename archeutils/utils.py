@@ -258,6 +258,15 @@ def as_arche_graph(res):
                 lang=ARCHE_LANG)
             )
     )
+    col.add(
+        (
+            col_sub,
+            acdh_ns.hasDescription,
+            Literal(
+                f"The collection '{res.squadron}' is named after the military the military unit the crashed aircrafts described here belonged to.",
+                lang=ARCHE_LANG)
+            )
+    )
 
     for const in ARCHE_CONST_MAPPINGS:
         arche_prop_domain = ARCHE_PROPS_LOOKUP.get(const[0], 'No Match')
