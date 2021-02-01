@@ -255,7 +255,7 @@ TOP_COL_RDF = """
             <acdh:hasFunder rdf:resource="https://viaf.org/viaf/141440509"/>
             <acdh:hasFunder rdf:resource="https://viaf.org/viaf/130145003282161301677"/>
             <acdh:hasDescription xml:lang="en">DAACDA (Downed Allied Air Crew Database Austria) is a project carried out by Dr. Georg Hoffmann (head of project) and Dr. Nicole-Melanie Goll, conducted at the ACDH-CH and the Austrian National Library between 2017 and 2020. The project was funded by the Austrian Academy of Sciences (GoDigital 2.0-program) as well as the Future Fund of the Republic of Austria. The project merges research results dedicated to examinations on violence against downed Allied air crews (“mob law against airmen") and so-called "Missing-in-Action" cases (MIA) and provides them for the first time in a cross-linked manner. The project is concerned with the collection, evaluation and visualization of data and information on downed planes of the US Army Air Force as well as the Royal Air Force, and their crews who were arrested, became victims of war crimes and/or died in the area of present-day Austria and Hungary between 1939 and 1945. A networked approach to different sources – among them from archives in the US, the UK, Germany and Austria – allows, for the first time, a complete overview of a so far scarcely investigated aspect of the Allied Air War. The web application developed in the course of the project captures and visualizes more than 1,000 plane crashes and traces and depicts the fate of more than 10,000 American and British airmen. The collected data is thereby connected and provided to the public as well as to researchers, ultimately allowing for further investigations and research.</acdh:hasDescription>
-            <acdh:hasDescription xml:lang="de">DAACDA (Downed Allied Air Crew Database Austria) ist ein Projekt, das, von Dr. Georg Hoffmann (Projektleitung) und Dr.in Nicole-Melanie Goll durchgeführt, zwischen 2017 und 2020 am ACDH-CH und der Österreichischen Nationalbibliothek angesiedelt war. Das Projekt wurde von der Österreichischen Akademie der Wissenschaften (Programm GoDigital 2.0) sowie dem Zukunftsfonds der Republik Österreich finanziert. Es führte Erkenntnisse aus Forschungen zu gewalttätigen Übergriffen auf abgeschossene Flugzeugbesatzungen („Fliegerlynchjustiz“) sowie vermissten alliierten Fliegern (Missing in Action – MIA) zusammen und stellte diese erstmals vernetzt zur Verfügung. Dabei erfolgten neben der Erweiterung der Informationen, die Auswertung und Visualisierung der Daten zu abgestürzten Flugzeugen der US Army Air Force und der Royal Air Force sowie zu den jeweiligen Besatzungsmitgliedern, die zwischen 1939 und 1945 im heutigen Österreich und Ungarn aufgegriffen / verhaften wurden, oder Gewalt zum Opfer fielen bzw. aus anderen Gründen ums Leben kamen. In einem vernetzten Ansatz wurden Informationen und Akten aus US-amerikanischen, britischen, deutschen und österreichischen Archiven in die Datenbank eingearbeitet und so ein vollständiger Überblick über einen bislang kaum untersuchten Aspekt des Alliierten Luftkriegs erzeugt. Die im Rahmen des Projekts entwickelte Webanwendung erfasst und visualisiert über 1.000 Flugzeugabstürze, zeichnet das Schicksal von mehr als 10.000 US-amerikanischen und britischen Fliegern nach. Die gesammelten Daten sind untereinander verbunden und stehen der Öffentlichkeit wie auch der Forschung für weitere Untersuchungen zur Verfügung.</acdh:hasDescription>
+            <acdh:hasDescription xml:lang="de">Das Projekt DAACDA (Downed Allied Air Crew Database Austria) wurde von Dr. Georg Hoffmann (Projektleitung) und Dr.in Nicole-Melanie Goll zwischen 2017 und 2020 am ACDH-CH und der Österreichischen Nationalbibliothek durchgeführt.</acdh:hasDescription>
             <acdh:hasSubject xml:lang="de">Zweiter Weltkrieg</acdh:hasSubject>
             <acdh:hasSubject xml:lang="de">Luftkrieg</acdh:hasSubject>
             <acdh:hasSubject xml:lang="en">Second world war</acdh:hasSubject>
@@ -274,12 +274,14 @@ TOP_COL_RDF = """
             <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
         </acdh:Image>
         <acdh:Person rdf:about="https://d-nb.info/gnd/143373765">
+            <acdh:hasTitle xml:lang="und">Georg Hoffmann</acdh:hasTitle>
             <acdh:hasLastName xml:lang="und">Hoffmann</acdh:hasLastName>
             <acdh:hasFirstName xml:lang="und">Georg</acdh:hasFirstName>
             <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/ghoffmann"/>
             <acdh:hasPersonalTitle>Mag. Dr.</acdh:hasPersonalTitle>
         </acdh:Person>
         <acdh:Person rdf:about="https://d-nb.info/gnd/143174754">
+            <acdh:hasTitle xml:lang="und">Nicole-Melanie Goll</acdh:hasTitle>
             <acdh:hasLastName xml:lang="und">Goll</acdh:hasLastName>
             <acdh:hasFirstName xml:lang="und">Nicole-Melanie</acdh:hasFirstName>
             <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/ngoll"/>
@@ -290,9 +292,11 @@ TOP_COL_RDF = """
             <acdh:hasFirstName xml:lang="de">Martin</acdh:hasFirstName>
         </acdh:Person>
         <acdh:Organisation rdf:about="https://viaf.org/viaf/162565459">
+            <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/usnationalarchivesrecordsadmin"/>
             <acdh:hasTitle xml:lang="en">United States. National Archives and Records Administration</acdh:hasTitle>
         </acdh:Organisation>
         <acdh:Organisation rdf:about="https://viaf.org/viaf/130145003282161301677">
+            <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/zukunftsfondsoesterreich"/>
             <acdh:hasTitle xml:lang="de">Zukunftsfonds der Republik Österreich</acdh:hasTitle>
         </acdh:Organisation>
     </rdf:RDF>
