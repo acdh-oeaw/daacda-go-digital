@@ -136,7 +136,7 @@ def as_arche_graph(res):
     g.add(
         (
             sub,
-            acdh_ns.hasCustomXSL,
+            acdh_ns.hasCustomXsl,
             Literal("https://tei4arche.acdh-dev.oeaw.ac.at/xsl/daacda2arche.xsl")
         )
     )

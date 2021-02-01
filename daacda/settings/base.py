@@ -221,7 +221,7 @@ TOP_COL_RDF = """
         <rdf:Description rdf:about="https://id.acdh.oeaw.ac.at/daacda">
             <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
             <acdh:hasTitle xml:lang="en">Downed Allied Air Crew Database Austria</acdh:hasTitle>
-            <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Collection"/>
+            <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#TopCollection"/>
             <acdh:hasOaiSet rdf:resource="https://vocabs.acdh.oeaw.ac.at/archeoaisets/kulturpool"/>
             <acdh:hasLifeCycleStatus rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/active"/>
             <acdh:hasAppliedMethodDescription xml:lang="de">Die hier archivierten Datensätze wurden von Georg Hoffmann, Nicole-Melanie Goll sowie Martin Kirnbauer erhoben und mithilfe einer von Peter Andorfer entwickelten Python/Django Web-Applikation in TEI Dokumente überführt. Die in diesen Dokumenten präsentierten Daten basieren vornehmlich auf dem Archivbestand National Archives and Records Administration College Park NARA, Record Group 92 und wurden mit Quellen aus folgenden Beständen ergänzt: NARA, Record Groups 18, 153, 242, 498, 549, The National Archives Kew TNA, AIR 10, 20, 23, 49 sowie WO 204, 219.</acdh:hasAppliedMethodDescription>
@@ -261,8 +261,7 @@ TOP_COL_RDF = """
             <acdh:hasSubject xml:lang="en">Second world war</acdh:hasSubject>
             <acdh:hasSubject xml:lang="en">aerial warfare</acdh:hasSubject>
         </acdh:Project>
-        <acdh:Image rdf:about="https://id.acdh.oeaw.ac.at/daacda/title-image.jpg">
-            <rdf:type rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Image"/>
+        <acdh:Resource rdf:about="https://id.acdh.oeaw.ac.at/daacda/title-image.jpg">
             <acdh:hasTitle xml:lang="en">DAACDA Title Image</acdh:hasTitle>
             <acdh:hasRightsHolder rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
             <acdh:hasOwner rdf:resource="https://viaf.org/viaf/162565459"/>
@@ -272,7 +271,7 @@ TOP_COL_RDF = """
             <acdh:isTitleImageOf rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
             <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
             <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
-        </acdh:Image>
+        </acdh:Resource>
         <acdh:Person rdf:about="https://d-nb.info/gnd/143373765">
             <acdh:hasTitle xml:lang="und">Georg Hoffmann</acdh:hasTitle>
             <acdh:hasLastName xml:lang="und">Hoffmann</acdh:hasLastName>
