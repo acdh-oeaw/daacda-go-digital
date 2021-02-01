@@ -263,6 +263,7 @@ TOP_COL_RDF = """
         </acdh:Project>
         <acdh:Resource rdf:about="https://id.acdh.oeaw.ac.at/daacda/title-image.jpg">
             <acdh:hasTitle xml:lang="en">DAACDA Title Image</acdh:hasTitle>
+            <acdh:isPartOf rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
             <acdh:hasRightsHolder rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
             <acdh:hasOwner rdf:resource="https://viaf.org/viaf/162565459"/>
             <acdh:hasLicensor rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
