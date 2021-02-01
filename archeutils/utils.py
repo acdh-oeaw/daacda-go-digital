@@ -154,6 +154,11 @@ def as_arche_graph(res):
                 f"{x.written_name}", lang="en"
             ))
         )
+        cur_g.add(
+            (cur_uri, acdh_ns.hasDescription, Literal(
+                f"'{x.written_name}' is a military unit mentioned in the DAACDA Project", lang="en"
+            ))
+        )
         g = g + cur_g
 
     for x in res.get_prisons.all():
