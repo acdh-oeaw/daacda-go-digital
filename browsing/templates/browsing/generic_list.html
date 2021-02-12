@@ -115,13 +115,17 @@
                 <div class="card" id="table-results">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-4">
                                 <h4>
                                     {% with table.paginator.count as total %}
                                         Total results: {{ total }}
                                     {% endwith %}
                                 </h4>
                             </div>
+                            <div class="col-md-4">
+                                <h4> <abbr title="The order of the column can be changed by clicking on the column titles (only possible for organge column titles)"><i class="fas fa-info"></i></abbr></h4>
+                            </div>
+
                             <div class="col-md-0">
                                 {% if conf_items %}
                                     <div class="dropdown">
