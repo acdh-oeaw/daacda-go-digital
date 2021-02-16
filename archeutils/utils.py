@@ -2,6 +2,7 @@ import pickle
 import os
 import re
 
+from AcdhUriNormRules.AcdhUriNormRules import get_normalized_uri
 
 from django.conf import settings
 
@@ -211,23 +212,17 @@ def as_arche_graph(res):
         try:
             pl = x
             pl_g = Graph()
-            pl_uri = URIRef(URIRef(f"{ARCHE_BASE_URL}/places/{pl.id}"))
-            g.add(
-                (sub, acdh_ns.hasSpatialCoverage, pl_uri)
-            )
+            if pl.geonames_id:
+                pl_uri = URIRef(f"{get_normalized_uri(pl.geonames_id)}")
+            else:
+                pl_uri = URIRef(f"{ARCHE_BASE_URL}/places/{pl.id}")
+            
             pl_g.add(
                 (
                     pl_uri, acdh_ns.hasTitle,
                     Literal(f"{pl}", lang='de')
                 )
             )
-            if pl.geonames_id:
-                pl_g.add(
-                    (
-                        pl_uri, acdh_ns.hasIdentifier,
-                        URIRef(f"{pl.geonames_id}")
-                    )
-                )
             pl_g.add(
                 (
                     pl_uri,
@@ -236,6 +231,9 @@ def as_arche_graph(res):
                 )
             )
             g = g + pl_g
+            g.add(
+                (sub, acdh_ns.hasSpatialCoverage, pl_uri)
+            )
         except:
             print('OJE')
             pass

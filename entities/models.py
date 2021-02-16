@@ -522,7 +522,6 @@ class Bomber(models.Model):
         person_prisons_places = Place.objects.filter(
             related_to_personprison__in=self.get_person_prison
         )
-        print(f"person_prisons_places: {person_prisons_places}")
         person_places = Place.objects.filter(is_birthplace__in=crew)
         full = bomber_places.union(person_prisons_places, person_places).distinct()
         return full
