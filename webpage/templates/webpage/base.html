@@ -98,11 +98,20 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{% url 'entities:browse_airstrikes' %}">Luftangriffe</a>
                                 <a class="dropdown-item" href="{% url 'entities:browse_airforces' %}">Air Force</a>
-                                <!-- <a class="dropdown-item" href="{% url 'entities:browse_airforces' %}">Luftwaffendivisionen</a> -->
                                 <a class="dropdown-item" href="{% url 'entities:browse_bombgroups' %}">Bomb Groups</a>
                                 <a class="dropdown-item" href="{% url 'entities:browse_squads' %}">Squadrons</a>
-                                <!-- <a class="dropdown-item" href="{% url 'entities:browse_bombers' %}">Flugzeuge</a> -->
-                                <!-- <a class="dropdown-item" href="{% url 'webpage:staticpage' template='airstrikes-and-crashes' %}">Angriffe und Abstürze (Zeitliche Verteilung)</a> -->
+                            </div>
+                        </li>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Abstürze
+                                <span class="caret"/>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'entities:browse_bombers' %}">Flugzeuge</a>
+                                <a class="dropdown-item" href="{% url 'entities:browse_crash_places' %}">Absturzorte</a>
+                                <a class="dropdown-item" href="{% url 'webpage:staticpage' template='airstrikes-and-crashes' %}">Heatmap</a>
                             </div>
                         </li>
                     </li>
