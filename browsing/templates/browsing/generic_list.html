@@ -207,11 +207,7 @@
           </form>
                         {% endblock table %}
                         {% block pagination.allpages %}
-                            <div>
-                                {% with table.page.object_list|length as count %}
-                                    <p>Page total: {{ count }}</p>
-                                {% endwith %}
-                            </div>
+                            
                             <ul class="pagination">
                                 {% if table.paginator.page_range|length > 10 %}
                                     {% if table.page.has_previous %}
