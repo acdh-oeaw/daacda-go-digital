@@ -673,6 +673,8 @@ class WarCrimeCaseListView(GenericListView):
         'signatur',
         'warcrimespersons',
     ]
+    template_name="entities/warcrimecases_list.html"
+
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
