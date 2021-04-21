@@ -50,10 +50,19 @@
                         <!--Search mask-->
                         {% load django_tables2 crispy_forms_tags %}
                         <form action="." class="uniForm" method="get">
-                            {% if togglable_colums %}
                                 <legend>Select additional columns</legend>
-                                {% column_selector  %}
-                            {% endif %}
+                                <select class="selectpicker" multiple="" data-selected-text-format="count > 2" name="columns" id="column_selector">
+                                    <option value="id">ID-Nummer</option>
+                                    <option value="dog_tag">Dog Tag Nummer</option>
+                                    <option value="forename">Vorname</option>
+                                    <option value="name">Nachname</option>
+                                    <option value="part_of_bomber">Flugzeug-Nummer</option>
+                                    <option value="belongs_to_institution">Verband</option>
+                                    <option value="place_of_birth">Geburtsort</option>
+                                    <option value="date_of_birth">Geburtsdatum</option>
+                                    <option value="nation">Nationalität</option>
+                                    <option value="function_in_plane">Position</option>
+                                </select>
                             <br/>
                             {% crispy filter.form filter.form.helper %}
                         </form>
