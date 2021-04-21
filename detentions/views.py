@@ -24,6 +24,7 @@ class PrisonStationListView(GenericListView):
         'located_in_place',
     ]
     enable_merge = True
+    template_name = "detentions/prisonstation_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
