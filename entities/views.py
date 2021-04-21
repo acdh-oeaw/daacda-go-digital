@@ -266,6 +266,7 @@ class PersonListView(GenericListView):
     init_columns = [
         'written_name', 'rank', 'destiny_checked',
     ]
+    template_name = "entities/person_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
