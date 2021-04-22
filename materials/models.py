@@ -132,6 +132,7 @@ class UserContribution(models.Model):
     )
     donater_name = models.CharField(
         max_length=250, blank=True,
+        verbose_name="Beiträger",
         help_text="Name of the person who provided the material"
     )
     public = models.BooleanField(

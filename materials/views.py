@@ -27,6 +27,8 @@ class UserContributionListView(GenericListView):
         'id',
         'public',
     ]
+    template_name = 'materials/usercontribution_list.html'
+
 
     def get_queryset(self, **kwargs):
         user = self.request.user
