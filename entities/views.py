@@ -878,6 +878,7 @@ class AirstrikeListView(GenericListView):
     init_columns = [
         'date', 'target', 'country',
     ]
+    template_name = "entities/airstrike_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
