@@ -353,6 +353,7 @@ class BomberListView(GenericListView):
     init_columns = [
         'id', 'macr_nr', 'squadron', 'date_of_crash', 'crash_place', 'has_crew'
     ]
+    template_name="bomber_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
