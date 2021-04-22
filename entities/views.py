@@ -741,6 +741,7 @@ class OnlineRessourceListView(GenericListView):
     init_columns = [
         'www_url', 'onlineressourcepersons', 'onlineressourcebombers', 'onlineressourcewarcrimecases'
     ]
+    template_name="entities/onlineresource_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
