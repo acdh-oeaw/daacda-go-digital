@@ -115,6 +115,7 @@ class GedenkzeichenListView(GenericListView):
         'id',
         'name',
     ]
+    template_name = 'materials/gedenkzeichen_list.html'
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
