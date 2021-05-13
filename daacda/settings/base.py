@@ -218,6 +218,14 @@ ARCHE_CONST_MAPPINGS = [
 
 TOP_COL_RDF = """
     <rdf:RDF xmlns:acdh="https://vocabs.acdh.oeaw.ac.at/schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <acdh:Place>
+            <acdh:hasIdentifier rdf:resource="https://www.geonames.org/2782113"/>
+            <acdh:hasTitle xml:lang="de">Österreich</acdh:hasTitle>
+        </acdh:Place>
+        <acdh:Person>
+            <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/none"/>
+            <acdh:hasTitle xml:lang="de">Niemand</acdh:hasTitle>
+        </acdh:Person>
         <rdf:Description rdf:about="https://id.acdh.oeaw.ac.at/daacda">
             <acdh:hasIdentifier rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
             <acdh:hasTitle xml:lang="en">Downed Allied Air Crew Database Austria</acdh:hasTitle>
@@ -250,7 +258,6 @@ TOP_COL_RDF = """
             <acdh:hasRelatedCollection rdf:resource="https://id.acdh.oeaw.ac.at/daacda"/>
             <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/>
             <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
-            <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
             <acdh:hasContact rdf:resource="https://d-nb.info/gnd/143373765"/>
             <acdh:hasFunder rdf:resource="https://viaf.org/viaf/141440509"/>
             <acdh:hasFunder rdf:resource="https://viaf.org/viaf/130145003282161301677"/>
