@@ -27,6 +27,6 @@ pytz==2020.1
 rdflib==5.0.0
 requests==2.24.0
 six==1.15.0
-sqlparse==0.4.1
+sqlparse==0.4.2
 urllib3==1.25.11
 xlrd==1.2.0
