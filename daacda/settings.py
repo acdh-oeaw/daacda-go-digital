@@ -10,7 +10,7 @@ BOMB_GROUP_LABEL = "bomb group"
 AIR_FORCE_LABEL = "airforce division"
 SQUAD_LABEL = "squadroon"
 
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = os.environ.get('DEBUG', False)
 ADD_ALLOWED_HOST = os.environ.get('ALLOWED_HOST', '*')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'TZRHHwasdfsadfdsafkljlxö7639827249324GV')
 
