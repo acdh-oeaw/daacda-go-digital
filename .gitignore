@@ -41,3 +41,4 @@ media
 staticfiles
 /import_database_list_2019_06_04.ipynb
 local_*.py
+env.secret

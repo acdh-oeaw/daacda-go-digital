@@ -21,3 +21,21 @@ To import data, you have to execute the ipython script `import_data.ipynb`.
 
 1. Start a new ipython session `python manage.py shell_plus --notebook --settings=daacda.settings.dev_custom`.
 2. Execute the script cell by cell.
+
+
+
+### building the image
+
+`docker build -t daacda:latest .`
+`docker build -t daacda:latest --no-cache .`
+
+### running the image
+
+To run the image you should provide an `env.default` file to pass in needed environment variables; see example `env.default` in this repo:
+
+
+`docker run -it -p 8020:8020 --rm --env-file env.default daacda:latest`
+
+### or use published image:
+
+`docker run -it -p 8020:8020 --rm --env-file env.default acdhch/daacda:latest`
