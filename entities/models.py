@@ -193,7 +193,7 @@ class Place(IdProvider):
         ordering = ['name', ]
 
     def get_persons(self):
-        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        ct = ContentType.objects.get(model='PersonPrison'.lower()).model_class()
         prisons = ct.objects.filter(related_location=self)
         return prisons
 
@@ -504,7 +504,7 @@ class Bomber(models.Model):
 
     @cached_property
     def get_person_prison(self):
-        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        ct = ContentType.objects.get(model='PersonPrison'.lower()).model_class()
         person_prisons = ct.objects.filter(related_person__in=self.get_crew).distinct()
         # print(person_prisons)
         return person_prisons
@@ -512,7 +512,7 @@ class Bomber(models.Model):
     @cached_property
     def get_places(self):
         crew = self.get_crew
-        ct = ContentType.objects.get(model='PrisonStation').model_class()
+        ct = ContentType.objects.get(model='PrisonStation'.lower()).model_class()
         prisons = ct.objects.filter(related_to_prisonstation__in=self.get_person_prison)
         bomber_places = Place.objects.filter(
             Q(is_target_place=self) |
@@ -523,7 +523,7 @@ class Bomber(models.Model):
             related_to_personprison__in=self.get_person_prison
         )
         person_places = Place.objects.filter(is_birthplace__in=crew)
-        full = bomber_places.union(person_prisons_places, person_places).distinct()
+        full = bomber_places.union(person_prisons_places, person_places)
         return full
 
     @cached_property
@@ -558,7 +558,7 @@ class Bomber(models.Model):
     def get_prisons(self):
         crew = self.get_crew
         person_prison = self.get_person_prison
-        ct = ContentType.objects.get(model='PrisonStation').model_class()
+        ct = ContentType.objects.get(model='PrisonStation'.lower()).model_class()
         related_items = ct.objects.filter(
             related_to_prisonstation__in=person_prison
         ).distinct()
@@ -879,7 +879,7 @@ class Person(IdProvider):
         return reverse('entities:person_detail', kwargs={'pk': self.id})
 
     def get_prisonstations(self):
-        ct = ContentType.objects.get(model='PersonPrison').model_class()
+        ct = ContentType.objects.get(model='personprison'.lower()).model_class()
         prisons = ct.objects.filter(related_person=self)
         return prisons
 
@@ -990,7 +990,7 @@ class Person(IdProvider):
         return rels
 
     def get_warcrimecases(self):
-        ct = ContentType.objects.get(model='PersonWarCrimeCase').model_class()
+        ct = ContentType.objects.get(model='PersonWarCrimeCase'.lower()).model_class()
         warcrimecases = ct.objects.filter(related_person=self)
         return warcrimecases
 
@@ -1133,7 +1133,7 @@ class WarCrimeCase(IdProvider):
         return False
 
     def get_persons(self):
-        ct = ContentType.objects.get(model='PersonWarCrimeCase').model_class()
+        ct = ContentType.objects.get(model='PersonWarCrimeCase'.lower()).model_class()
         items = ct.objects.filter(related_case=self)
         return items
 
