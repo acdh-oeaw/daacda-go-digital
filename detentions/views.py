@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django_tables2 import RequestConfig
+from django.views.decorators.cache import cache_page
 
 
 class PrisonStationListView(GenericListView):

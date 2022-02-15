@@ -17,6 +17,14 @@ else:
 ADD_ALLOWED_HOST = os.environ.get('ALLOWED_HOST', '*')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'TZRHHwasdfsadfdsafkljlxö7639827249324GV')
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+        'TIMEOUT': None
+    }
+}
+
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "0.0.0.0",
@@ -63,7 +71,9 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
