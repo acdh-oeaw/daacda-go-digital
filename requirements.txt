@@ -15,5 +15,5 @@ lxml==4.7.1
 psycopg2-binary
 pandas==1.4.1
 rdflib==6.1.1
-requests==2.27.1
+requests==2.31.0
 xlrd==2.0.1
