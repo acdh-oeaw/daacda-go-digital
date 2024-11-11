@@ -7,9 +7,7 @@ BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(os.path.join(__file__, "../")))
 )
 
-ACDH_IMPRINT_URL = (
-    "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
-)
+ACDH_IMPRINT_URL = "https://imprint.acdh.oeaw.ac.at/"
 REDMINE_ID = 11260
 BOMB_GROUP_LABEL = "bomb group"
 AIR_FORCE_LABEL = "airforce division"
@@ -21,14 +19,6 @@ else:
     DEBUG = False
 ADD_ALLOWED_HOST = os.environ.get("ALLOWED_HOST", "*")
 SECRET_KEY = os.environ.get("SECRET_KEY", "TZRHHwasdfsadfdsafkljlxö7639827249324GV")
-
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "my_cache_table",
-        "TIMEOUT": None,
-    }
-}
 
 ALLOWED_HOSTS = [
     "127.0.0.1",

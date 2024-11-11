@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView
 from browsing.models import BrowsConf
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
+from crispy_forms.layout import Submit
 from django_tables2 import SingleTableView, RequestConfig
 
 

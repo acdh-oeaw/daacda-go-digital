@@ -1,0 +1,41 @@
+{% load webpage_extras %}
+{% load static %}
+<footer class="footer mt-auto bg-body-tertiary">
+  <div class="container-fluid pt-3">
+    <div class="row justify-content-md-center text-center">
+      <div class="col-lg-4">
+        <a class="unstyled-link" href="https://zukunftsfonds-austria.at/" target="_blank" rel="noopener" aria-label="Zukunftsfonds der Republik Österreich">
+          <img src="{% static 'webpage/img/zukunftsfondslogo.jpg' %}" width="200" alt="Zukunftsfonds der Republik Österreich"
+            title="Institut für Orientalistik der Universität Wien">
+          <p class="pt-3">Zukunftsfonds der Republik Österreich</p>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a class="unstyled-link" href="https://www.oeaw.ac.at/acdh/" target="_blank" rel="noopener" aria-label="ACDH-CH">
+          <img src="{% static 'webpage/img/acdh_logo.svg' %}" alt="ACDH"
+            title="Austrian Centre for Digital Humanities of the Austrian Academy of Sciences and Cultural Heritage">
+          <p class="pt-3">Austrian Centre for Digital Humanities and Cultural Heritage of the Austrian Academy of
+            Sciences</p>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a class="unstyled-link" href="https://www.onb.ac.at/" target="_blank" rel="noopener" aria-label="Austrian National Library">
+          <img src="{% static 'webpage/img/oenb.png' %}" width="200" alt="Austrian National Library" title="Austrian National Library">
+          <p class="pt-3">Austrian National Library</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="row bg-body-secondary">
+      <div class="col-lg-6 text-center">
+        <a class="unstyled-link fs-2" href="{% url 'webpage:staticpage' template='imprint' %}">Imprint</a>
+      </div>
+      <div class="col-lg-6 text-center">
+        <a class="unstyled-link" href="https://github.com/acdh-oeaw/daacda-go-digital">
+          <i aria-hidden="true" class="bi bi-github fs-2"></i>
+          <span class="visually-hidden">GitHub repo</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
