@@ -84,31 +84,6 @@ class SquadListView(GenericListView):
         "written_name",
     ]
 
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(SquadListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [
-            x for x in self.get_all_cols() if x not in self.init_columns
-        ]
-        context["togglable_colums"] = togglable_colums
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(
-            self.request, paginate={"page": 1, "per_page": self.paginate_by}
-        ).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
-
     def get_queryset(self, **kwargs):
         self.filter = self.filter_class(self.request.GET, queryset=squad)
         self.filter.form.helper = self.formhelper_class()
@@ -125,31 +100,6 @@ class AirForceListView(GenericListView):
         "id",
         "written_name",
     ]
-
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(AirForceListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [
-            x for x in self.get_all_cols() if x not in self.init_columns
-        ]
-        context["togglable_colums"] = togglable_colums
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(
-            self.request, paginate={"page": 1, "per_page": self.paginate_by}
-        ).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
 
     def get_queryset(self, **kwargs):
         self.filter = self.filter_class(self.request.GET, queryset=airforce)
@@ -168,31 +118,6 @@ class BombGroupListView(GenericListView):
         "written_name",
     ]
 
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(BombGroupListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [
-            x for x in self.get_all_cols() if x not in self.init_columns
-        ]
-        context["togglable_colums"] = togglable_colums
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(
-            self.request, paginate={"page": 1, "per_page": self.paginate_by}
-        ).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
-
     def get_queryset(self, **kwargs):
         self.filter = self.filter_class(self.request.GET, queryset=bomb_group)
         self.filter.form.helper = self.formhelper_class()
@@ -208,31 +133,6 @@ class InstitutionListView(GenericListView):
         "id",
         "written_name",
     ]
-
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(InstitutionListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [
-            x for x in self.get_all_cols() if x not in self.init_columns
-        ]
-        context["togglable_colums"] = togglable_colums
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(
-            self.request, paginate={"page": 1, "per_page": self.paginate_by}
-        ).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
 
 
 class InstitutionDetailView(DetailView):
@@ -800,31 +700,6 @@ class PersonWarCrimeCaseListView(GenericListView):
         "related_cases",
     ]
 
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(PersonWarCrimeCaseListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [
-            x for x in self.get_all_cols() if x not in self.init_columns
-        ]
-        context["togglable_colums"] = togglable_colums
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(
-            self.request, paginate={"page": 1, "per_page": self.paginate_by}
-        ).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
-
 
 class PersonWarCrimeCaseDetailView(DetailView):
     model = PersonWarCrimeCase
@@ -870,37 +745,6 @@ class AirstrikeListView(GenericListView):
         "country",
     ]
     template_name = "entities/airstrike_list.html"
-
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(AirstrikeListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [
-            x for x in self.get_all_cols() if x not in self.init_columns
-        ]
-        context["togglable_colums"] = togglable_colums
-        gj_dicts = [
-            x.get_list_geojson()
-            for x in self.get_queryset().filter(target__lat__isnull=False)
-        ]
-        feature_collection = {"type": "FeatureCollection", "features": gj_dicts}
-        context["geojson"] = json.dumps(feature_collection)
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(
-            self.request, paginate={"page": 1, "per_page": self.paginate_by}
-        ).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
 
 
 class AirstrikeDetailView(DetailView):

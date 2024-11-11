@@ -1,16 +1,12 @@
+acdh-django-browsing
 acdh-django-netvis
 acdh-uri-norm-rules
 acdh-arche-assets
 Django>=5.1,<6 
 django-autocomplete-light
 django-ckeditor
-django-crispy-forms
-crispy-bootstrap4
-django-filter
 django-leaflet
 django-reversion
-django-super-deduper
-django-tables2
 djangorestframework
 lxml
 psycopg2-binary
