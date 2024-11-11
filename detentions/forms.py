@@ -2,7 +2,7 @@ from django import forms
 from dal import autocomplete
 from .models import PrisonStation, PersonPrison
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
+from crispy_forms.layout import Submit, Layout, Fieldset
 from crispy_forms.bootstrap import Accordion, AccordionGroup
 
 
@@ -22,9 +22,6 @@ class PrisonStationForm(forms.ModelForm):
             ),
             "station_type": autocomplete.ModelSelect2(
                 url="detentions-ac:prisonstationstationtype-autocomplete"
-            ),
-            "station_type": autocomplete.ModelSelect2(
-                url="/vocabs-ac/specific-concept-ac/type_of_prison_station"
             ),
         }
 
@@ -76,9 +73,6 @@ class PersonPrisonForm(forms.ModelForm):
             ),
             "related_prisonstation": autocomplete.ModelSelect2(
                 url="detentions-ac:personprisonrelatedprisonstation-autocomplete"
-            ),
-            "relation_type": autocomplete.ModelSelect2(
-                url="/vocabs-ac/specific-concept-ac/person-prison-rel-type"
             ),
             "related_location": autocomplete.ModelSelect2(
                 url="detentions-ac:personprisonlocatedinplace-autocomplete"

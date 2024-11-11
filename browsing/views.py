@@ -7,9 +7,6 @@ from django.http import HttpResponseRedirect
 from django_super_deduper.merge import MergedModelInstance
 
 
-from django.shortcuts import render
-
-
 @login_required
 def merge_objects(request):
     go_back = request.META.get("HTTP_REFERER")
@@ -37,7 +34,7 @@ def merge_objects(request):
                 remove_objs = ct.objects.filter(pk__in=remove)
                 if len(remove_objs) > 0:
                     for x in remove_objs:
-                        merged_object = MergedModelInstance(keep_obj, x).merge(x)
+                        MergedModelInstance(keep_obj, x).merge(x)
                         x.delete()
                         print("merged {} into {}".format(x, keep_obj))
             return HttpResponseRedirect(go_back)
