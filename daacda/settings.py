@@ -22,14 +22,6 @@ else:
 ADD_ALLOWED_HOST = os.environ.get("ALLOWED_HOST", "*")
 SECRET_KEY = os.environ.get("SECRET_KEY", "TZRHHwasdfsadfdsafkljlxö7639827249324GV")
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "my_cache_table",
-        "TIMEOUT": None,
-    }
-}
-
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "0.0.0.0",

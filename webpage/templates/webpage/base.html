@@ -1,263 +1,32 @@
-<!DOCTYPE html>
 {% load static %}
 {% load webpage_extras %}
-{% load browsing_extras %}
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" class="h-100" >
 
 <head>
-    <meta charset="utf-8">
     <title>{% block title %} {% projects_metadata 'title' %}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block metaDescription %}
-    <meta name="description" content="{{ metadata.description }}">
-    <meta name="author" content="{{ metadata.author }}">
-    {% endblock %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'webpage/libraries/scroll-to-top/css/ap-scroll-top.min.css'%}" />
-    
-    <!-- Matomo -->
-    <script type="text/javascript">
-        var _paq = _paq || [];
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function() {
-          var u="https://matomo.acdh.oeaw.ac.at/";
-          _paq.push(['setTrackerUrl', u+'piwik.php']);
-          _paq.push(['setSiteId', '24']);
-          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-        })();
-      </script>
-    <!-- End Matomo Code -->
-    {% block scriptHeader %}
-    {% endblock %}
+{% include "webpage/partials/head.html" %}
+{% block scriptHeader %}
+{% endblock scriptHeader %}
+<link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" />
+
 </head>
 
-<body role="document" class="contained fixed-nav">
-    <header>
-        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
-            <a class="navbar-brand" href="/">
-                DAACDA
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <!-- <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span>
-                        </a>
-                    </li> -->
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info
-                            <span class="caret"/>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'webpage:staticpage' template='project' %}">Über das Projekt</a>
-                            <a class="dropdown-item" href="{% url 'webpage:staticpage' template='bibliography' %}">Bibliographie</a>
-                            <a class="dropdown-item" href="{% url 'webpage:staticpage' template='team' %}">Team</a>
-                            <a class="dropdown-item" href="{% url 'webpage:staticpage' template='contact' %}">Kontakt</a>
-                            <a class="dropdown-item" href="{% projects_metadata 'imprint' %}">Impressum</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Luftkrieg
-                                <span class="caret"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'entities:browse_airstrikes' %}">Luftangriffe</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_airforces' %}">Air Force</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_bombgroups' %}">Bomb Groups</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_squads' %}">Squadrons</a>
-                            </div>
-                        </li>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Abstürze
-                                <span class="caret"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'entities:browse_bombers' %}">Flugzeuge</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_crash_places' %}">Absturzorte</a>
-                                <!-- <a class="dropdown-item" href="{% url 'webpage:staticpage' template='airstrikes-and-crashes' %}">Heatmap</a> -->
-                            </div>
-                        </li>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personen
-                                <span class="caret"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'entities:browse_persons' %}">Personen</a>
-                                <a class="dropdown-item" href="{% url 'detentions:browse_prisonstations' %}"> Gefangenschaft</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_warcrimecases' %}">Verbrechen</a>
-                            </div>
-                        </li>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Erinnerung
-                                <span class="caret"/>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'materials:browse_gedenkzeichen' %}">Gedenkzeichen</a>
-                                <a class="dropdown-item" href="{% url 'materials:browse_usercontributions' %}">User Contribution</a>
-                                <a class="dropdown-item" href="{% url 'entities:browse_onlineressources' %}">Online Resourcen</a>
-                            </div>
-                        </li>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curate and Browse the Data
-                        <span class="caret"/>
-                        </a>
-                        <div class="dropdown-menu">
-                            {% nav_menu app='entities' as links %}
-                            {% for x in links %}
-
-                            <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
-
-                            {% endfor %}
-
-                            <div class="dropdown-divider"></div>
-                            {% nav_menu app='detentions' as links %}
-                            {% for x in links %}
-
-                            <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
-
-                            {% endfor %}
-
-                            <div class="dropdown-divider"></div>
-                            {% nav_menu app='materials' as links %}
-                            {% for x in links %}
-
-                            <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
-
-                            {% endfor %}
-
-                            {% if user.is_authenticated %}
-                            <div class="dropdown-divider"></div>
-                            {% nav_menu app='arche' as links %}
-                            {% for x in links %}
-                            <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
-                            {% endfor %}
-                            {% endif %}
-
-                        </div>
-                    </li>
-                    {% endif %}
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vocabs Curation
-                    <span class="caret"/>
-                    </a>
-                        <div class="dropdown-menu">
-                            {% nav_menu app='vocabs' as links %}
-                            {% for x in links %}
-                            <a class="dropdown-item" href="{{ x.link }}">{{ x.name }}</a>
-                            {% endfor %}
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'api-root' %}">Export SKOS (API)</a>
-                        </div>
-                    </li>
-                    {% endif %}
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown ml-auto">
-                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {{ user.get_username }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="nav-link" href="{% url 'webpage:user_logout' %}">Log-Out</a>
-                        </div>
-                    </li>
-                    {% else %}
-                    <li class="nav-item dropdown ml-auto">
-                        <a class="nav-link" href="{% url 'webpage:user_login' %}">
-                        <i class="fas fa-sign-in-alt"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <div class="navbar-icons">
-                    <a href="{% projects_metadata 'github' %}" target="_blank" rel="noopener">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <section class="main-content">
-        {% if DEV_VERSION %}
-        <div class="alert alert-danger" role="alert">
-            This is a the DEVELOPMENT instance. Click <a href="https://daacda.acdh.oeaw.ac.at">here</a> for the Production version
-        </div>
-        {% endif %}
-        <div id="content">
+<body class="d-flex flex-column h-100">
+    {% include "webpage/partials/navbar.html" %}
+    <main class="flex-shrink-0 pb-3">
+        <div class="container-fluid">
             {% block content %}{% endblock %}
         </div>
-    </section>
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-wrapper">
-                <div class="footer-sep">
-                    <i class="far fa-comment"></i> <a href="{% url 'webpage:staticpage' template='contact' %}">Kontakt</a> | <a href="https://zenodo.org/badge/latestdoi/132461159"><img src="https://zenodo.org/badge/132461159.svg" alt="DOI"></a>
+    </main>
+    {% include "webpage/partials/footer.html" %}
 
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-sm" align="left">
-                        <a href="https://www.oeaw.ac.at" target="_blank" rel="noopener" aria-label="ÖAW">
-                            <img src="{% static 'webpage/img/ÖAW_Logo_cmyk.png' %}" alt="ACDH" title="Österreichische Akademie der Wissenschaften"/>
-                        </a>
-                    </div>
-                    <div class="col-sm" align="center">
-                        <a href="https://www.oeaw.ac.at/acdh/" target="_blank" rel="noopener" aria-label="ACDHCH">
-                            <img src="https://fundament.acdh.oeaw.ac.at/common-assets/images/acdh_logo.svg" alt="ACDHCH" title="Austrian Centre for Digital Humanities and Cultural Heritage"/>
-                        </a>
-                    </div>
-                    <div class="col-sm" align="right">
-                        <a href="https://www.onb.ac.at/" target="_blank" rel="noopener" aria-label="hdgö">
-                            <img src="{% static 'webpage/img/oenb.png' %}" alt="Logo Österreichische Nationalbibliothek" title="Österreichische Nationalbibliothek"/>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-imprint-bar">
-            <a href="{% projects_metadata 'imprint' %}">Impressum/Imprint</a>
-            {% if user.is_authenticated %}
-                {% if DB_NAME %}
-                    <div class="footer-imprint-bar">
-                        <small>{{ DB_NAME }}</small>
-                    </div>
-                {% endif %}
-            {% endif %}
-        </div>
-    </footer>
-    {% block scripts %}
-    <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/vendor/js/fontawesome-all.min.js"></script>
-    <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/js/fundament.min.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $.apScrollTop({
-                'onInit': function(evt) {
-                    console.log('apScrollTop: init');
-                }
-            });
-        });
-    </script>
-    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
     {% block scripts2 %}
     {% endblock scripts2 %}
-    <noscript>
-    <img src="//piwik.apollo.arz.oeaw.ac.at/piwik.php?idsite=48" style="border:0;" alt=""/>
-</noscript>
 </body>
 
 </html>

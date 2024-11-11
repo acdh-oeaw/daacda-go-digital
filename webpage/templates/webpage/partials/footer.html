@@ -1,0 +1,41 @@
+{% load webpage_extras %}
+{% load static %}
+<footer class="footer mt-auto bg-body-tertiary">
+  <div class="container-fluid pt-3">
+    <div class="row justify-content-md-center text-center">
+      <div class="col-lg-4">
+        <a class="unstyled-link" href="https://orientalistik.univie.ac.at/en/" target="_blank" rel="noopener" aria-label="Orient">
+          <img src="{% static 'webpage/img/orient_wien.jpg' %}" width="200" alt="Orient"
+            title="Institut für Orientalistik der Universität Wien">
+          <p class="pt-3">Department of Near Eastern Studies, University of Vienna</p>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a class="unstyled-link" href="https://www.oeaw.ac.at/acdh/" target="_blank" rel="noopener" aria-label="ACDH-CH">
+          <img src="{% static 'webpage/img/acdh_logo.svg' %}" alt="ACDH"
+            title="Austrian Centre for Digital Humanities of the Austrian Academy of Sciences and Cultural Heritage">
+          <p class="pt-3">Austrian Centre for Digital Humanities and Cultural Heritage of the Austrian Academy of
+            Sciences</p>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a class="unstyled-link" href="https://www.arts.kuleuven.be/geschiedenis/eng" target="_blank" rel="noopener" aria-label="UniLeuven">
+          <img src="{% static 'webpage/img/logo_kuleuven.png' %}" width="200" alt="Unileuv" title="Uni Leuven">
+          <p class="pt-3">History Department of the Katholieke Universiteit Leuven</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="row bg-body-secondary">
+      <div class="col-lg-6 text-center">
+        <a class="unstyled-link fs-2" href="{% url 'webpage:staticpage' template='imprint' %}">Imprint</a>
+      </div>
+      <div class="col-lg-6 text-center">
+        <a class="unstyled-link" href="https://github.com/acdh-oeaw/nabucco">
+          <i aria-hidden="true" class="bi bi-github fs-2"></i>
+          <span class="visually-hidden">GitHub repo</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
