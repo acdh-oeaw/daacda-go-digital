@@ -3,7 +3,7 @@ import django_tables2 as tables
 from browsing.browsing_utils import MergeColumn
 from django_tables2.utils import A
 
-from detentions.models import *
+from detentions.models import (PrisonStation, PersonPrison)
 
 
 class PrisonStationTable(tables.Table):

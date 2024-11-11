@@ -1,6 +1,16 @@
 import django_tables2 as tables
 from django_tables2.utils import A
-from entities.models import *
+from entities.models import (
+    WarCrimeCase,
+    Person,
+    PersonWarCrimeCase,
+    OnlineRessource,
+    Bomber,
+    Airstrike,
+    AlternativeName,
+    Institution,
+    Place,
+)
 
 
 class WarCrimeCaseTable(tables.Table):

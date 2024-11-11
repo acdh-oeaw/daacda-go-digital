@@ -1,15 +1,9 @@
 import requests
-import re
 import json
-import time
-import datetime
-import itertools
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views import generic
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.shortcuts import render, redirect
+from django.views.generic.edit import DeleteView
 from django.views.generic.detail import DetailView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django_tables2 import RequestConfig
@@ -24,7 +18,27 @@ from .models import (
     PersonWarCrimeCase,
     Airstrike,
 )
-from .forms import *
+from .forms import (
+    PlaceFilterFormHelper,
+    PlaceForm,
+    PlaceFormCreate,
+    InstitutionFilterFormHelper,
+    InstitutionForm,
+    PersonFilterFormHelper,
+    PersonForm,
+    BomberFilterFormHelper,
+    BomberForm,
+    AlternativeNameFilterFormHelper,
+    AlternativeNameForm,
+    WarCrimeCaseFilterFormHelper,
+    WarCrimeCaseForm,
+    OnlineRessourceFilterFormHelper,
+    OnlineRessourceForm,
+    PersonWarCrimeCaseFilterFormHelper,
+    PersonWarCrimeCaseForm,
+    AirstrikeFilterFormHelper,
+    AirstrikeForm,
+)
 from .tables import (
     PersonTable,
     InstitutionTable,
@@ -36,13 +50,21 @@ from .tables import (
     PersonWarCrimeCaseTable,
     AirstrikeTable,
 )
-from .filters import *
+from .filters import (
+    InstitutionListFilter,
+    PersonListFilter,
+    BomberListFilter,
+    AirstrikeListFilter,
+    WarCrimeCaseListFilter,
+    PersonWarCrimeCaseListFilter,
+    AlternativeNameListFilter,
+    PlaceListFilter,
+    CrashPlaceListFilter,
+    OnlineRessourceListFilter,
+)
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 
-from .utils import bomb_group, crash_places, attack_places, airforce, squad
-from .network_utils import flatten_graphs
-
-from .models import NODE_TYPES
+from .utils import bomb_group, crash_places, airforce, squad
 
 
 try:
@@ -213,28 +235,6 @@ class InstitutionListView(GenericListView):
         return table
 
 
-class InstitutionRDFView(GenericListView):
-    model = Institution
-    table_class = InstitutionTable
-    template_name = None
-    filter_class = InstitutionListFilter
-    formhelper_class = InstitutionFilterFormHelper
-
-    def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
-            "%Y-%m-%d-%H-%M-%S"
-        )
-        response = HttpResponse(content_type="application/xml; charset=utf-8")
-        filename = "institutions_{}".format(timestamp)
-        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
-            filename
-        )
-        g = inst_to_arche(self.get_queryset())
-        get_format = self.request.GET.get("format", default="n3")
-        result = g.serialize(destination=response, format=get_format)
-        return response
-
-
 class InstitutionDetailView(DetailView):
     model = Institution
     template_name = "entities/institution_detail.html"
@@ -306,28 +306,6 @@ class PersonListView(GenericListView):
         exclude_vals = [x for x in all_cols if x not in selected_cols]
         table.exclude = exclude_vals
         return table
-
-
-class PersonRDFView(GenericListView):
-    model = Person
-    table_class = PersonTable
-    template_name = None
-    filter_class = PersonListFilter
-    formhelper_class = PersonFilterFormHelper
-
-    def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
-            "%Y-%m-%d-%H-%M-%S"
-        )
-        response = HttpResponse(content_type="application/xml; charset=utf-8")
-        filename = "places_{}".format(timestamp)
-        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
-            filename
-        )
-        g = person_to_arche(self.get_queryset())
-        get_format = self.request.GET.get("format", default="n3")
-        result = g.serialize(destination=response, format=get_format)
-        return response
 
 
 class PersonDetailView(DetailView):
@@ -595,32 +573,9 @@ class CrashPlaceListView(GenericListView):
         return table
 
     def get_queryset(self, **kwargs):
-        qs = super(CrashPlaceListView, self).get_queryset()
         self.filter = self.filter_class(self.request.GET, queryset=crash_places)
         self.filter.form.helper = self.formhelper_class()
         return self.filter.qs
-
-
-class PlaceRDFView(GenericListView):
-    model = Place
-    table_class = PlaceTable
-    template_name = None
-    filter_class = PlaceListFilter
-    formhelper_class = PlaceFilterFormHelper
-
-    def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
-            "%Y-%m-%d-%H-%M-%S"
-        )
-        response = HttpResponse(content_type="application/xml; charset=utf-8")
-        filename = "places_{}".format(timestamp)
-        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
-            filename
-        )
-        g = place_to_arche(self.get_queryset())
-        get_format = self.request.GET.get("format", default="n3")
-        result = g.serialize(destination=response, format=get_format)
-        return response
 
 
 class PlaceDetailView(DetailView):
@@ -946,28 +901,6 @@ class AirstrikeListView(GenericListView):
         exclude_vals = [x for x in all_cols if x not in selected_cols]
         table.exclude = exclude_vals
         return table
-
-
-class AirstrikeRDFView(GenericListView):
-    model = Airstrike
-    table_class = AirstrikeTable
-    template_name = None
-    filter_class = AirstrikeListFilter
-    formhelper_class = AirstrikeFilterFormHelper
-
-    def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
-            "%Y-%m-%d-%H-%M-%S"
-        )
-        response = HttpResponse(content_type="application/xml; charset=utf-8")
-        filename = "places_{}".format(timestamp)
-        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
-            filename
-        )
-        g = person_to_arche(self.get_queryset())
-        get_format = self.request.GET.get("format", default="n3")
-        result = g.serialize(destination=response, format=get_format)
-        return response
 
 
 class AirstrikeDetailView(DetailView):

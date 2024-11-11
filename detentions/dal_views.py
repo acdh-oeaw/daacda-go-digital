@@ -1,8 +1,7 @@
 from dal import autocomplete
-from .models import *
-from entities.models import AlternativeName, Place
-from django.db.models import Q
-from vocabs.models import SkosConceptScheme
+from detentions.models import PrisonStation
+from entities.models import AlternativeName, Place, Person
+from vocabs.models import SkosConceptScheme, SkosConcept
 
 
 class PrisonStationAltNameAC(autocomplete.Select2QuerySetView):

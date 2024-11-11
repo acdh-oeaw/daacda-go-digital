@@ -1,7 +1,14 @@
 from dal import autocomplete
-from .models import *
+from entities.models import (
+    WarCrimeCase,
+    Person,
+    Bomber,
+    AlternativeName,
+    Institution,
+    Place,
+)
 from django.db.models import Q
-from vocabs.models import SkosConceptScheme
+from vocabs.models import SkosConceptScheme, SkosConcept
 from .utils import crash_places
 
 

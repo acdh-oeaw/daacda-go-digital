@@ -3,14 +3,7 @@ from dal import autocomplete
 from detentions.models import PrisonStation, PersonPrison
 from entities.models import (
     Place,
-    AlternativeName,
-    Institution,
     Person,
-    Bomber,
-    WarCrimeCase,
-    OnlineRessource,
-    PersonWarCrimeCase,
-    Airstrike,
 )
 
 django_filters.filters.LOOKUP_TYPES = [
