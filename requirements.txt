@@ -5,7 +5,7 @@ Django>=5.1,<6
 django-autocomplete-light
 django-ckeditor
 django-crispy-forms
-crispy-bootstrap5
+crispy-bootstrap4
 django-filter
 django-leaflet
 django-reversion
