@@ -6,7 +6,7 @@ app_name = "vocabs"
 
 urlpatterns = [
     re_path(
-        r"^skoslabel-autocomplete/$",
+        r"^skoslabel-autocomplete/",
         dal_views.SkosLabelAC.as_view(
             model=SkosLabel,
             create_field="label",
@@ -14,7 +14,7 @@ urlpatterns = [
         name="skoslabel-autocomplete",
     ),
     re_path(
-        r"^skosconceptscheme-autocomplete/$",
+        r"^skosconceptscheme-autocomplete/",
         dal_views.SkosConceptSchemeAC.as_view(
             model=SkosConceptScheme,
             create_field="dc_title",
@@ -22,7 +22,7 @@ urlpatterns = [
         name="skosconceptscheme-autocomplete",
     ),
     re_path(
-        r"^skosconcept-autocomplete/$",
+        r"^skosconcept-autocomplete/",
         dal_views.SkosConceptAC.as_view(
             model=SkosConcept,
             create_field="pref_label",
@@ -30,17 +30,17 @@ urlpatterns = [
         name="skosconcept-autocomplete",
     ),
     re_path(
-        r"^skosconcept-pref-label-autocomplete/$",
+        r"^skosconcept-pref-label-autocomplete/",
         dal_views.SkosConceptPrefLabalAC.as_view(),
         name="skosconcept-label-ac",
     ),
     re_path(
-        r"^skos-constraint-ac/$",
+        r"^skos-constraint-ac/",
         dal_views.SKOSConstraintAC.as_view(model=SkosConcept),
         name="skos-constraint-ac",
     ),
     re_path(
-        r"^skos-constraint-no-hierarchy-ac/$",
+        r"^skos-constraint-no-hierarchy-ac/",
         dal_views.SKOSConstraintACNoHierarchy.as_view(model=SkosConcept),
         name="skos-constraint-no-hierarchy-ac",
     ),
