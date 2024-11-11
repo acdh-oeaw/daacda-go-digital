@@ -3,27 +3,27 @@ from . import views
 from . import dal_views
 from .models import *
 
-app_name = 'vocabs'
+app_name = "vocabs"
 
 urlpatterns = [
     url(
-        r'^usercontributionperson-autocomplete/$',
+        r"^usercontributionperson-autocomplete/$",
         dal_views.UsercontributionPersonAC.as_view(),
-        name='usercontributionperson-autocomplete',
+        name="usercontributionperson-autocomplete",
     ),
     url(
-        r'^gedenkzeichenperson-autocomplete/$',
+        r"^gedenkzeichenperson-autocomplete/$",
         dal_views.GedenkzeichenPersonAC.as_view(),
-        name='gedenkzeichenperson-autocomplete',
+        name="gedenkzeichenperson-autocomplete",
     ),
     url(
-        r'^gedenkzeichenbomber-autocomplete/$',
+        r"^gedenkzeichenbomber-autocomplete/$",
         dal_views.GedenkzeichenBomberAC.as_view(),
-        name='gedenkzeichenbomber-autocomplete',
+        name="gedenkzeichenbomber-autocomplete",
     ),
     url(
-        r'^gedenkzeichenplace-autocomplete/$',
+        r"^gedenkzeichenplace-autocomplete/$",
         dal_views.GedenkzeichenPlaceAC.as_view(),
-        name='gedenkzeichenplace-autocomplete',
+        name="gedenkzeichenplace-autocomplete",
     ),
 ]

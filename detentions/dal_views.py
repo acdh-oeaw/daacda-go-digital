@@ -48,9 +48,7 @@ class PrisonStationPartOfAC(autocomplete.Select2QuerySetView):
 class PrisonStationStationTypeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title=''
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -64,9 +62,7 @@ class PrisonStationStationTypeAC(autocomplete.Select2QuerySetView):
 class PersonPrisonRelationTypeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title=''
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()

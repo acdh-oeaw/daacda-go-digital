@@ -1,9 +1,9 @@
 from django.db import models
 
 ACCURACY = (
-    ('year', 'year'),
-    ('month', 'month'),
-    ('day', 'day'),
+    ("year", "year"),
+    ("month", "month"),
+    ("day", "day"),
 )
 
 
@@ -12,17 +12,18 @@ class IdProvider(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     data_status = models.CharField(
-        max_length=300, blank=True,
+        max_length=300,
+        blank=True,
         choices=(
-            ('legacy-data', 'legacy-data'),
-            ('work-in-progress', 'work-in-progress'),
-            ('checked', 'checked'),
+            ("legacy-data", "legacy-data"),
+            ("work-in-progress", "work-in-progress"),
+            ("checked", "checked"),
         ),
-        default="legacy-data"
+        default="legacy-data",
     )
 
     class Meta:
-        ordering = ['legacy_id']
+        ordering = ["legacy_id"]
 
     def as_node(self):
         node = {}
@@ -33,8 +34,8 @@ class IdProvider(models.Model):
 
     def status_color(self):
         if self.data_status == "legacy-data":
-            return 'danger'
+            return "danger"
         elif self.data_status == "work-in-progress":
-            return 'alert'
+            return "alert"
         else:
-            return 'success'
+            return "success"

@@ -1,40 +1,49 @@
 from django.contrib import admin
-from .models import Place, AlternativeName, Bomber, Institution, Person, WarCrimeCase, OnlineRessource, Airstrike
+from .models import (
+    Place,
+    AlternativeName,
+    Bomber,
+    Institution,
+    Person,
+    WarCrimeCase,
+    OnlineRessource,
+    Airstrike,
+)
 from detentions.models import PrisonStation, PersonPrison
 
 
 class BomberAdmin(admin.ModelAdmin):
     list_display = (
-        'id',
-        'name',
-        'date_of_crash',
-        'macr_nr',
-        'plane_type',
-        'target_place',
-        'crash_place',
-        'reason_of_crash',
+        "id",
+        "name",
+        "date_of_crash",
+        "macr_nr",
+        "plane_type",
+        "target_place",
+        "crash_place",
+        "reason_of_crash",
     )
     list_filter = [
-        'plane_type',
-        'reason_of_crash',
+        "plane_type",
+        "reason_of_crash",
     ]
     search_fields = [
-        'name',
+        "name",
     ]
 
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = (
-        'written_name',
-        'part_of_bomber',
-        'dog_tag',
+        "written_name",
+        "part_of_bomber",
+        "dog_tag",
     )
     list_filter = [
-        'destiny_stated',
+        "destiny_stated",
     ]
 
     search_fields = [
-        'written_name',
+        "written_name",
     ]
 
 

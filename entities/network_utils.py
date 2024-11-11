@@ -2,11 +2,8 @@ def flatten_graphs(graphs):
     nodes = []
     edges = []
     for x in graphs:
-        for n in x['nodes']:
+        for n in x["nodes"]:
             nodes.append(n)
-        for n in x['edges']:
+        for n in x["edges"]:
             edges.append(n)
-    return {
-        'nodes': nodes,
-        'edges': edges
-    }
+    return {"nodes": nodes, "edges": edges}

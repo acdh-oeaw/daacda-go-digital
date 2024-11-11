@@ -2,8 +2,8 @@ from xml.sax.saxutils import escape, unescape
 
 
 TEI_NSMAP = {
-    'tei': "http://www.tei-c.org/ns/1.0",
-    'xml': "http://www.w3.org/XML/1998/namespace",
+    "tei": "http://www.tei-c.org/ns/1.0",
+    "xml": "http://www.w3.org/XML/1998/namespace",
 }
 
 TEI_METHOD = """

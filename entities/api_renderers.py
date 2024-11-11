@@ -3,8 +3,8 @@ from rest_framework import renderers
 
 
 class GeoJsonRenderer(renderers.BaseRenderer):
-    media_type = 'text/json'
-    format = 'geojson'
+    media_type = "text/json"
+    format = "geojson"
 
     def render(self, data, media_type=None, renderer_context=None):
         geojson_start = """{"type": "FeatureCollection","features": """

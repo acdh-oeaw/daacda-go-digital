@@ -21,8 +21,7 @@ class PlaceAC(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(alt_names__name__icontains=self.q)
+                Q(name__icontains=self.q) | Q(alt_names__name__icontains=self.q)
             )
         return qs
 
@@ -33,8 +32,7 @@ class Region(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(alt_names__name__icontains=self.q)
+                Q(name__icontains=self.q) | Q(alt_names__name__icontains=self.q)
             )
         return qs
 
@@ -44,10 +42,7 @@ class PersonAC(autocomplete.Select2QuerySetView):
         qs = Person.objects.all()
 
         if self.q:
-            qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(forename__icontains=self.q)
-            )
+            qs = qs.filter(Q(name__icontains=self.q) | Q(forename__icontains=self.q))
 
         return qs
 
@@ -66,9 +61,7 @@ class BomberPlaneTypeAC(autocomplete.Select2QuerySetView):
 
     def get_queryset(self):
         # try:
-        selected_scheme = SkosConceptScheme.objects.get(
-            dc_title='plane_type'
-            )
+        selected_scheme = SkosConceptScheme.objects.get(dc_title="plane_type")
         qs = SkosConcept.objects.filter(scheme=selected_scheme)
         # except:
         #     qs = SkosConcept.objects.all()
@@ -92,9 +85,7 @@ class BomberSquadronAC(autocomplete.Select2QuerySetView):
 class BomberReasonOfCrashAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title='reason_of_crash'
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="reason_of_crash")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -118,9 +109,7 @@ class PersonPartOfBomberAC(autocomplete.Select2QuerySetView):
 class PersonRankAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title='dienstgrad'
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="dienstgrad")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -134,9 +123,7 @@ class PersonRankAC(autocomplete.Select2QuerySetView):
 class PersonDestinyStatedAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title='eintrag'
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="eintrag")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -150,9 +137,7 @@ class PersonDestinyStatedAC(autocomplete.Select2QuerySetView):
 class PersonDestinyCheckedAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title='erg'
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="erg")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -166,9 +151,7 @@ class PersonDestinyCheckedAC(autocomplete.Select2QuerySetView):
 class PersonMIAAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title=''
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -232,9 +215,7 @@ class PersonWarCrimeCaseRelatedCasesAC(autocomplete.Select2QuerySetView):
 class PersonWarCrimeCaseRelationTypeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title=''
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -278,9 +259,7 @@ class WarCrimeCaseRelatedPlacesAC(autocomplete.Select2QuerySetView):
 class WarCrimeCaseCrimeTypeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title=''
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -307,8 +286,7 @@ class CrashPlaceAC(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(alt_names__name__icontains=self.q)
+                Q(name__icontains=self.q) | Q(alt_names__name__icontains=self.q)
             )
         return qs
 
@@ -316,9 +294,7 @@ class CrashPlaceAC(autocomplete.Select2QuerySetView):
 class AirstrikePlaneTypeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
-            selected_scheme = SkosConceptScheme.objects.get(
-                dc_title='plane_type'
-            )
+            selected_scheme = SkosConceptScheme.objects.get(dc_title="plane_type")
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -341,38 +317,33 @@ class AirstrikeAirforceAC(autocomplete.Select2QuerySetView):
 
 class PlaceConstraintAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        lookup = self.kwargs.get('lookup', None)
+        lookup = self.kwargs.get("lookup", None)
         if lookup is not None:
             filter_expression = f"{lookup}__isnull"
-            cur_filter = {
-                filter_expression: False
-            }
+            cur_filter = {filter_expression: False}
         else:
             cur_filter = {}
         qs = Place.objects.filter(**cur_filter).distinct()
         if self.q:
             qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(alt_names__name__icontains=self.q)
+                Q(name__icontains=self.q) | Q(alt_names__name__icontains=self.q)
             )
         return qs
 
 
 class PersonConstraintAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        lookup = self.kwargs.get('lookup', None)
+        lookup = self.kwargs.get("lookup", None)
         if lookup is not None:
             filter_expression = f"{lookup}__isnull"
-            cur_filter = {
-                filter_expression: False
-            }
+            cur_filter = {filter_expression: False}
         else:
             cur_filter = {}
         qs = Person.objects.filter(**cur_filter).distinct()
         if self.q:
             qs = qs.filter(
-                Q(name__icontains=self.q) |
-                Q(written_name__icontains=self.q) |
-                Q(middle_name__icontains=self.q)
+                Q(name__icontains=self.q)
+                | Q(written_name__icontains=self.q)
+                | Q(middle_name__icontains=self.q)
             )
         return qs
