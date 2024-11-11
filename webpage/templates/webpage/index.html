@@ -61,10 +61,7 @@
                 <h1 class="text-center title-index">
                     {% projects_metadata 'subtitle' %}
                 </h1>
-                <p class="text-center text-muted paragraph-index">
-                    {% projects_metadata 'subtitle' %}
-                </p>
-                <hr class="hr-index"/>
+                <hr/>
                 <p>
                     Das Projekt DAACDA umfasst die Sammlung, Auswertung und Darstellung von Daten und Informationen zum Schicksal amerikanischer und britischer Flugzeugbesatzungen, die zwischen 1939 und 1945 über dem heutigen Österreich zum Absturz kamen, in Gefangenschaft gerieten, Opfer von Verbrechen wurden und/oder zu Tode kamen.
                 </p>
@@ -77,7 +74,7 @@
                 <p>
                     Wir bitten BesucherInnen dieser Website, Informationen zu einzelnen Abstürzen oder Schicksalen, den Projektmitarbeitern <a href="{% url 'webpage:staticpage' template='contact' %}">mitzuteilen</a> und damit einen Beitrag zum Wachsen und zur Verdichtung dieser Website zu leisten.
                 </p>
-                <div class="text-end">
+                <div class="text-center">
                     <a href="{% url 'entities:browse_persons' %}" class="btn btn-lg btn-index pulse"">
                     <b><i class="fa fa-angle-right"></i></b>&nbsp;&nbsp;Besatzung
                     </a>
@@ -86,7 +83,7 @@
                 <p>
                     <figure class="figure">
                         <img src="{% static 'webpage/img/zukunftsfondslogo.jpg' %}" class="figure-img img-fluid rounded" alt="Logo Zukunftsfonds"/>
-                        <figcaption class="figure-caption text-right">„Wir danken der <a href="https://www.oeaw.ac.at/">Akademie der Wissenschaften</a> und dem <a href="https://zukunftsfonds-austria.at/">Zukunftsfonds der Republik Österreich</a> für die Förderung des Forschungsprojektes.“</figcaption>
+                        <figcaption class="figure-caption text-end">„Wir danken der <a href="https://www.oeaw.ac.at/">Akademie der Wissenschaften</a> und dem <a href="https://zukunftsfonds-austria.at/">Zukunftsfonds der Republik Österreich</a> für die Förderung des Forschungsprojektes.“</figcaption>
                     </figure>
                 </p>
             </div>

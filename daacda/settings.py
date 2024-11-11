@@ -7,9 +7,7 @@ BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.abspath(os.path.join(__file__, "../")))
 )
 
-ACDH_IMPRINT_URL = (
-    "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
-)
+ACDH_IMPRINT_URL = "https://imprint.acdh.oeaw.ac.at/"
 REDMINE_ID = 11260
 BOMB_GROUP_LABEL = "bomb group"
 AIR_FORCE_LABEL = "airforce division"

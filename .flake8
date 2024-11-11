@@ -12,7 +12,4 @@ exclude =
     dist
     venv
     infos
-    appcreator
-    djangobaseproject/settings
-    webpage
-    djangobaseproject/settings/pg_local.py
+    webpage/metadata.py

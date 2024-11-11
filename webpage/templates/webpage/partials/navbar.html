@@ -5,7 +5,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img src="{% static 'webpage/img/projekt-logo.jpg' %}" alt="Daacda Logo" width="120">
+                DAACDA
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -21,7 +21,20 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{% url 'webpage:staticpage' template='about' %}">About
+                                <a class="dropdown-item" href="{% url 'webpage:staticpage' template='project' %}">Über das
+                                    Projekt
+                                </a>
+                                <a class="dropdown-item"
+                                    href="{% url 'webpage:staticpage' template='bibliography' %}">Bibliographie
+                                </a>
+                                <a class="dropdown-item"
+                                    href="{% url 'webpage:staticpage' template='team' %}">Team
+                                </a>
+                                <a class="dropdown-item"
+                                    href="{% url 'webpage:staticpage' template='contact' %}">Kontakt
+                                </a>
+                                <a class="dropdown-item"
+                                    href="{% url 'webpage:imprint' %}">Impressum
                                 </a>
                             </li>
                             <li>
