@@ -8,7 +8,7 @@ class UserContributionTable(tables.Table):
 
     class Meta:
         model = UserContribution
-        sequence = ('id', )
+        sequence = ("id",)
         attrs = {"class": "table table-responsive table-hover"}
 
 
@@ -17,5 +17,5 @@ class GedenkzeichenTable(tables.Table):
 
     class Meta:
         model = Gedenkzeichen
-        sequence = ('id', )
+        sequence = ("id",)
         attrs = {"class": "table table-responsive table-hover"}

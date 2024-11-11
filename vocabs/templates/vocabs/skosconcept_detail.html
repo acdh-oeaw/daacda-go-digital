@@ -1,79 +1,53 @@
 {% extends "webpage/base.html" %}
-{% block title %}{{ object }}{% endblock %}
+{% block Titel %} {{ object }} {% endblock %}
 {% block content %}
+
 <div class="container">
-    <div class="card">
-        <div class="card-header procustom-panel-heading">
-            <div class="row">
-                <div class="col-md-2">
-                    {% if object.get_prev %}
-                        <h2>
-                            <a href="{% url 'vocabs:skosconcept_detail' pk=object.get_prev %}">
-                                <i class="fas fa-chevron-left" title="previous"></i>
-                            </a>
-                        </h2>
-                    {% endif %}
-                </div>
-                <div class="col-md-8">
-                    <h1 style="text-align: center;">
-                        <small>SkosConcept:</small> {{ object }}
-                        {% if user.is_authenticated %}
-                            <small>
-                                <a href="{% url 'vocabs:skosconcept_update' pk=object.id %}">
-                                    <i class="far fa-edit" title="edit"></i>
-                                </a>
-                            </small>
-                            |
-                            <small>
-                                <a href="{% url 'vocabs:skosconcept_delete' pk=object.id %}">
-                                    <i class="far fa-trash-alt" title="delete"></i>
-                                </a>
-                            </small>
-                        {% endif %}
-                    </h1>
-                </div>
-            <div class="col-md-2">
-                <h2>
-                    {% if object.get_next %}
-                    <a href="{% url 'vocabs:skosconcept_detail' pk=object.get_next %}" style="float:right">
-                        <i class="fas fa-chevron-right" title="next"></i>
-                    </a>
-                </h2>
+    <div class="panel panel-default procustom-panel-create">
+        <div class="panel-heading procustom-panel-heading">
+            <h1 style="text-align: center;">
+               {% if object.pref_label %} {{object.pref_label }} {% endif %}<small>{{ object.namespace }}:{{ object.notation }}</small>
+               <br>
+               <small>a skos:Concept</small>
+               {% if user.is_authenticated %}
+                <a href="{% url 'vocabs:skosconcept_update' pk=object.id %}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="edit"></a>
                 {% endif %}
-            </div>
+
+            </h1>
         </div>
-    </div>
-        <div class="card-body">
+        <div class="panel-body">
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="card">
-                        <div class="card-header">skos:broader</div>
-                        <div class="card-body">
-                            <h3>{{ object.broader_concept }}</h3>
-                            {% for x in object.get_broader %}
-                                <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">skos:broader</div>
+                        <div class="panel-body">
+                            {% for x in object.skos_broader.all %}
+                                <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
+                            {% endfor %}
+                            {% for x in object.broader.all %}
+                                <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">skos:related</div>
-                        <div class="card-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">skos:related</div>
+                        <div class="panel-body">
                             {% for x in object.skos_related.all %}
                                 <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">skos:broadMatch</div>
-                        <div class="card-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">skos:broadMatch</div>
+                        <div class="panel-body">
                             {% for x in object.skos_broadmatch.all %}
                                 <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">skos:closeMatch</div>
-                        <div class="card-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">skos:closeMatch</div>
+                        <div class="panel-body">
                             {% for x in object.skos_closematch.all %}
                                 <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
                             {% endfor %}
@@ -82,9 +56,9 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">skos:exactMatch</div>
-                        <div class="card-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">skos:exactMatch</div>
+                        <div class="panel-body">
                             {% for x in object.skos_exactmatch.all %}
                                 <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
                             {% endfor %}
@@ -92,74 +66,53 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <div class="card">
+                    <div class="panel panel-default">
 
-                        <div class="card-body">
-                            <legend>about</legend>
-                            <table class="table table-bordered table-striped table-hover">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped table-hover  ">
                                 <tr>
                                     <td>skos:prefLabel| @{{ object.pref_label_lang }}</td>
                                     <td>{{ object.pref_label }} </td>
                                 </tr>
-                                {% if object.definition %}
-                                    <tr>
-                                        <td>skos:definition | @{{ object.definition_lang }}</td>
-                                        <td>{{ object.definition }}</td>
-                                    </tr>
-                                {% endif %}
-                                {% if object.scheme.all %}
-                                    <tr>
-                                        <td>skos:inScheme</td>
-                                        <td>
-                                            {% for x in object.scheme.all %}
-                                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                                                {% if user.is_authenticated %}
-                                                    <a href="{% url 'vocabs:skosconceptscheme_update' pk=x.id %}">
-                                                        <i class="far fa-edit" title="edit"></i>
-                                                    </a>
-                                                {% endif %}<br/>
-                                            {% endfor %}
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                                {% if object.name_reverse %}
-                                    <tr>
-                                        <tr>
-                                            <td>Reverse Name</td>
-                                            <td>
-                                                {{ object.name_reverse }}
-                                            </td>
-                                        </tr>
-                                        <td>Labels</td>
-                                        <td>
-                                            {% for x in object.label.all %} {{ x }}
-                                                {% if user.is_authenticated %}
-                                                    <a href="{% url 'vocabs:skoslabel_update' pk=x.id %}">
-                                                        <i class="far fa-edit" title="edit"></i>
-                                                    </a>
-                                                {% endif %}<br />
-                                            {% endfor %}
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                                {% if object.legacy_id %}
-                                    <tr>
-                                        <td>legacy id</td>
-                                        <td>{{ object.legacy_id }}</td>
-                                    </tr>
-                                {% endif %}
+                                <tr>
+                                    <td>skos:definition | @{{ object.definition_lang }}</td>
+                                    <td>{{ object.definition }}</td>
+                                </tr>
+                                <tr>
+                                    <td>skos:inScheme</td>
+                                    <td>
+                                        {% for x in object.scheme.all %} {{ x }}
+                                            {% if user.is_authenticated %}
+                                                <a href="{% url 'vocabs:skosconceptscheme_update' pk=x.id %}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="edit"></a>
+                                            {% endif %}<br/>
+                                        {% endfor %} </td>
+                                </tr>
+                                <tr>
+                                    <td>Labels</td>
+                                    <td>
+                                        {% for x in object.label.all %} {{ x }}
+                                            {% if user.is_authenticated %}
+                                                <a href="{% url 'vocabs:skoslabel_update' pk=x.id %}"> <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="edit"></a>
+                                            {% endif %}<br/>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>legacy id</td>
+                                    <td>{{ object.legacy_id }}</td>
+                                </tr>
                             </table>
-                            <legend>
-                                related concepts
-                            </legend>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div class="card">
-                        <div class="card-header">skos:narrower</div>
-                        <div class="card-body">
-                            {% for x in object.narrower_concepts.all %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">skos:narrower</div>
+                        <div class="panel-body">
+                            {% for x in object.skos_narrower.all %}
+                                <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
+                            {% endfor %}
+                            {% for x in object.narrower.all %}
                                 <a href="{% url 'vocabs:skosconcept_detail' pk=x.id %}">{{ x }}</a> <br/>
                             {% endfor %}
                         </div>

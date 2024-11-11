@@ -9,13 +9,15 @@ from django_tables2 import RequestConfig
 
 from browsing.browsing_utils import BaseCreateView, BaseUpdateView, GenericListView
 
-from . filters import UserContributionListFilter, GedenkzeichenListFilter
-from . forms import (
-    UserContributionForm, UserContributionFilterFormHelper, GedenkzeichenForm,
-    GedenkzeichenFilterFormHelper
+from .filters import UserContributionListFilter, GedenkzeichenListFilter
+from .forms import (
+    UserContributionForm,
+    UserContributionFilterFormHelper,
+    GedenkzeichenForm,
+    GedenkzeichenFilterFormHelper,
 )
-from . models import UserContribution, Gedenkzeichen
-from . tables import UserContributionTable, GedenkzeichenTable
+from .models import UserContribution, Gedenkzeichen
+from .tables import UserContributionTable, GedenkzeichenTable
 
 
 class UserContributionListView(GenericListView):
@@ -24,11 +26,10 @@ class UserContributionListView(GenericListView):
     filter_class = UserContributionListFilter
     formhelper_class = UserContributionFilterFormHelper
     init_columns = [
-        'id',
-        'public',
+        "id",
+        "public",
     ]
-    template_name = 'materials/usercontribution_list.html'
-
+    template_name = "materials/usercontribution_list.html"
 
     def get_queryset(self, **kwargs):
         user = self.request.user
@@ -48,15 +49,17 @@ class UserContributionListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(UserContributionListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -67,7 +70,7 @@ class UserContributionListView(GenericListView):
 
 class UserContributionDetailView(DetailView):
     model = UserContribution
-    template_name = 'materials/usercontribution_detail.html'
+    template_name = "materials/usercontribution_detail.html"
 
     def get_context_data(self, **kwargs):
         user = self.request.user
@@ -75,7 +78,7 @@ class UserContributionDetailView(DetailView):
         if (self.object.public) or user.is_authenticated:
             pass
         else:
-            context['not_logged_in'] = True
+            context["not_logged_in"] = True
             return context
         return context
 
@@ -100,8 +103,8 @@ class UserContributionUpdate(BaseUpdateView):
 
 class UserContributionDelete(DeleteView):
     model = UserContribution
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('materials:browse_usercontributions')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("materials:browse_usercontributions")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -114,10 +117,10 @@ class GedenkzeichenListView(GenericListView):
     filter_class = GedenkzeichenListFilter
     formhelper_class = GedenkzeichenFilterFormHelper
     init_columns = [
-        'id',
-        'name',
+        "id",
+        "name",
     ]
-    template_name = 'materials/gedenkzeichen_list.html'
+    template_name = "materials/gedenkzeichen_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -126,15 +129,17 @@ class GedenkzeichenListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(GedenkzeichenListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -145,7 +150,7 @@ class GedenkzeichenListView(GenericListView):
 
 class GedenkzeichenDetailView(DetailView):
     model = Gedenkzeichen
-    template_name = 'materials/gedenkzeichen_detail.html'
+    template_name = "materials/gedenkzeichen_detail.html"
 
 
 class GedenkzeichenCreate(BaseCreateView):
@@ -168,8 +173,8 @@ class GedenkzeichenUpdate(BaseUpdateView):
 
 class GedenkzeichenDelete(DeleteView):
     model = Gedenkzeichen
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('materials:browse_gedenkzeichen')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("materials:browse_gedenkzeichen")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

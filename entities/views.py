@@ -22,7 +22,7 @@ from .models import (
     WarCrimeCase,
     OnlineRessource,
     PersonWarCrimeCase,
-    Airstrike
+    Airstrike,
 )
 from .forms import *
 from .tables import (
@@ -34,15 +34,15 @@ from .tables import (
     WarCrimeCaseTable,
     OnlineRessourceTable,
     PersonWarCrimeCaseTable,
-    AirstrikeTable
+    AirstrikeTable,
 )
 from .filters import *
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 
-from . utils import bomb_group, crash_places, attack_places, airforce, squad
-from . network_utils import flatten_graphs
+from .utils import bomb_group, crash_places, attack_places, airforce, squad
+from .network_utils import flatten_graphs
 
-from . models import NODE_TYPES
+from .models import NODE_TYPES
 
 
 try:
@@ -58,8 +58,8 @@ class SquadListView(GenericListView):
     formhelper_class = InstitutionFilterFormHelper
     template_name = "entities/squad.html"
     init_columns = [
-        'id',
-        'written_name',
+        "id",
+        "written_name",
     ]
 
     def get_all_cols(self):
@@ -69,15 +69,17 @@ class SquadListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(SquadListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -98,8 +100,8 @@ class AirForceListView(GenericListView):
     formhelper_class = InstitutionFilterFormHelper
     template_name = "entities/airforce.html"
     init_columns = [
-        'id',
-        'written_name',
+        "id",
+        "written_name",
     ]
 
     def get_all_cols(self):
@@ -109,15 +111,17 @@ class AirForceListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(AirForceListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -138,8 +142,8 @@ class BombGroupListView(GenericListView):
     formhelper_class = InstitutionFilterFormHelper
     template_name = "entities/bomb_group.html"
     init_columns = [
-        'id',
-        'written_name',
+        "id",
+        "written_name",
     ]
 
     def get_all_cols(self):
@@ -149,15 +153,17 @@ class BombGroupListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(BombGroupListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -177,8 +183,8 @@ class InstitutionListView(GenericListView):
     filter_class = InstitutionListFilter
     formhelper_class = InstitutionFilterFormHelper
     init_columns = [
-        'id',
-        'written_name',
+        "id",
+        "written_name",
     ]
 
     def get_all_cols(self):
@@ -188,15 +194,17 @@ class InstitutionListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(InstitutionListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -213,19 +221,23 @@ class InstitutionRDFView(GenericListView):
     formhelper_class = InstitutionFilterFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
-        response = HttpResponse(content_type='application/xml; charset=utf-8')
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
+            "%Y-%m-%d-%H-%M-%S"
+        )
+        response = HttpResponse(content_type="application/xml; charset=utf-8")
         filename = "institutions_{}".format(timestamp)
-        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
+            filename
+        )
         g = inst_to_arche(self.get_queryset())
-        get_format = self.request.GET.get('format', default='n3')
+        get_format = self.request.GET.get("format", default="n3")
         result = g.serialize(destination=response, format=get_format)
         return response
 
 
 class InstitutionDetailView(DetailView):
     model = Institution
-    template_name = 'entities/institution_detail.html'
+    template_name = "entities/institution_detail.html"
 
 
 class InstitutionCreate(BaseCreateView):
@@ -250,8 +262,8 @@ class InstitutionUpdate(BaseUpdateView):
 
 class InstitutionDelete(DeleteView):
     model = Institution
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_institutions')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_institutions")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -264,7 +276,9 @@ class PersonListView(GenericListView):
     filter_class = PersonListFilter
     formhelper_class = PersonFilterFormHelper
     init_columns = [
-        'written_name', 'rank', 'destiny_checked',
+        "written_name",
+        "rank",
+        "destiny_checked",
     ]
     template_name = "entities/person_list.html"
 
@@ -275,15 +289,17 @@ class PersonListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(PersonListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -300,19 +316,23 @@ class PersonRDFView(GenericListView):
     formhelper_class = PersonFilterFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
-        response = HttpResponse(content_type='application/xml; charset=utf-8')
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
+            "%Y-%m-%d-%H-%M-%S"
+        )
+        response = HttpResponse(content_type="application/xml; charset=utf-8")
         filename = "places_{}".format(timestamp)
-        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
+            filename
+        )
         g = person_to_arche(self.get_queryset())
-        get_format = self.request.GET.get('format', default='n3')
+        get_format = self.request.GET.get("format", default="n3")
         result = g.serialize(destination=response, format=get_format)
         return response
 
 
 class PersonDetailView(DetailView):
     model = Person
-    template_name = 'entities/person_detail.html'
+    template_name = "entities/person_detail.html"
 
 
 class PersonCreate(BaseCreateView):
@@ -337,8 +357,8 @@ class PersonUpdate(BaseUpdateView):
 
 class PersonDelete(DeleteView):
     model = Person
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_persons')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_persons")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -351,9 +371,14 @@ class BomberListView(GenericListView):
     filter_class = BomberListFilter
     formhelper_class = BomberFilterFormHelper
     init_columns = [
-        'id', 'macr_nr', 'squadron', 'date_of_crash', 'crash_place', 'has_crew'
+        "id",
+        "macr_nr",
+        "squadron",
+        "date_of_crash",
+        "crash_place",
+        "has_crew",
     ]
-    template_name="bomber_list.html"
+    template_name = "bomber_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -362,24 +387,23 @@ class BomberListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(BomberListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
-        gj_dicts = [
-            x.get_list_geojson() for x in self.get_queryset()
-            .filter(crash_place__lat__isnull=False)
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
         ]
-        feature_collection = {
-            'type': 'FeatureCollection',
-            'features': gj_dicts
-        }
-        context['geojson'] = json.dumps(feature_collection)
+        context["togglable_colums"] = togglable_colums
+        gj_dicts = [
+            x.get_list_geojson()
+            for x in self.get_queryset().filter(crash_place__lat__isnull=False)
+        ]
+        feature_collection = {"type": "FeatureCollection", "features": gj_dicts}
+        context["geojson"] = json.dumps(feature_collection)
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -390,7 +414,7 @@ class BomberListView(GenericListView):
 
 class BomberDetailView(DetailView):
     model = Bomber
-    template_name = 'entities/bomber_detail.html'
+    template_name = "entities/bomber_detail.html"
 
 
 class BomberCreate(BaseCreateView):
@@ -415,8 +439,8 @@ class BomberUpdate(BaseUpdateView):
 
 class BomberDelete(DeleteView):
     model = Bomber
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_bombers')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_bombers")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -429,8 +453,8 @@ class AlternativeNameListView(GenericListView):
     filter_class = AlternativeNameListFilter
     formhelper_class = AlternativeNameFilterFormHelper
     init_columns = [
-        'id',
-        'name',
+        "id",
+        "name",
     ]
 
     def get_all_cols(self):
@@ -440,15 +464,17 @@ class AlternativeNameListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(AlternativeNameListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -459,7 +485,7 @@ class AlternativeNameListView(GenericListView):
 
 class AlternativeNameDetailView(DetailView):
     model = AlternativeName
-    template_name = 'entities/alternativenames_detail.html'
+    template_name = "entities/alternativenames_detail.html"
 
 
 class AlternativeNameCreate(BaseCreateView):
@@ -484,8 +510,8 @@ class AlternativeNameUpdate(BaseUpdateView):
 
 class AlternativeNameDelete(DeleteView):
     model = AlternativeName
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_altnames')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_altnames")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -497,11 +523,7 @@ class PlaceListView(GenericListView):
     table_class = PlaceTable
     filter_class = PlaceListFilter
     formhelper_class = PlaceFilterFormHelper
-    init_columns = [
-        'id',
-        'name',
-        'part_oc'
-    ]
+    init_columns = ["id", "name", "part_oc"]
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -510,21 +532,22 @@ class PlaceListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(PlaceListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
-        gj_dicts = [x.get_list_geojson() for x in self.get_queryset().filter(lat__isnull=False)]
-        feature_collection = {
-            'type': 'FeatureCollection',
-            'features': gj_dicts
-        }
-        context['geojson'] = json.dumps(feature_collection)
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
+        gj_dicts = [
+            x.get_list_geojson() for x in self.get_queryset().filter(lat__isnull=False)
+        ]
+        feature_collection = {"type": "FeatureCollection", "features": gj_dicts}
+        context["geojson"] = json.dumps(feature_collection)
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -539,11 +562,7 @@ class CrashPlaceListView(GenericListView):
     filter_class = CrashPlaceListFilter
     formhelper_class = PlaceFilterFormHelper
     template_name = "entities/crash_place.html"
-    init_columns = [
-        'id',
-        'name',
-        'part_oc'
-    ]
+    init_columns = ["id", "name", "part_oc"]
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -552,21 +571,22 @@ class CrashPlaceListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(CrashPlaceListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
-        gj_dicts = [x.get_list_geojson() for x in self.get_queryset().filter(lat__isnull=False)]
-        feature_collection = {
-            'type': 'FeatureCollection',
-            'features': gj_dicts
-        }
-        context['geojson'] = json.dumps(feature_collection)
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
+        gj_dicts = [
+            x.get_list_geojson() for x in self.get_queryset().filter(lat__isnull=False)
+        ]
+        feature_collection = {"type": "FeatureCollection", "features": gj_dicts}
+        context["geojson"] = json.dumps(feature_collection)
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -589,19 +609,23 @@ class PlaceRDFView(GenericListView):
     formhelper_class = PlaceFilterFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
-        response = HttpResponse(content_type='application/xml; charset=utf-8')
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
+            "%Y-%m-%d-%H-%M-%S"
+        )
+        response = HttpResponse(content_type="application/xml; charset=utf-8")
         filename = "places_{}".format(timestamp)
-        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
+            filename
+        )
         g = place_to_arche(self.get_queryset())
-        get_format = self.request.GET.get('format', default='n3')
+        get_format = self.request.GET.get("format", default="n3")
         result = g.serialize(destination=response, format=get_format)
         return response
 
 
 class PlaceDetailView(DetailView):
     model = Place
-    template_name = 'entities/place_detail.html'
+    template_name = "entities/place_detail.html"
 
 
 @login_required
@@ -610,12 +634,12 @@ def create_place(request):
         form = PlaceFormCreate(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('entities:browse_places')
+            return redirect("entities:browse_places")
         else:
-            return render(request, 'entities/edit_places.html', {'form': form})
+            return render(request, "entities/edit_places.html", {"form": form})
     else:
         form = PlaceFormCreate()
-        return render(request, 'entities/edit_places.html', {'form': form})
+        return render(request, "entities/edit_places.html", {"form": form})
 
 
 @login_required
@@ -626,17 +650,18 @@ def edit_place(request, pk):
         placeName = instance.name
         root = "http://api.geonames.org/searchJSON?q="
         params = "&fuzzy=0.6&lang=en&maxRows=100"
-        url = root+placeName+params+username
+        url = root + placeName + params + username
         try:
             r = requests.get(url)
             response = r.text
             responseJSON = json.loads(response)
-            responseJSON = responseJSON['geonames']
+            responseJSON = responseJSON["geonames"]
             form = PlaceForm(instance=instance)
             # print(url)
             return render(
-                request, 'entities/edit_places.html',
-                {'object': instance, 'form': form, 'responseJSON': responseJSON}
+                request,
+                "entities/edit_places.html",
+                {"object": instance, "form": form, "responseJSON": responseJSON},
             )
         except requests.exceptions.RequestException as e:
             url = e
@@ -644,20 +669,21 @@ def edit_place(request, pk):
 
         responseJSON = "hansi"
         return render(
-            request, 'entities/edit_places.html',
-            {'object': instance, 'form': form, 'responseJSON': responseJSON}
+            request,
+            "entities/edit_places.html",
+            {"object": instance, "form": form, "responseJSON": responseJSON},
         )
     else:
         form = PlaceForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
-        return redirect('entities:browse_places')
+        return redirect("entities:browse_places")
 
 
 class PlaceDelete(DeleteView):
     model = Place
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_places')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_places")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -670,12 +696,11 @@ class WarCrimeCaseListView(GenericListView):
     filter_class = WarCrimeCaseListFilter
     formhelper_class = WarCrimeCaseFilterFormHelper
     init_columns = [
-        'id',
-        'signatur',
-        'warcrimespersons',
+        "id",
+        "signatur",
+        "warcrimespersons",
     ]
-    template_name="entities/warcrimecases_list.html"
-
+    template_name = "entities/warcrimecases_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -684,15 +709,17 @@ class WarCrimeCaseListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(WarCrimeCaseListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -703,7 +730,7 @@ class WarCrimeCaseListView(GenericListView):
 
 class WarCrimeCaseDetailView(DetailView):
     model = WarCrimeCase
-    template_name = 'entities/warcrimecase_detail.html'
+    template_name = "entities/warcrimecase_detail.html"
 
 
 class WarCrimeCaseCreate(BaseCreateView):
@@ -726,8 +753,8 @@ class WarCrimeCaseUpdate(BaseUpdateView):
 
 class WarCrimeCaseDelete(DeleteView):
     model = WarCrimeCase
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_warcrimecases')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_warcrimecases")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -740,9 +767,12 @@ class OnlineRessourceListView(GenericListView):
     filter_class = OnlineRessourceListFilter
     formhelper_class = OnlineRessourceFilterFormHelper
     init_columns = [
-        'www_url', 'onlineressourcepersons', 'onlineressourcebombers', 'onlineressourcewarcrimecases'
+        "www_url",
+        "onlineressourcepersons",
+        "onlineressourcebombers",
+        "onlineressourcewarcrimecases",
     ]
-    template_name="entities/onlineresource_list.html"
+    template_name = "entities/onlineresource_list.html"
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -751,15 +781,17 @@ class OnlineRessourceListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(OnlineRessourceListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -770,7 +802,7 @@ class OnlineRessourceListView(GenericListView):
 
 class OnlineRessourceDetailView(DetailView):
     model = OnlineRessource
-    template_name = 'entities/onlineressource_detail.html'
+    template_name = "entities/onlineressource_detail.html"
 
 
 class OnlineRessourceCreate(BaseCreateView):
@@ -793,8 +825,8 @@ class OnlineRessourceUpdate(BaseUpdateView):
 
 class OnlineRessourceDelete(DeleteView):
     model = OnlineRessource
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_onlineressources')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_onlineressources")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -807,10 +839,10 @@ class PersonWarCrimeCaseListView(GenericListView):
     filter_class = PersonWarCrimeCaseListFilter
     formhelper_class = PersonWarCrimeCaseFilterFormHelper
     init_columns = [
-        'id',
-        'related_persons',
-        'relation_type',
-        'related_cases',
+        "id",
+        "related_persons",
+        "relation_type",
+        "related_cases",
     ]
 
     def get_all_cols(self):
@@ -820,15 +852,17 @@ class PersonWarCrimeCaseListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(PersonWarCrimeCaseListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -839,7 +873,7 @@ class PersonWarCrimeCaseListView(GenericListView):
 
 class PersonWarCrimeCaseDetailView(DetailView):
     model = PersonWarCrimeCase
-    template_name = 'entities/personwarcrimecase_detail.html'
+    template_name = "entities/personwarcrimecase_detail.html"
 
 
 class PersonWarCrimeCaseCreate(BaseCreateView):
@@ -862,8 +896,8 @@ class PersonWarCrimeCaseUpdate(BaseUpdateView):
 
 class PersonWarCrimeCaseDelete(DeleteView):
     model = PersonWarCrimeCase
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_personwarcrimecases')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_personwarcrimecases")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -876,7 +910,9 @@ class AirstrikeListView(GenericListView):
     filter_class = AirstrikeListFilter
     formhelper_class = AirstrikeFilterFormHelper
     init_columns = [
-        'date', 'target', 'country',
+        "date",
+        "target",
+        "country",
     ]
     template_name = "entities/airstrike_list.html"
 
@@ -887,23 +923,23 @@ class AirstrikeListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(AirstrikeListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
-        gj_dicts = [
-            x.get_list_geojson() for x in self.get_queryset().filter(target__lat__isnull=False)
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
         ]
-        feature_collection = {
-            'type': 'FeatureCollection',
-            'features': gj_dicts
-        }
-        context['geojson'] = json.dumps(feature_collection)
+        context["togglable_colums"] = togglable_colums
+        gj_dicts = [
+            x.get_list_geojson()
+            for x in self.get_queryset().filter(target__lat__isnull=False)
+        ]
+        feature_collection = {"type": "FeatureCollection", "features": gj_dicts}
+        context["geojson"] = json.dumps(feature_collection)
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -920,19 +956,23 @@ class AirstrikeRDFView(GenericListView):
     formhelper_class = AirstrikeFilterFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
-        response = HttpResponse(content_type='application/xml; charset=utf-8')
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
+            "%Y-%m-%d-%H-%M-%S"
+        )
+        response = HttpResponse(content_type="application/xml; charset=utf-8")
         filename = "places_{}".format(timestamp)
-        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        response["Content-Disposition"] = 'attachment; filename="{}.rdf"'.format(
+            filename
+        )
         g = person_to_arche(self.get_queryset())
-        get_format = self.request.GET.get('format', default='n3')
+        get_format = self.request.GET.get("format", default="n3")
         result = g.serialize(destination=response, format=get_format)
         return response
 
 
 class AirstrikeDetailView(DetailView):
     model = Airstrike
-    template_name = 'entities/airstrike_detail.html'
+    template_name = "entities/airstrike_detail.html"
 
 
 class AirstrikeCreate(BaseCreateView):
@@ -957,8 +997,8 @@ class AirstrikeUpdate(BaseUpdateView):
 
 class AirstrikeDelete(DeleteView):
     model = Airstrike
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('entities:browse_airstrikes')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("entities:browse_airstrikes")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

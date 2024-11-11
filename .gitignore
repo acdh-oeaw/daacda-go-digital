@@ -43,3 +43,5 @@ staticfiles
 local_*.py
 env.secret
 venv
+.secret
+daacda_dump.sql

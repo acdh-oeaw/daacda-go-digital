@@ -20,9 +20,9 @@ class PrisonStationListView(GenericListView):
     filter_class = PrisonStationListFilter
     formhelper_class = PrisonStationFilterFormHelper
     init_columns = [
-        'name',
-        'station_id',
-        'located_in_place',
+        "name",
+        "station_id",
+        "located_in_place",
     ]
     enable_merge = True
     template_name = "detentions/prisonstation_list.html"
@@ -34,15 +34,17 @@ class PrisonStationListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(PrisonStationListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -53,7 +55,7 @@ class PrisonStationListView(GenericListView):
 
 class PrisonStationDetailView(DetailView):
     model = PrisonStation
-    template_name = 'detentions/prisonstation_detail.html'
+    template_name = "detentions/prisonstation_detail.html"
 
 
 class PrisonStationCreate(BaseCreateView):
@@ -76,8 +78,8 @@ class PrisonStationUpdate(BaseUpdateView):
 
 class PrisonStationDelete(DeleteView):
     model = PrisonStation
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('detentions:browse_prisonstations')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("detentions:browse_prisonstations")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -90,10 +92,10 @@ class PersonPrisonListView(GenericListView):
     filter_class = PersonPrisonListFilter
     formhelper_class = PersonPrisonFilterFormHelper
     init_columns = [
-        'id',
-        'related_person',
-        'relation_type',
-        'related_prisonstation',
+        "id",
+        "related_person",
+        "relation_type",
+        "related_prisonstation",
     ]
 
     def get_all_cols(self):
@@ -103,15 +105,17 @@ class PersonPrisonListView(GenericListView):
     def get_context_data(self, **kwargs):
         context = super(PersonPrisonListView, self).get_context_data()
         context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
+        togglable_colums = [
+            x for x in self.get_all_cols() if x not in self.init_columns
+        ]
+        context["togglable_colums"] = togglable_colums
         return context
 
     def get_table(self, **kwargs):
         table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
+        RequestConfig(
+            self.request, paginate={"page": 1, "per_page": self.paginate_by}
+        ).configure(table)
         default_cols = self.init_columns
         all_cols = self.get_all_cols()
         selected_cols = self.request.GET.getlist("columns") + default_cols
@@ -122,7 +126,7 @@ class PersonPrisonListView(GenericListView):
 
 class PersonPrisonDetailView(DetailView):
     model = PersonPrison
-    template_name = 'detentions/personprison_detail.html'
+    template_name = "detentions/personprison_detail.html"
 
 
 class PersonPrisonCreate(BaseCreateView):
@@ -145,8 +149,8 @@ class PersonPrisonUpdate(BaseUpdateView):
 
 class PersonPrisonDelete(DeleteView):
     model = PersonPrison
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('detentions:browse_personprisons')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("detentions:browse_personprisons")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

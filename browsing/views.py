@@ -12,18 +12,20 @@ from django.shortcuts import render
 
 @login_required
 def merge_objects(request):
-    go_back = request.META.get('HTTP_REFERER')
-    if request.method == 'POST':
+    go_back = request.META.get("HTTP_REFERER")
+    if request.method == "POST":
         keep = request.POST.get("keep", None)
         remove = request.POST.getlist("remove", None)
         model_name = request.POST.get("model_name", None)
         app_name = request.POST.get("app_name", None)
-        print('##############################')
+        print("##############################")
         print(keep, remove, model_name, app_name)
         if keep and remove and model_name and app_name:
             print("all good, let's merge")
             try:
-                ct = ContentType.objects.get(app_label=app_name, model=model_name).model_class()
+                ct = ContentType.objects.get(
+                    app_label=app_name, model=model_name
+                ).model_class()
             except ObjectDoesNotExist:
                 ct = None
             if ct:
@@ -42,7 +44,9 @@ def merge_objects(request):
         elif remove and model_name and app_name:
             print("all good, let's delete")
             try:
-                ct = ContentType.objects.get(app_label=app_name, model=model_name).model_class()
+                ct = ContentType.objects.get(
+                    app_label=app_name, model=model_name
+                ).model_class()
             except ObjectDoesNotExist:
                 ct = None
             if ct:
