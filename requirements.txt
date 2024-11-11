@@ -1,6 +1,6 @@
-acdh-django-charts
 acdh-django-netvis
 acdh-uri-norm-rules
+acdh-arche-assets
 Django>=5.1,<6 
 django-autocomplete-light
 django-ckeditor

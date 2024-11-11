@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     "entities",
     "stats",
     "archeutils",
-    "charts",
     "detentions",
     "news",
     "browsing",

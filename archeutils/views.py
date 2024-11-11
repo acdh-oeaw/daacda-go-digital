@@ -1,12 +1,9 @@
-from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse, JsonResponse, Http404
-from django.shortcuts import render, get_object_or_404
-from django.utils.text import slugify
 from django.urls import reverse
 
-from .utils import as_arche_graph, get_root_col, ARCHE_BASE_URL, get_arche_id
+from .utils import as_arche_graph, get_root_col, ARCHE_BASE_URL
 
 
 def res_as_arche_graph(request, app_label, model_name, pk):
@@ -48,7 +45,6 @@ def top_col_md(request):
 
 
 def get_ids(request, app_label, model_name):
-    start = request.GET.get("start", 0)
     limit = request.GET.get("limit", False)
     print(limit)
     try:

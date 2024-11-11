@@ -15,8 +15,8 @@ class Csv2SkosReader(object):
         self.data = [x for x in csv.reader(self.csv_file)]
         self.headers = self.data[0]
         try:
-            self.alt_lang = (self.headers[1])[(self.headers[1]).index("@") + 1 :]
-        except:
+            self.alt_lang = (self.headers[1])[(self.headers[1]).index("@") + 1:]
+        except:  # noqa
             self.alt_lang = None
         self.schemes = set([x[0] for x in self.data[1:]])
         self.number_of_schemes = len(self.schemes)
@@ -72,13 +72,13 @@ class Csv2SkosImporter(Csv2SkosReader):
         for x in self.schemes:
             try:
                 clean = x.split("|")[0].strip()
-            except:
+            except:  # noqa
                 clean = x.strip()
             try:
                 temp_scheme, _ = SkosConceptScheme.objects.get_or_create(dc_title=clean)
                 temp_scheme.save()
                 success.append(x)
-            except:
+            except:  # noqa
                 failed.append(x)
         report["failed"] = failed
         report["success"] = success
@@ -96,7 +96,7 @@ class Csv2SkosImporter(Csv2SkosReader):
             # get scheme
             try:
                 clean = x["scheme"].split("|")[0].strip()
-            except:
+            except:  # noqa
                 clean = x["scheme"].strip()
             temp_scheme, _ = SkosConceptScheme.objects.get_or_create(dc_title=clean)
             # crete 1st order
@@ -104,7 +104,7 @@ class Csv2SkosImporter(Csv2SkosReader):
                 temp_label, _ = SkosLabel.objects.get_or_create(
                     label=x["concept"]["alt_label"],
                     label_type="altLabel",
-                    isoCode=x["concept"]["alt_label_lang"],
+                    isocode=x["concept"]["alt_label_lang"],
                 )
                 temp_first, _ = SkosConcept.objects.get_or_create(
                     pref_label=x["concept"]["pref_label"],
@@ -113,7 +113,7 @@ class Csv2SkosImporter(Csv2SkosReader):
                 temp_first.label = [temp_label]
                 temp_first.scheme = [temp_scheme]
                 success.append(x["concept"]["pref_label"])
-            except:
+            except:  # noqa
                 failed.append(x["concept"]["pref_label"])
             try:
                 second = x["concept"]["narrower"]["concept"]
@@ -122,7 +122,7 @@ class Csv2SkosImporter(Csv2SkosReader):
                     temp_label, _ = SkosLabel.objects.get_or_create(
                         label=second["alt_label"],
                         label_type="altLabel",
-                        isoCode=second["alt_label_lang"],
+                        isocode=second["alt_label_lang"],
                     )
                     temp_second, _ = SkosConcept.objects.get_or_create(
                         pref_label=second["pref_label"],
@@ -132,9 +132,9 @@ class Csv2SkosImporter(Csv2SkosReader):
                     temp_second.scheme = [temp_scheme]
                     temp_first.skos_narrower = [temp_second]
                     success.append(second["pref_label"])
-                except:
+                except:  # noqa
                     failed.append(second["pref_label"])
-            except:
+            except:  # noqa
                 pass
         report["failed"] = failed
         report["success"] = success
@@ -146,11 +146,6 @@ class Csv2SkosImporter(Csv2SkosReader):
         """import/updates all SkosConcepts found in csv"""
         report = {}
         report["before"] = len(SkosConcept.objects.all())
-        failed = []
-        success = []
-        for x in self.get_concepts():
-            # print(x['concept'])
-            pass
         report["after"] = len(SkosConcept.objects.all())
         return report
 
@@ -176,7 +171,7 @@ class SkosReader(object):
         try:
             self.tree = ET.parse(skosfile)
             self.parsed_file = ET.tostring(self.tree, encoding="utf-8")
-        except:
+        except:  # noqa
             self.parsed_file = "parsing didn't work"
 
         try:
@@ -184,7 +179,7 @@ class SkosReader(object):
                 "rdf:Description", namespaces={"rdf": self.ns_rdf}
             )
             self.numberOfextractedDescriptions = len(self.extractedDescriptions)
-        except:
+        except:  # noqa
             self.extractedDescriptions = "rdf:Descriptions could not be extracted."
             self.numberOfextractedDescriptions = 0
 
@@ -297,25 +292,25 @@ class SkosImporter(SkosReader):
                 try:
                     temp_concept.pref_label = x["pref_labels"][0]["text"]
                     temp_concept.pref_label_lang = x["pref_labels"]["lang"]
-                except:
+                except:  # noqa
                     pass
                 try:
                     temp_concept.definition = x["definitions"][0]
                     temp_concept.definition_lang = "eng"
-                except:
+                except:  # noqa
                     pass
                 temp_concept.save()
 
                 for y in x["pref_labels"][1:]:
                     temp_label, _ = SkosLabel.objects.get_or_create(
-                        label=y["text"], isoCode=y["lang"], label_type="prefLabel"
+                        label=y["text"], isocode=y["lang"], label_type="prefLabel"
                     )
                     temp_concept.label = [temp_label]
                     temp_concept.save()
 
                 for y in x["alt_labels"][1:]:
                     temp_label, _ = SkosLabel.objects.get_or_create(
-                        label=y["text"], isoCode=y["lang"], label_type="altLabel"
+                        label=y["text"], isocode=y["lang"], label_type="altLabel"
                     )
                     temp_concept.label = [temp_label]
                     temp_concept.save()

@@ -1,4 +1,4 @@
-from django.conf.urls import path, include
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
@@ -17,23 +17,22 @@ router.register(r"alt-names", AlternativNameViewSet)
 router.register(r"places", PlaceViewSet)
 
 urlpatterns = [
-    url(r"^api/", include(router.urls)),
-    url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),
-    url(r"^admin/", admin.site.urls),
-    url(r"^archeutils/", include("archeutils.urls", namespace="archeutils")),
-    url(r"^tei/", include("tei.urls", namespace="tei")),
-    url(r"^browsing/", include("browsing.urls", namespace="browsing")),
-    url(r"^charts/", include("charts.urls", namespace="charts")),
-    url(r"^vocabs/", include("vocabs.urls", namespace="vocabs")),
-    url(r"^vocabs-ac/", include("vocabs.dal_urls", namespace="vocabs-ac")),
-    url(r"^entities-ac/", include("entities.dal_urls", namespace="entities-ac")),
-    url(r"^entities/", include("entities.urls", namespace="entities")),
-    url(r"^materials/", include("materials.urls", namespace="materials")),
-    url(r"^ckeditor/", include("ckeditor_uploader.urls")),
-    url(r"^detentions/", include("detentions.urls", namespace="detentions")),
-    url(r"^detentions-ac/", include("detentions.dal_urls", namespace="detentions-ac")),
-    url(r"^materials-ac/", include("materials.dal_urls", namespace="materials-ac")),
-    url(r"^", include("webpage.urls", namespace="webpage")),
+    path("api/", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("admin/", admin.site.urls),
+    path("archeutils/", include("archeutils.urls", namespace="archeutils")),
+    path("tei/", include("tei.urls", namespace="tei")),
+    path("browsing/", include("browsing.urls", namespace="browsing")),
+    path("vocabs/", include("vocabs.urls", namespace="vocabs")),
+    path("vocabs-ac/", include("vocabs.dal_urls", namespace="vocabs-ac")),
+    path("entities-ac/", include("entities.dal_urls", namespace="entities-ac")),
+    path("entities/", include("entities.urls", namespace="entities")),
+    path("materials/", include("materials.urls", namespace="materials")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("detentions/", include("detentions.urls", namespace="detentions")),
+    path("detentions-ac/", include("detentions.dal_urls", namespace="detentions-ac")),
+    path("materials-ac/", include("materials.dal_urls", namespace="materials-ac")),
+    path("", include("webpage.urls", namespace="webpage")),
 ]
 
 if settings.DEBUG is True:

@@ -1,22 +1,14 @@
-import pickle
-import os
-import re
 
-from AcdhUriNormRules.AcdhUriNormRules import get_normalized_uri
+from AcdhArcheAssets.uri_norm_rules import get_normalized_uri
 
 from django.conf import settings
-
-from django.core.exceptions import ObjectDoesNotExist, FieldDoesNotExist
-from django.db.models.query import QuerySet
 
 from rdflib import Graph, Namespace, URIRef, Literal, XSD
 from rdflib.namespace import RDF
 
-from browsing.browsing_utils import model_to_dict
-from webpage.metadata import PROJECT_METADATA
 
 ARCHIV_NAME = (
-    f"National Archives and Records Administration College Park (NARA) Record Group 92"
+    "National Archives and Records Administration College Park (NARA) Record Group 92"
 )
 
 ARCHE_CONST_MAPPINGS = getattr(settings, "ARCHE_CONST_MAPPINGS", False)
@@ -158,10 +150,7 @@ def as_arche_graph(res):
         )
         crew_g.add((crew_uri, RDF.type, acdh_ns.Person))
         g = g + crew_g
-    # for x in res.get_concepts.all():
-    #     g.add(
-    #         (sub, acdh_ns.hasSubject, Literal(f"{x.pref_label}", lang="und"))
-    #     )
+
     for x in res.get_places.all():
         try:
             pl = x
