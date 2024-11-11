@@ -20,8 +20,6 @@ urlpatterns = [
     path("api/", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("admin/", admin.site.urls),
-    path("archeutils/", include("archeutils.urls", namespace="archeutils")),
-    path("tei/", include("tei.urls", namespace="tei")),
     path("browsing/", include("browsing.urls", namespace="browsing")),
     path("vocabs/", include("vocabs.urls", namespace="vocabs")),
     path("vocabs-ac/", include("vocabs.dal_urls", namespace="vocabs-ac")),

@@ -1,8 +1,6 @@
 from dal import autocomplete
-from .models import *
-from entities.models import AlternativeName, Place
+from entities.models import Place, Person, Bomber
 from django.db.models import Q
-from vocabs.models import SkosConceptScheme
 
 
 class UsercontributionPersonAC(autocomplete.Select2QuerySetView):

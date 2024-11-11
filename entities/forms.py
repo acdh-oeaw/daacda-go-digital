@@ -2,7 +2,7 @@ from django import forms
 from dal import autocomplete
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
+from crispy_forms.layout import Submit, Layout, Fieldset
 from crispy_forms.bootstrap import Accordion, AccordionGroup
 from .models import (
     Place,

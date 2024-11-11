@@ -1,4 +1,3 @@
-import re
 import json
 
 from django.conf import settings
@@ -222,13 +221,6 @@ class Place(IdProvider):
         else:
             return "http://www.geonames.org/{}".format(self.geonames_id)
 
-    def get_geonames_rdf(self):
-        try:
-            number = re.findall(r"\d+", str(self.geonames_id))[0]
-            return None
-        except Exception as e:
-            return None
-
     def save(self, *args, **kwargs):
         if self.geonames_id:
             new_id = self.get_geonames_url()
@@ -253,10 +245,6 @@ class Place(IdProvider):
 
     def get_delete_url(self):
         return reverse("entities:place_delete", kwargs={"pk": self.id})
-
-    @classmethod
-    def get_arche_dump(self):
-        return reverse("entities:rdf_places")
 
     def get_next(self):
         next = Place.objects.filter(id__gt=self.id)
@@ -359,10 +347,6 @@ class Institution(IdProvider):
         verbose_name="The institution's type",
         help_text="The institution's type",
     )
-
-    @classmethod
-    def get_arche_dump(self):
-        return reverse("entities:rdf_institutions")
 
     @classmethod
     def get_class_name(self):
@@ -611,7 +595,6 @@ class Bomber(models.Model):
 
     @cached_property
     def get_prisons(self):
-        crew = self.get_crew
         person_prison = self.get_person_prison
         ct = ContentType.objects.get(model="PrisonStation".lower()).model_class()
         related_items = ct.objects.filter(
@@ -972,10 +955,6 @@ class Person(IdProvider):
     def get_edit_url(self):
         return reverse("entities:person_edit", kwargs={"pk": self.id})
 
-    @classmethod
-    def get_arche_dump(self):
-        return reverse("entities:rdf_persons")
-
     def get_absolute_url(self):
         return reverse("entities:person_detail", kwargs={"pk": self.id})
 
@@ -1081,7 +1060,7 @@ class Person(IdProvider):
                     "target": f"{y.id}",
                     "label": "hat Besatzung",
                 }
-            except Exception as e:
+            except Exception:
                 crew_edge = {}
             rels["nodes"].append(crew_node)
             rels["edges"].append(crew_edge)

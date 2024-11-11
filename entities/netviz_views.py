@@ -1,5 +1,4 @@
 import collections
-import json
 
 from django.http import JsonResponse
 from .models import Airstrike, Institution, Bomber, NODE_TYPES

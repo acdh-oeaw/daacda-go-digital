@@ -142,13 +142,6 @@ urlpatterns = [
         views.WarCrimeCaseDelete.as_view(),
         name="warcrimecase_delete",
     ),
-    path("places-rdf/", views.PlaceRDFView.as_view(), name="rdf_places"),
-    path("persons-rdf/", views.PersonRDFView.as_view(), name="rdf_persons"),
-    path(
-        "institutions-rdf/",
-        views.InstitutionRDFView.as_view(),
-        name="rdf_institutions",
-    ),
     path("bombers/", views.BomberListView.as_view(), name="browse_bombers"),
     path(
         "onlineressources/",
