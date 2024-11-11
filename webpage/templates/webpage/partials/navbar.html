@@ -21,20 +21,19 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{% url 'webpage:staticpage' template='project' %}">Über das
+                                <a class="dropdown-item" href="{% url 'webpage:staticpage' template='project' %}">Über
+                                    das
                                     Projekt
                                 </a>
                                 <a class="dropdown-item"
                                     href="{% url 'webpage:staticpage' template='bibliography' %}">Bibliographie
                                 </a>
-                                <a class="dropdown-item"
-                                    href="{% url 'webpage:staticpage' template='team' %}">Team
+                                <a class="dropdown-item" href="{% url 'webpage:staticpage' template='team' %}">Team
                                 </a>
                                 <a class="dropdown-item"
                                     href="{% url 'webpage:staticpage' template='contact' %}">Kontakt
                                 </a>
-                                <a class="dropdown-item"
-                                    href="{% url 'webpage:imprint' %}">Impressum
+                                <a class="dropdown-item" href="{% url 'webpage:imprint' %}">Impressum
                                 </a>
                             </li>
                             <li>
@@ -47,18 +46,60 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Browse
+                            Luftkrieg
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Tablets</a></li>
-                            <li><a class="dropdown-item" href="#">Archivs</a></li>
-                            <li><a class="dropdown-item" href="#">Bibliography</a>
+                            <li><a class="dropdown-item" href="{% url 'entities:browse_airstrikes' %}">Luftangriffe</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Places</a></li>
+                            <li><a class="dropdown-item" href="{% url 'entities:browse_airforces' %}">Air Force</a></li>
+                            <li><a class="dropdown-item" href="{% url 'entities:browse_bombgroups' %}">Bomb Groups</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'entities:browse_squads' %}">Squadrons</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Abstürze
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'entities:browse_bombers' %}">Flugzeuge</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'entities:browse_crash_places' %}">Absturzorte</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Personen
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <hr class="dropdown-divider">
+                                <a class="dropdown-item" href="{% url 'entities:browse_persons' %}">Personen</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Text typology</a>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'detentions:browse_prisonstations' %}">Gefangenschaft</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"href="{% url 'entities:browse_warcrimecases' %}">Verbrechen</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Erinnerung
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'materials:browse_gedenkzeichen' %}">Gedenkzeichen</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'materials:browse_usercontributions' %}">User Contribution</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'entities:browse_onlineressources' %}">Online Resourcen</a>
                             </li>
                         </ul>
                     </li>
