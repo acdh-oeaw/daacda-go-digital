@@ -1,8 +1,7 @@
 from django import forms
 from dal import autocomplete
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
-from crispy_forms.bootstrap import Accordion, AccordionGroup
+from crispy_forms.layout import Submit, Layout, Fieldset
 
 from .models import UserContribution, Gedenkzeichen
 

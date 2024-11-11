@@ -1,11 +1,9 @@
-import datetime
 import lxml.etree as ET
 
 from django.conf import settings
 from django.template.loader import get_template
 
-from tei.partials import TEI_NSMAP, TEI_STUMP, custom_escape
-from tei.places import TeiPlace
+from tei.partials import TEI_NSMAP, TEI_STUMP
 
 ARCHE_BASE_URL = settings.ARCHE_BASE_URL
 

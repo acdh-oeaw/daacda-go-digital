@@ -1,8 +1,6 @@
-from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse, JsonResponse, Http404
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404
 
 from .tei_utils import MakeTeiDoc
 

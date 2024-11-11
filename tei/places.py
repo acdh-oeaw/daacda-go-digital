@@ -1,7 +1,6 @@
-import datetime
 import lxml.etree as ET
 
-from tei.partials import TEI_NSMAP, TEI_STUMP, custom_escape
+from tei.partials import TEI_NSMAP, TEI_STUMP
 
 
 class TeiPlace:

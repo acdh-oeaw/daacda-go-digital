@@ -1,4 +1,3 @@
-
 from AcdhArcheAssets.uri_norm_rules import get_normalized_uri
 
 from django.conf import settings

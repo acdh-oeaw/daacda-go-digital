@@ -216,9 +216,7 @@ urlpatterns = [
         views.AirstrikeDetailView.as_view(),
         name="airstrike_detail",
     ),
-    path(
-        "airstrike/create/", views.AirstrikeCreate.as_view(), name="airstrike_create"
-    ),
+    path("airstrike/create/", views.AirstrikeCreate.as_view(), name="airstrike_create"),
     path(
         "airstrike/edit/<int:pk>",
         views.AirstrikeUpdate.as_view(),

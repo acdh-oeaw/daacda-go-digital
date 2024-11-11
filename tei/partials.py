@@ -8,7 +8,7 @@ TEI_NSMAP = {
 
 TEI_METHOD = """
 Der vorliegende Datensatz wurde von Georg Hoffmann, Nicole-Melanie Goll sowie Martin Kirnbauer erhoben und mittels einer von Peter Andorfer entwickelten Python/Django Web-Applikation in das vorliegende TEI Dokument transformiert. Die in diesem TEI Dokument präsentierten Daten basieren vornehmlich aus dem Archivbestand National Archives and Records Administration College Park NARA, Record Group 92 und wurden ergänzt mit Quellen aus dem Bestand NARA, Record Groups 18, 153, 242, 498, 549 sowie The National Archives Kew TNA, AIR 10, 20, 23, 49 sowie WO 204, 219
-"""
+"""  # noqa
 
 TEI_STUMP = f"""
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
@@ -83,7 +83,7 @@ TEI_STUMP = f"""
       <back/>
   </text>
 </TEI>
-"""
+"""  # noqa:
 
 
 def custom_escape(somestring):

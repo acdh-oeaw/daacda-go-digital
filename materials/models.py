@@ -1,11 +1,7 @@
-import re
-import json
 from django.db import models
 from django.urls import reverse
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 from entities.models import Bomber, Person, Place, WarCrimeCase, DATE_ACCURACY

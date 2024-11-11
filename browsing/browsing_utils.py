@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from django.utils.safestring import mark_safe
 from django.views.generic.edit import CreateView, UpdateView
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
+from crispy_forms.layout import Submit
 
 from .models import BrowsConf
 
@@ -91,12 +91,6 @@ class GenericListView(django_tables2.SingleTableView):
             return self.table_class
         else:
             return get_entities_table(self.model)
-
-        raise ImproperlyConfigured(
-            "You must either specify {0}.table_class or {0}.model".format(
-                type(self).__name__
-            )
-        )
 
     def get_all_cols(self):
         all_cols = list(self.get_table().base_columns.keys())
@@ -264,8 +258,7 @@ def model_to_dict(instance):
                     data[f.name] = list(
                         f.value_from_object(instance).values_list("pk", flat=True)
                     )
-                except Exception as e:
-                    # print(e)
+                except Exception:  # noqa:
                     data[f.name] = []
         else:
             data[f.name] = f.value_from_object(instance)
