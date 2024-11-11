@@ -11,18 +11,18 @@ urlpatterns = [
         name="browse_vocabs",
     ),
     re_path(
-        r"^(?P<pk>[0-9]+)$",
+        r"^<int:pk>",
         views.SkosConceptDetailView.as_view(),
         name="skosconcept_detail",
     ),
     re_path(r"^create/$", views.SkosConceptCreate.as_view(), name="skosconcept_create"),
     re_path(
-        r"^update/(?P<pk>[0-9]+)$",
+        r"^update/<int:pk>",
         views.SkosConceptUpdate.as_view(),
         name="skosconcept_update",
     ),
     re_path(
-        r"^delete/(?P<pk>[0-9]+)$",
+        r"^delete/<int:pk>",
         views.SkosConceptDelete.as_view(),
         name="skosconcept_delete",
     ),
@@ -32,7 +32,7 @@ urlpatterns = [
         name="skosconceptscheme_list",
     ),
     re_path(
-        r"^scheme/(?P<pk>[0-9]+)$",
+        r"^scheme/<int:pk>",
         views.SkosConceptSchemeDetailView.as_view(),
         name="skosconceptscheme_detail",
     ),
@@ -42,13 +42,13 @@ urlpatterns = [
         name="skosconceptscheme_create",
     ),
     re_path(
-        r"^scheme/update/(?P<pk>[0-9]+)$",
+        r"^scheme/update/<int:pk>",
         views.SkosConceptSchemeUpdate.as_view(),
         name="skosconceptscheme_update",
     ),
     re_path(r"^label/$", views.SkosLabelListView.as_view(), name="skoslabel_list"),
     re_path(
-        r"^label/(?P<pk>[0-9]+)$",
+        r"^label/<int:pk>",
         views.SkosLabelDetailView.as_view(),
         name="skoslabel_detail",
     ),
@@ -56,7 +56,7 @@ urlpatterns = [
         r"^label/create/$", views.SkosLabelCreate.as_view(), name="skoslabel_create"
     ),
     re_path(
-        r"^label/update/(?P<pk>[0-9]+)$",
+        r"^label/update/<int:pk>",
         views.SkosLabelUpdate.as_view(),
         name="skoslabel_update",
     ),

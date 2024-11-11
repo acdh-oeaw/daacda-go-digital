@@ -11,7 +11,6 @@ from entities.models import (
     PersonWarCrimeCase,
     Airstrike,
 )
-from vocabs.filters import generous_concept_filter
 from vocabs.models import SkosConcept
 
 
@@ -113,7 +112,6 @@ class BomberListFilter(django_filters.FilterSet):
         queryset=SkosConcept.objects.all(),
         help_text=Bomber._meta.get_field("reason_of_crash").help_text,
         label=Bomber._meta.get_field("reason_of_crash").verbose_name,
-        method=generous_concept_filter,
         widget=autocomplete.Select2Multiple(
             url="/vocabs-ac/specific-concept-ac/reason_of_crash",
             attrs={

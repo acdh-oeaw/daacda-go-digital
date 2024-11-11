@@ -1,56 +1,56 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 app_name = "detentions"
 
 urlpatterns = [
-    url(
-        r"^prisonstations/$",
+    path(
+        "prisonstations/",
         views.PrisonStationListView.as_view(),
         name="browse_prisonstations",
     ),
-    url(
-        r"^prisonstation/detail/(?P<pk>[0-9]+)$",
+    path(
+        "prisonstation/detail/<int:pk>",
         views.PrisonStationDetailView.as_view(),
         name="prisonstation_detail",
     ),
-    url(
-        r"^prisonstation/create/$",
+    path(
+        "prisonstation/create/",
         views.PrisonStationCreate.as_view(),
         name="prisonstation_create",
     ),
-    url(
-        r"^prisonstation/edit/(?P<pk>[0-9]+)$",
+    path(
+        "prisonstation/edit/<int:pk>",
         views.PrisonStationUpdate.as_view(),
         name="prisonstation_edit",
     ),
-    url(
-        r"^prisonstation/delete/(?P<pk>[0-9]+)$",
+    path(
+        "prisonstation/delete/<int:pk>",
         views.PrisonStationDelete.as_view(),
         name="prisonstation_delete",
     ),
-    url(
-        r"^personprisons/$",
+    path(
+        "personprisons/",
         views.PersonPrisonListView.as_view(),
         name="browse_personprisons",
     ),
-    url(
-        r"^personprison/detail/(?P<pk>[0-9]+)$",
+    path(
+        "personprison/detail/<int:pk>",
         views.PersonPrisonDetailView.as_view(),
         name="personprison_detail",
     ),
-    url(
-        r"^personprison/create/$",
+    path(
+        "personprison/create/",
         views.PersonPrisonCreate.as_view(),
         name="personprison_create",
     ),
-    url(
-        r"^personprison/edit/(?P<pk>[0-9]+)$",
+    path(
+        "personprison/edit/<int:pk>",
         views.PersonPrisonUpdate.as_view(),
         name="personprison_edit",
     ),
-    url(
-        r"^personprison/delete/(?P<pk>[0-9]+)$",
+    path(
+        "personprison/delete/<int:pk>",
         views.PersonPrisonDelete.as_view(),
         name="personprison_delete",
     ),

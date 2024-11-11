@@ -8,7 +8,6 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.contrib.contenttypes.models import ContentType
 
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 from idprovider.models import IdProvider, ACCURACY

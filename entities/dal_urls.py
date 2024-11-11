@@ -1,178 +1,177 @@
-from django.conf.urls import url
 from django.urls import path
 from . import dal_views
-from .models import (
-    AlternativeName, Place, Institution
-)
+from .models import AlternativeName, Place, Institution, Bomber, Person, WarCrimeCase
+
+from vocabs.models import SkosConcept
 
 app_name = "vocabs"
 
 urlpatterns = [
-    url(
-        r"^altname-autocomplete/$",
+    path(
+        "altname-autocomplete/$",
         dal_views.AlternativeNameAC.as_view(
             model=AlternativeName,
         ),
         name="altname-autocomplete",
     ),
-    url(
-        r"^place-autocomplete/$",
+    path(
+        "place-autocomplete/$",
         dal_views.PlaceAC.as_view(
             model=Place,
         ),
         name="place-autocomplete",
     ),
-    url(
-        r"^crash-place-autocomplete/$",
+    path(
+        "crash-place-autocomplete/$",
         dal_views.CrashPlaceAC.as_view(
             model=Place,
         ),
         name="crash-place-autocomplete",
     ),
-    url(
-        r"^search-place-autocomplete/$",
+    path(
+        "search-place-autocomplete/$",
         dal_views.PlaceAC.as_view(),
         name="search-place-autocomplete",
     ),
-    url(
-        r"^search-region-autocomplete/$",
+    path(
+        "search-region-autocomplete/$",
         dal_views.Region.as_view(),
         name="search-region-autocomplete",
     ),
-    url(
-        r"^person-autocomplete/$",
+    path(
+        "person-autocomplete/$",
         dal_views.PersonAC.as_view(
             model=Place,
         ),
         name="person-autocomplete",
     ),
-    url(
-        r"^institution-autocomplete/$",
+    path(
+        "institution-autocomplete/$",
         dal_views.InstitutionAC.as_view(
             model=Institution,
         ),
         name="institution-autocomplete",
     ),
-    url(
-        r"^bomberplanetype-autocomplete/$",
+    path(
+        "bomberplanetype-autocomplete/$",
         dal_views.BomberPlaneTypeAC.as_view(model=SkosConcept),
         name="bomberplanetype-autocomplete",
     ),
-    url(
-        r"^bombersquadron-autocomplete/$",
+    path(
+        "bombersquadron-autocomplete/$",
         dal_views.BomberSquadronAC.as_view(
             model=Institution,
         ),
         name="bombersquadron-autocomplete",
     ),
-    url(
-        r"^bomberreasonofcrash-autocomplete/$",
+    path(
+        "bomberreasonofcrash-autocomplete/$",
         dal_views.BomberReasonOfCrashAC.as_view(model=SkosConcept),
         name="bomberreasonofcrash-autocomplete",
     ),
-    url(
-        r"^personpartofbomber-autocomplete/$",
+    path(
+        "personpartofbomber-autocomplete/$",
         dal_views.PersonPartOfBomberAC.as_view(model=Bomber),
         name="personpartofbomber-autocomplete",
     ),
-    url(
-        r"^personrank-autocomplete/$",
+    path(
+        "personrank-autocomplete/$",
         dal_views.PersonRankAC.as_view(model=SkosConcept),
         name="personrank-autocomplete",
     ),
-    url(
-        r"^persondestinystated-autocomplete/$",
+    path(
+        "persondestinystated-autocomplete/$",
         dal_views.PersonDestinyStatedAC.as_view(model=SkosConcept),
         name="persondestinystated-autocomplete",
     ),
-    url(
-        r"^persondestinychecked-autocomplete/$",
+    path(
+        "persondestinychecked-autocomplete/$",
         dal_views.PersonDestinyCheckedAC.as_view(model=SkosConcept),
         name="persondestinychecked-autocomplete",
     ),
-    url(
-        r"^personmia-autocomplete/$",
+    path(
+        "personmia-autocomplete/$",
         dal_views.PersonMIAAC.as_view(model=SkosConcept),
         name="personmia-autocomplete",
     ),
-    url(
-        r"^onlineressourcerelatedpersons-autocomplete/$",
+    path(
+        "onlineressourcerelatedpersons-autocomplete/$",
         dal_views.OnlineRessourceRelatedPersonsAC.as_view(
             model=Person,
         ),
         name="onlineressourcerelatedpersons-autocomplete",
     ),
-    url(
-        r"^onlineressourcerelatedbombers-autocomplete/$",
+    path(
+        "onlineressourcerelatedbombers-autocomplete/$",
         dal_views.OnlineRessourceRelatedBombersAC.as_view(
             model=Bomber,
         ),
         name="onlineressourcerelatedbombers-autocomplete",
     ),
-    url(
-        r"^onlineressourcerelatedwarcrimecases-autocomplete/$",
+    path(
+        "onlineressourcerelatedwarcrimecases-autocomplete/$",
         dal_views.OnlineRessourceRelatedWarCrimeCasesAC.as_view(
             model=WarCrimeCase,
         ),
         name="onlineressourcerelatedwarcrimecases-autocomplete",
     ),
-    url(
-        r"^personwarcrimecaserelatedpersons-autocomplete/$",
+    path(
+        "personwarcrimecaserelatedpersons-autocomplete/$",
         dal_views.PersonWarCrimeCaseRelatedPersonsAC.as_view(
             model=Person,
         ),
         name="personwarcrimecaserelatedpersons-autocomplete",
     ),
-    url(
-        r"^personwarcrimecaserelatedcases-autocomplete/$",
+    path(
+        "personwarcrimecaserelatedcases-autocomplete/$",
         dal_views.PersonWarCrimeCaseRelatedCasesAC.as_view(
             model=WarCrimeCase,
         ),
         name="personwarcrimecaserelatedcases-autocomplete",
     ),
-    url(
-        r"^personwarcrimecaserelationtype-autocomplete/$",
+    path(
+        "personwarcrimecaserelationtype-autocomplete/$",
         dal_views.PersonWarCrimeCaseRelationTypeAC.as_view(model=SkosConcept),
         name="personwarcrimecaserelationtype-autocomplete",
     ),
-    url(
-        r"^warcrimecaserelatedpersons-autocomplete/$",
+    path(
+        "warcrimecaserelatedpersons-autocomplete/$",
         dal_views.WarCrimeCaseRelatedPersonsAC.as_view(
             model=Person,
         ),
         name="warcrimecaserelatedpersons-autocomplete",
     ),
-    url(
-        r"^warcrimecaserelatedcases-autocomplete/$",
+    path(
+        "warcrimecaserelatedcases-autocomplete/$",
         dal_views.WarCrimeCaseRelatedCasesAC.as_view(
             model=WarCrimeCase,
         ),
         name="warcrimecaserelatedcases-autocomplete",
     ),
-    url(
-        r"^warcrimecaserelatedplaces-autocomplete/$",
+    path(
+        "warcrimecaserelatedplaces-autocomplete/$",
         dal_views.WarCrimeCaseRelatedPlacesAC.as_view(
             model=Place,
         ),
         name="warcrimecaserelatedplaces-autocomplete",
     ),
-    url(
-        r"^warcrimecasecrimetype-autocomplete/$",
+    path(
+        "warcrimecasecrimetype-autocomplete/$",
         dal_views.WarCrimeCaseCrimeTypeAC.as_view(model=SkosConcept),
         name="warcrimecasecrimetype-autocomplete",
     ),
-    url(
-        r"^airstriketarget-autocomplete/$",
+    path(
+        "airstriketarget-autocomplete/$",
         dal_views.AirstrikeTargetAC.as_view(model=Place),
         name="airstriketarget-autocomplete",
     ),
-    url(
-        r"^airstrikeplanetype-autocomplete/$",
+    path(
+        "airstrikeplanetype-autocomplete/$",
         dal_views.AirstrikePlaneTypeAC.as_view(model=SkosConcept),
         name="airstrikeplanetype-autocomplete",
     ),
-    url(
-        r"^airstrikeairforce-autocomplete/$",
+    path(
+        "airstrikeairforce-autocomplete/$",
         dal_views.AirstrikeAirforceAC.as_view(
             model=Institution,
         ),
