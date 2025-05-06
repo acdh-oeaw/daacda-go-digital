@@ -1,7 +1,7 @@
 from django.views.generic.edit import DeleteView
 from django.views.generic.detail import DetailView
 from .models import PrisonStation, PersonPrison
-from browsing.browsing_utils import BaseCreateView, BaseUpdateView, GenericListView
+from browsing.utils import BaseCreateView, BaseUpdateView, GenericListView
 from .forms import PrisonStationForm, PersonPrisonForm
 from detentions.filters import PrisonStationListFilter, PersonPrisonListFilter
 from detentions.forms import PrisonStationFilterFormHelper, PersonPrisonFilterFormHelper

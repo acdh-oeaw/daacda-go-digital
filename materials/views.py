@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django_tables2 import RequestConfig
 
-from browsing.browsing_utils import BaseCreateView, BaseUpdateView, GenericListView
+from browsing.utils import BaseCreateView, BaseUpdateView, GenericListView
 
 from .filters import UserContributionListFilter, GedenkzeichenListFilter
 from .forms import (

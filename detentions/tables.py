@@ -1,6 +1,6 @@
 import django_tables2 as tables
 
-from browsing.browsing_utils import MergeColumn
+from browsing.utils import MergeColumn
 from django_tables2.utils import A
 
 from detentions.models import (PrisonStation, PersonPrison)

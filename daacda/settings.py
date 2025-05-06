@@ -1,11 +1,12 @@
 import os
+from pathlib import Path
+
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(
-    os.path.dirname(os.path.abspath(os.path.join(__file__, "../")))
-)
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 ACDH_IMPRINT_URL = "https://imprint.acdh.oeaw.ac.at/"
 REDMINE_ID = 11260
@@ -79,7 +80,7 @@ ROOT_URLCONF = "daacda.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -87,9 +88,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "webpage.webpage_content_processors.installed_apps",
-                "webpage.webpage_content_processors.is_dev_version",
-                "webpage.webpage_content_processors.get_db_name",
             ],
         },
     },

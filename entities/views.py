@@ -62,15 +62,9 @@ from .filters import (
     CrashPlaceListFilter,
     OnlineRessourceListFilter,
 )
-from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
+from browsing.utils import GenericListView, BaseCreateView, BaseUpdateView
 
 from .utils import bomb_group, crash_places, airforce, squad
-
-
-try:
-    from browsing.models import BrowsConf
-except ImportError:
-    BrowsConf = None
 
 
 class SquadListView(GenericListView):
