@@ -781,6 +781,9 @@ class Bomber(models.Model):
         else:
             return None
 
+    def tei_url(self):
+        return reverse("tei:res_as_tei", kwargs={"app_label": "entities", "model_name": "bomber", "pk": self.id})
+
 
 class Person(IdProvider):
     """Holds information about person entities."""

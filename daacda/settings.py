@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "detentions",
     "browsing",
     "materials",
+    "tei",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

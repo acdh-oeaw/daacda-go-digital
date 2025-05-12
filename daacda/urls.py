@@ -30,6 +30,8 @@ urlpatterns = [
     path("detentions/", include("detentions.urls", namespace="detentions")),
     path("detentions-ac/", include("detentions.dal_urls", namespace="detentions-ac")),
     path("materials-ac/", include("materials.dal_urls", namespace="materials-ac")),
+    path("tei/", include("tei.urls", namespace="tei")),
+
     path("", include("webpage.urls", namespace="webpage")),
 ]
 
