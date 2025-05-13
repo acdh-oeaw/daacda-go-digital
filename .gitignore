@@ -45,3 +45,4 @@ env.secret
 venv
 .secret
 daacda_dump.sql
+*.ipynb
