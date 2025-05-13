@@ -4,7 +4,6 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django_tables2 import RequestConfig
 
 from browsing.utils import BaseCreateView, BaseUpdateView, GenericListView
 

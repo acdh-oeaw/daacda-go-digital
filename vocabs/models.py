@@ -147,3 +147,6 @@ class SkosConcept(models.Model):
 
     def get_absolute_url(self):
         return reverse("vocabs:skosconcept_detail", kwargs={"pk": self.id})
+
+    def xml_id(self):
+        return slugify(f"concept_{self.pref_label}-{self.id})")

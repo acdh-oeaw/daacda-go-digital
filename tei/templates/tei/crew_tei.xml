@@ -36,14 +36,11 @@
         <cell role="data"><rs type="concept" ref="#{{ x.rank.xml_id}}">{{ x.rank }}</rs></cell>
         <cell role="data"><rs type="concept" ref="#{{ x.destiny_stated.xml_id}}">{{ x.destiny_stated }}</rs></cell>
         <cell role="data">
-          {% if x.is_dest_checked %}
+          
             <rs type="concept" ref="#{{ x.is_dest_checked.xml_id }}">{{ x.is_dest_checked }}</rs>
-          {% endif %}
         </cell>
         <cell role="data">
-            {% if x.is_mia %}
               <rs type="concept" ref="#{{ x.is_mia.xml_id}}">{{ x.is_mia }}</rs>
-            {% endif %}
           </cell>
         <cell role="data">
           <table xml:id="crew_table_stations__{{ x.id }}">
