@@ -1,0 +1,8 @@
+<org xml:id="org__{{ object.id }}">
+  <orgName>{{ object.name }}{{ object.written_name }}</orgName>{% if object.located_in_place %}
+  <location type="located_in_place">
+    <placeName key="place__{{ object.located_in_place.id }}">{{ object.located_in_place }}</placeName>{% if object.located_in_place.lat %}
+    <geo>{{ object.located_in_place.lat }} {{ object.located_in_place.lng }}</geo>{% endif %}
+  </location>{% endif %}{% if object.station_type %}
+  <note type="station-type">{{ object.station_type }}</note>{% endif %}
+</org>
